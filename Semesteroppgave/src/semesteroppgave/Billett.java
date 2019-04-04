@@ -2,17 +2,10 @@ package semesteroppgave;
 
 public class Billett {
     private Lokale sted;
-    private int plassNr = 0;
+    private int plassNr;
     private Tidspunkt dato;
     private int pris;
     private Person kjøper;
-    
-    public Billett(Lokale sted, Tidspunkt dato, int pris, Person kjøper) {
-        this.sted = sted;
-        this.dato = dato;
-        this.pris = pris;
-        this.kjøper = kjøper;
-    }
     
     public Billett(Lokale sted, int plassNr, Tidspunkt dato, int pris, 
             Person kjøper) {
