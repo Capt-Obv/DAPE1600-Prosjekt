@@ -21,7 +21,7 @@ public class Lokale {
     
     @Override
     public String toString() {
-        return String.format("Lokalets navn er %s og kapasiteten er %s. ",
+        return String.format("Lokalets navn: %s \nKapasitet: %s",
                  navn, antPlasser);
     }
 }
@@ -33,7 +33,7 @@ class Kino extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "Lokalet er en kino.";
+            return super.toString() + "Type: kino.";
     }
 }
 
@@ -44,7 +44,7 @@ class Konsertsal extends Lokale {
     }
     @Override
     public String toString() {
-            return super.toString() + "Lokalet er en konsertsal.";
+            return super.toString() + "Type: konsertsal.";
     }
 }
 
@@ -56,7 +56,7 @@ class Foredragsal extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "Lokalet er en foredragsal.";
+            return super.toString() + "Type: foredragsal.";
     }
 }
 
