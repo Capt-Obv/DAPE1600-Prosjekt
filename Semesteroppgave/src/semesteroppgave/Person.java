@@ -72,19 +72,19 @@ class Kontaktperson extends Person {
     public String toString() {
         String result = super.toString();
         if(nettside.length() == 0 && firma.length() == 0) {
-            result += String.format("\nEpostadresse: %d"
-                    + "\nOpplysninger: %d", epostadresse, opplysninger);
+            result += String.format("\nEpostadresse: %s"
+                    + "\nOpplysninger: %s", epostadresse, opplysninger);
         } else if (nettside.length() != 0 && firma.length() != 0) {
-            result += String.format("\nEpostadresse: %d"
-                + "\nOpplysninger: %d \nNettside: %d \nFirma: %d",
+            result += String.format("\nEpostadresse: %s"
+                + "\nOpplysninger: %s \nNettside: %s \nFirma: %s",
                     epostadresse, opplysninger, nettside, firma); 
         } else if(nettside.length() != 0 && firma.length() == 0) {
-            result += String.format("\nEpostadresse: %d"
-                    + "\nOpplysninger: %d \nNettside: %d", epostadresse,
+            result += String.format("\nEpostadresse: %s"
+                    + "\nOpplysninger: %s \nNettside: %s", epostadresse,
                     opplysninger, nettside);
         } else {
-            result += String.format("\nEpostadresse: %d"
-                    + "\nOpplysninger: %d \nFirma: %d", epostadresse,
+            result += String.format("\nEpostadresse: %s"
+                    + "\nOpplysninger: %s \nFirma: %s", epostadresse,
                     opplysninger, firma);
         }
         return result;
