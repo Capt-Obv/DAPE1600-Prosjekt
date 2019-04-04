@@ -16,14 +16,14 @@ public class Person {
     
     @Override
     public String toString() {
-        return String.format("Navn: %d \nTelefonnummer: %d", navn, telefonNr);
+        return String.format("Navn: %s \nTelefonnummer: %d", navn, telefonNr);
     }
 }
 
 class Kontaktperson extends Person {
     private String epostadresse, opplysninger;
-    private String nettside = "";
-    private String firma = "";
+    private String nettside = null;
+    private String firma = null;
     
     public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger) {
@@ -71,14 +71,14 @@ class Kontaktperson extends Person {
     @Override
     public String toString() {
         String result = super.toString();
-        if(nettside.length() == 0 && firma.length() == 0) {
+        if(nettside == null && firma == null) {
             result += String.format("\nEpostadresse: %s"
                     + "\nOpplysninger: %s", epostadresse, opplysninger);
-        } else if (nettside.length() != 0 && firma.length() != 0) {
+        } else if (nettside != null && firma!= null) {
             result += String.format("\nEpostadresse: %s"
                 + "\nOpplysninger: %s \nNettside: %s \nFirma: %s",
                     epostadresse, opplysninger, nettside, firma); 
-        } else if(nettside.length() != 0 && firma.length() == 0) {
+        } else if(nettside != null && firma == null) {
             result += String.format("\nEpostadresse: %s"
                     + "\nOpplysninger: %s \nNettside: %s", epostadresse,
                     opplysninger, nettside);
