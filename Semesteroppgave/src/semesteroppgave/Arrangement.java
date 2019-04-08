@@ -33,10 +33,12 @@ public class Arrangement {
     public int getAntSolgte() {return antSolgte;}
     
     public Arrangement(String arrangementsNavn, Lokale lokale, Kontaktperson
-            kontakt, Tidspunkt dato) {
+            kontakt, Tidspunkt dato, int pris) {
         this.arrangementsNavn = arrangementsNavn;
         this.lokale = lokale;
         this.kontakt = kontakt;
+        this.dato = dato;
+        this.pris = pris;
         solgteBilletter = new Billett[lokale.getAntPlasser()];
         deltakere = new ArrayList();
         program = new HashMap();
@@ -57,9 +59,10 @@ public class Arrangement {
         program.put(tidspunkt,navn);
     }
     
+    @Override
     public String toString() {
-        return String.format("Arrangementsnavn: %s \nLokale: %d \nKontaktperson"
-                + ": %d \nDato: %d \nPris: %d \nLedige billetter: %d", 
+        return String.format("Arrangementsnavn: %s \nLokale: %s \nKontaktperson"
+                + ": %s \nDato: %s \nPris: %d \nLedige billetter: %d", 
                 arrangementsNavn, lokale, kontakt, dato, pris, 
                 (lokale.getAntPlasser()-antSolgte));
     }
