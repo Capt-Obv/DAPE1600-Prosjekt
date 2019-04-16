@@ -33,7 +33,6 @@ class Kino extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "Type: kino.";
             return super.toString() + "\nType: kino.";
     }
 }
