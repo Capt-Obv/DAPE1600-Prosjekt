@@ -34,6 +34,7 @@ class Kino extends Lokale {
     @Override
     public String toString() {
             return super.toString() + "Type: kino.";
+            return super.toString() + "\nType: kino.";
     }
 }
 
@@ -44,7 +45,7 @@ class Konsertsal extends Lokale {
     }
     @Override
     public String toString() {
-            return super.toString() + "Type: konsertsal.";
+            return super.toString() + "\nType: konsertsal.";
     }
 }
 
@@ -56,7 +57,7 @@ class Foredragsal extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "Type: foredragsal.";
+            return super.toString() + "\nType: foredragsal.";
     }
 }
 
@@ -67,6 +68,6 @@ class Teatersal extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "Type: Teatersal";
+        return super.toString() + "\nType: teatersal.";
     }
 }

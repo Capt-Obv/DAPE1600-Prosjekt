@@ -18,10 +18,11 @@ public class Arrangement {
     private static int antSolgte = 0;
     
     public Arrangement(String arrangementsNavn, Lokale lokale, Kontaktperson
-            kontakt, Dato dato) {
+            kontakt, Dato dato, int pris) {
         this.arrangementsNavn = arrangementsNavn;
         this.kontakt = kontakt;
         this.lokale = lokale;
+        this.pris = pris;
         solgteBilletter = new Billett[lokale.getAntPlasser()];
         deltakere = new ArrayList();
         program = new ArrayList();
@@ -73,10 +74,11 @@ public class Arrangement {
         return leggesTil;
     }
     
+    @Override
     public String toString() {
-        return String.format("Arrangementsnavn: %s \nLokale: %d \nKontaktperson"
-                + ": %d \nDato: %d \nPris: %d \nLedige billetter: %d", 
-                arrangementsNavn, kontakt, dato, pris, 
+        return String.format("Arrangementsnavn: %s \nLokale: %s \nKontaktperson"
+                + ": %s \nDato: %s \nPris: %d \nLedige billetter: %d", 
+                arrangementsNavn, lokale, kontakt, dato, pris, 
                 (lokale.getAntPlasser()-antSolgte));
     }
 }
