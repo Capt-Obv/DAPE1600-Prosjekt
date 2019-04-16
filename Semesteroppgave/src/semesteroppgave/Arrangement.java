@@ -42,6 +42,7 @@ public class Arrangement {
     public int getPris() {return pris;}
     public int getAntSolgte() {return antSolgte;}
     
+
     public void leggTilArtist(Person pers, String rolle) {
         Deltaker artist = new Deltaker(pers, rolle);
         deltakere.add(artist);
@@ -92,6 +93,7 @@ public class Arrangement {
                 (lokale.getAntPlasser()-antSolgte));
     }
 }
+
 
 class Deltaker {
     private Person person;

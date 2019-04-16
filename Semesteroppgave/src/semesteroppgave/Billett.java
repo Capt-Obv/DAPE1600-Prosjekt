@@ -20,8 +20,8 @@ public class Billett {
     public Lokale getSted() {return sted;}
     public void setPlassNr(int plassNr) {this.plassNr = plassNr;}
     public int getPlassNr() {return plassNr;}
-    public void setTidspunkt(Dato dato) {this.dato = dato;}
-    public Dato getTidspunkt() {return dato;}
+    public void setDato(Dato dato) {this.dato = dato;}
+    public Dato getDato() {return dato;}
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
     public void setPerson(Person kjøper) {this.kjøper = kjøper;}
@@ -29,8 +29,9 @@ public class Billett {
     
     @Override
     public String toString() {
-        return String.format("Sted: %d \nDato: %d \nPlassNr: %d \nPris: %d"
-                + "\nKjøper: %d", sted, dato, plassNr, pris, kjøper);
+        return String.format("Sted: %s \nDato: %d"
+                + "\nPlassNr: %d \nPris: %d"
+                + "\nKjøper: %s", sted, dato, plassNr, pris, kjøper);
     }
 }
             
@@ -54,6 +55,6 @@ class Dato {
     
     @Override
     public String toString() {
-        return String.format("%d/%d - %d %d:%d", dag, måned, år);
+        return String.format("%d/%d - %d", dag, måned, år);
     }
 }

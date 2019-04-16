@@ -20,7 +20,7 @@ public class Lokale {
     
     @Override
     public String toString() {
-        return String.format("Lokalets navn: %s \nKapasitet: %s",
+        return String.format("Lokalets navn: %s \nKapasitet: %d",
                  navn, antPlasser);
     }
 }
@@ -66,6 +66,6 @@ class Teatersal extends Lokale {
     
     @Override
     public String toString() {
-            return super.toString() + "\nType: teatersal.";
+        return super.toString() + "\nType: teatersal.";
     }
 }
