@@ -7,7 +7,7 @@ package semesteroppgave;
  */
 public class Lokale {
     private String navn;
-    private int antPlasser;
+    private final int antPlasser;
     
     public Lokale(String navn, int antPlasser) {
         this.navn = navn;
@@ -16,7 +16,6 @@ public class Lokale {
     
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
-    public void setAntPlasser(int antPlasser) {this.antPlasser = antPlasser;}
     public int getAntPlasser() {return antPlasser;}
     
     @Override
