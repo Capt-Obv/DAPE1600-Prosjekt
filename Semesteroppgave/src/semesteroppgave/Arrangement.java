@@ -6,6 +6,7 @@ import java.util.ArrayList;
  *
  * @author sarah
  */
+
 public class Arrangement {
     private String arrangementsNavn;
     private Kontaktperson kontakt;
@@ -46,16 +47,19 @@ public class Arrangement {
         deltakere.add(artist);
     }
     
-    public void billettsalg(Person pers) {
+    public boolean billettsalg(Person pers) {
+        boolean billett = false;
         if(antSolgte < lokale.getAntPlasser()) {
             Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers);
             Deltaker kunde = new Deltaker(pers, "Deltaker");
             deltakere.add(kunde);
             solgteBilletter[antSolgte] = nybillett;
             antSolgte++;
+            billett = true;
         } else {
             System.out.println("Fullt, dessverre");
         }
+        return billett;
     }
     
     public boolean leggTilIProgram(int start, String navn,
