@@ -10,7 +10,7 @@ public class Arrangement {
     private String arrangementsNavn;
     private Kontaktperson kontakt;
     private Lokale lokale;
-    private ArrayList<Person> deltakere;
+    private ArrayList<Deltaker> deltakere;
     private ArrayList<Programelement> program;
     private Billett[] solgteBilletter;
     private Dato dato;
@@ -41,10 +41,16 @@ public class Arrangement {
     public int getPris() {return pris;}
     public int getAntSolgte() {return antSolgte;}
     
+    public void leggTilArtist(Person pers, String rolle) {
+        Deltaker artist = new Deltaker(pers, rolle);
+        deltakere.add(artist);
+    }
+    
     public void billettsalg(Person pers) {
         if(antSolgte < lokale.getAntPlasser()) {
             Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers);
-            deltakere.add(pers);
+            Deltaker kunde = new Deltaker(pers, "Deltaker");
+            deltakere.add(kunde);
             solgteBilletter[antSolgte] = nybillett;
             antSolgte++;
         } else {
@@ -80,6 +86,26 @@ public class Arrangement {
                 + ": %s \nDato: %s \nPris: %d \nLedige billetter: %d", 
                 arrangementsNavn, lokale, kontakt, dato, pris, 
                 (lokale.getAntPlasser()-antSolgte));
+    }
+}
+
+class Deltaker {
+    private Person person;
+    private String rolle;
+    
+    public Deltaker(Person person, String rolle) {
+        this.person = person;
+        this.rolle = rolle;
+    }
+    
+    public void setPerson(Person person) {this.person = person;}
+    public Person getPerson() {return person;}
+    public void setRolle(String rolle) {this.rolle = rolle;}
+    public String getRolle() {return rolle;}
+    
+    @Override
+    public String toString() {
+        return String.format("%d, %s", person, rolle);
     }
 }
 
