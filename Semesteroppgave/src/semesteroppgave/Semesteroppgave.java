@@ -18,7 +18,7 @@ public class Semesteroppgave {
         Kontaktperson lise = new Kontaktperson("Line Linesen", 22301947, 
                 "epost@gmail.com", "En jente som liker filmer");
         Kino kino1 = new Kino("Ringen", 101);
-        Tidspunkt dag = new Tidspunkt(20,10,2002,11,29);
+        Dato dag = new Dato(20,10,2002);
         Arrangement fest = new Arrangement("Fjortiskino", kino1, lise, dag, 150);
         Person petter = new Person("Petter Persen", 99403295);
         fest.billettsalg(petter);
