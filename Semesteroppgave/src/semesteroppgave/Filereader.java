@@ -9,18 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Filereader {
-    private String filename;
-    ArrayList<Person> personListe;
-    ArrayList<Arrangement> arrangementListe;
     
-    public Filereader(String filename, String objType) {
-        this.filename = filename;
-        String[] parts = filename.split(".");
-        String fileType = parts[1];
-        readFile(filename, objType, fileType);
-    }
-    
-    public void readFile(String filename, String objType, String fileType) throws IOException, 
+    public static void readFile(String filename, String objType, String fileType) throws IOException, 
             FileNotFoundException {
         BufferedReader reader = null;
         try {
@@ -34,8 +24,8 @@ public class Filereader {
                    arrangementListe.add(parseArrangement(line,fileType));
                } else if(objType.toUpperCase().equals("LOKALE")) {
                    lokaleListe.add(parseLokale(line,fileType));
-               } else if(objType.toUpperCase().equals("DELTAKER")) {
-                   deltakerListe.add(parseDeltaker(line,fileType));
+               } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
+                   kontaktPersonListe.add(parseKontakt(line,fileType));
                }
             }
             
@@ -49,16 +39,77 @@ public class Filereader {
         }
     }
     
-    public Person parsePerson(String line, String fileType) {
+    public static Person parsePerson(String line, String fileType) {
         if(fileType.equals("csv")) {
-            String[] liste = line.split(";");
-            //Legg til masse tester for å sjekke riktig data
-            Person nyPerson = new Person(navn, telefonNr);
+            String[] del = line.split(";");
+            if(del.length < 2) {
+                throw new InvalidFormatException("CSV-formats require data to "
+                        + "be split by semicolon");
+            } else {
+                String navn = del[0];
+                int telefonNr = parseTall(del[1], "Telephone number is not a number");
+                //Legg til masse tester for å sjekke riktig data
+                Person nyPerson = new Person(navn, telefonNr);
+            }
         } else if(fileType.equals("jobj")) {
             
         }
     }
     
-    public Arrangement parseArrangement(String line, String objType) {
+    public static Arrangement parseArrangement(String line, String objType) {
+    }
+    
+    public static Kontaktperson parseKontakt(String line, String fileType) {
+        Kontaktperson pers;
+        if(fileType.equals("csv")) {
+            String[] del = line.split(";");
+            if(del.length < 4) {
+                throw new InvalidFormatException("CSV-formats require data to be"
+                        + "split by semicolon.");
+            } else {
+                String navn = del[0];
+                int telefonNr = parseTall(del[1],"Telephone number is not a number.");
+                String epostadresse = parseEmail(del[2], "Email adress is not"
+                        + " a valid emailadress.");
+                String opplysninger = del[3];
+                if(del.length == 5) {
+                    String nettside = del[4];
+                    pers = new Kontaktperson(navn, telefonNr,
+                        epostadresse, opplysninger, nettside);
+                } else if(del.length == 6) {
+                    String nettside = del[4];
+                    String firma = del[5];
+                    pers = new Kontaktperson(navn, telefonNr,
+                        epostadresse, opplysninger, nettside, firma);
+                } else {
+                    pers = new Kontaktperson(navn, telefonNr, 
+                        epostadresse, opplysninger);
+                }
+            }
+        }
+        
+        return pers;
+    }
+    
+    public static int parseTall(String testStr, String errorMessage) 
+            throws InvalidFormatException {
+        int tall;
+        try {
+            tall = Integer.parseInt(testStr);
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException(errorMessage);
+        }
+        return tall;
+    }
+    
+    public static boolean checkEmail(String testStr, String errorMessage) 
+            throws InvalidFormatException {
+        boolean trueEmail = false;
+        if(testStr.contains("@")) {
+            trueEmail = true;
+        } else {
+            throw new InvalidFormatException(errorMessage);
+        }
+        return trueEmail;
     }
 }
