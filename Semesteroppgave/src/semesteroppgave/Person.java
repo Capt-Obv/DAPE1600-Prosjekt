@@ -32,7 +32,7 @@ class Kontaktperson extends Person {
         this.opplysninger = opplysninger;
     }
     
-    public Kontaktperson(String navn, int telefonNr, String epostadresse, String
+        public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger, String nettside) {
         super(navn, telefonNr);
         this.epostadresse = epostadresse;
@@ -40,15 +40,7 @@ class Kontaktperson extends Person {
         this.nettside = nettside;
     }
     
-    public Kontaktperson(String navn, String epostadresse, int telefonNr, String
-            opplysninger, String firma) {
-        super(navn, telefonNr);
-        this.epostadresse = epostadresse;
-        this.opplysninger = opplysninger;
-        this.firma = firma;
-    }
-    
-    public Kontaktperson(String navn, String epostadresse, int telefonNr, String
+    public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger, String nettside, String firma) {
         super(navn, telefonNr);
         this.epostadresse = epostadresse;
