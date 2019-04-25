@@ -15,15 +15,31 @@ import java.io.IOException;
  */
 public class FileExporterCSV extends FileExporter {
 
+    public FileExporterCSV(String objType, String filepath) {
+        writeToFile(objType, filepath);
+    }
     public void writeDeltakerToFile(FileWriter writer, Deltaker deltaker) throws FileNotFoundException, 
             IOException {
-        writer.append(deltaker.getPerson().getNavn());
-        writer.append(";");
-        writer.append(String.format("%d", deltaker.getPerson().getTelefonNr()));
-        writer.append(";");
-        writer.append(deltaker.getRolle());
-        writer.append("\n");
-        
+        try {
+            writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
+                deltaker.getPerson().getTelefonNr(),deltaker.getRolle()));
+        } catch (FileNotFoundException e) {
+            //
+        } catch (IOException e) {
+            //
+        }
+    }
+    
+    public static void writeLokaleToFile(FileWriter writer, Lokale lokale) throws FileNotFoundException,
+            IOException {
+        try {
+            writer.write(String.format("%s;%d;%s", lokale.getNavn(), lokale.getAntPlasser(),
+                lokale.getType()));
+        } catch (FileNotFoundException e) {
+            //
+        } catch (IOException e) {
+            //
+        }
     }
 
 }
