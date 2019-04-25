@@ -13,10 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class FileExporter {
-abstract void writeDeltakerToFile(FileWriter file, Deltaker pers);
+abstract class FileExporter {
+abstract void writeDeltakerToFile(FileWriter file, Deltaker pers) throws FileNotFoundException,
+        IOException;
 
-    public static void writeToFile(String objType, String filepath) {
+    public void writeToFile(String objType, String filepath) {
         try { 
             FileWriter file = new FileWriter(new File(filepath)); 
             if (objType.toUpperCase().equals("DELTAKER")) {
