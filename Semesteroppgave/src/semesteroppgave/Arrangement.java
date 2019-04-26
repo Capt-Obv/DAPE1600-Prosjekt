@@ -85,6 +85,15 @@ public class Arrangement {
         return leggesTil;
     }
     
+    public Programelement getProgramelement(int tidspunkt) {
+        Programelement prog = null;
+        for(Programelement elem:program) {
+            if((elem.getStart() <= tidspunkt) && (tidspunkt <= elem.getSlutt())) {
+                prog = elem;
+            }
+        }
+    }
+    
     @Override
     public String toString() {
         return String.format("Arrangementsnavn: %s \nLokale: %s \nKontaktperson"
