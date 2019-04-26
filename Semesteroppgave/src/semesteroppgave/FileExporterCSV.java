@@ -23,6 +23,7 @@ public class FileExporterCSV extends FileExporter {
         try {
             writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
                 deltaker.getPerson().getTelefonNr(),deltaker.getRolle()));
+            writer.write("\n");
         } catch (FileNotFoundException e) {
             //
         } catch (IOException e) {
@@ -30,16 +31,36 @@ public class FileExporterCSV extends FileExporter {
         }
     }
     
-    public static void writeLokaleToFile(FileWriter writer, Lokale lokale) throws FileNotFoundException,
+    public void writeLokaleToFile(FileWriter writer, Lokale lokale) throws FileNotFoundException,
             IOException {
         try {
             writer.write(String.format("%s;%d;%s", lokale.getNavn(), lokale.getAntPlasser(),
                 lokale.getType()));
+            writer.write("\n");
         } catch (FileNotFoundException e) {
             //
         } catch (IOException e) {
             //
         }
     }
-
+    
+    public void writeArrangementToFile(FileWriter writer, Arrangement arr) throws
+            FileNotFoundException, IOException {
+        writer.write(String.format("%s;%s;%s;%s;%d", arr.getNavn(), arr.getKontakt().getNavn(),
+                arr.getLokale().getNavn(), arr.getDato().toString(), arr.getPris()));
+        writer.write("\n");
+    }
+    
+    public void writeKontaktpersonToFile(FileWriter writer, Kontaktperson kontakt) throws
+            FileNotFoundException, IOException {
+        writer.write(String.format("%s;%d;%s;%s;%s;%s", kontakt.getNavn(), kontakt.getTelefonNr(),
+                kontakt.getEpostadresse(), kontakt.getOpplysninger(), kontakt.getNettside(),
+                kontakt.getFirma()));
+        writer.write("\n");
+    }
+    
+    public void writeProgramToFile(FileWriter writer, Arrangement arr) throws
+            FileNotFoundException, IOException {
+        //Kom på noe lur måte å gjøre dette på
+    }
 }
