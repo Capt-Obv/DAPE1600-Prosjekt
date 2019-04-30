@@ -40,8 +40,9 @@ public class FilereaderCSV extends Filereader {
         readFile(filename, objType, "CSV");
     }
     
-    public void parseProgram(String line) {
+    public boolean parseProgram(String line) {
         String[] del = line.split(";");
+        boolean leggesTil = false;
         if(del.length<4) {
             throw new InvalidFormatException("CSV-formats require data to"
                         + " be split by semicolon");
@@ -55,9 +56,11 @@ public class FilereaderCSV extends Filereader {
             for(Arrangement arr: main.arrangementListe) {
                 if(arrangement.equals(arr.getNavn())) {
                         arr.leggTilIProgram(start, navn, slutt);
+                        leggesTil = true;
                 }
             }
         }
+        return leggesTil;
     }
     
     public Lokale parseLokale(String line) {
