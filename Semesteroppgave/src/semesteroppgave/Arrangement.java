@@ -92,6 +92,7 @@ public class Arrangement {
                 prog = elem;
             }
         }
+        return prog;
     }
     
     @Override

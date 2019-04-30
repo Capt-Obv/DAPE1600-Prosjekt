@@ -15,7 +15,7 @@ abstract class Filereader {
     abstract void parseProgram(String line);
     abstract Deltaker parseDeltaker(String line);
     abstract Arrangement parseArrangement(String line);
-    
+    /*
     public void readFile(String filename, String objType, String fileType) throws IOException, 
             FileNotFoundException {
         BufferedReader reader = null;
@@ -68,5 +68,5 @@ abstract class Filereader {
             throw new InvalidFormatException(errorMessage);
         }
         return trueEmail;
-    }
+    }*/
 }

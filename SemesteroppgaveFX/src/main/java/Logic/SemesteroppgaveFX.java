@@ -1,23 +1,19 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package semesteroppgave;
+package Logic;
 
 /**
  *
- * @author sarah
+ * @author Andrea
  */
-public class Semesteroppgave {
-
-    /**
+public class SemesteroppgaveFX {
+       /**
      * @param args the command line arguments
      */
-    
     public static void main(String[] args) {
-        /*
         Kontaktperson lise = new Kontaktperson("Line Linesen", 22301947, 
                 "epost@gmail.com", "En jente som liker filmer");
         Kino kino1 = new Kino("Ringen", 101);
@@ -26,7 +22,6 @@ public class Semesteroppgave {
         Person petter = new Person("Petter Persen", 99403295);
         fest.billettsalg(petter);
         System.out.println(fest);
-*/
     }
     
 }
