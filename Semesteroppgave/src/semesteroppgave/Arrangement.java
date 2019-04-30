@@ -1,5 +1,6 @@
 package semesteroppgave;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author sarah
  */
 
-public class Arrangement {
+public class Arrangement implements Serializable {
     private String arrangementsNavn;
     private Kontaktperson kontakt;
     private Lokale lokale;
@@ -75,11 +76,11 @@ public class Arrangement {
                 }
             }
             if(leggesTil) {
-                Programelement elem = new Programelement(navn, start, slutt);
+                Programelement elem = new Programelement(navn, start, slutt, this);
                 program.add(elem);
             }
         } else {    
-            Programelement elem = new Programelement(navn, start, slutt);
+            Programelement elem = new Programelement(navn, start, slutt, this);
             program.add(elem);
         }
         return leggesTil;
@@ -105,7 +106,7 @@ public class Arrangement {
 }
 
 
-class Deltaker {
+class Deltaker implements Serializable {
     private Person person;
     private String rolle;
     
@@ -125,15 +126,17 @@ class Deltaker {
     }
 }
 
-class Programelement {
+class Programelement implements Serializable {
     String navn;
     int start;
     int slutt;
+    Arrangement arr;
     
-    public Programelement(String navn, int start, int slutt) {
+    public Programelement(String navn, int start, int slutt, Arrangement arr) {
         this.navn = navn;
         this.start = start;
         this.slutt = slutt;
+        this.arr = arr;
     }
     
     public void setNavn(String navn) {this.navn = navn;}
@@ -142,10 +145,13 @@ class Programelement {
     public int getStart() {return start;}
     public void setSlutt(int slutt) {this.slutt = slutt;}
     public int getSlutt() {return slutt;}
+    public Arrangement getArrangement() {return arr;}
+    public void setArrangement(Arrangement arr) {this.arr = arr;}
     
     @Override
     public String toString() {
-        return String.format("Navn: %s \nStarter: %s \nSlutter", navn, start, 
+        return String.format("Navn: %s \nArrangement: %s \nStarter: %d "
+                + "\nSlutter: %d", navn, arr.getNavn(), start, 
                 slutt);
     }
 }
