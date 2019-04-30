@@ -1,6 +1,8 @@
 package semesteroppgave;
 
-public class Billett {
+import java.io.Serializable;
+
+public class Billett implements Serializable {
     private Lokale sted;
     private int plassNr;
     private Dato dato;
@@ -35,7 +37,7 @@ public class Billett {
     }
 }
             
-class Dato {
+class Dato implements Serializable {
     private int år;
     private int måned;
     private int dag;
