@@ -1,6 +1,8 @@
 package semesteroppgave;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private String navn;
     private int telefonNr;
     
@@ -20,7 +22,7 @@ public class Person {
     }
 }
 
-class Kontaktperson extends Person {
+class Kontaktperson extends Person implements Serializable {
     private String epostadresse, opplysninger;
     private String nettside = null;
     private String firma = null;
