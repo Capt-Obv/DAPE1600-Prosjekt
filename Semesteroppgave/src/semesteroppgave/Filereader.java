@@ -1,8 +1,11 @@
 package semesteroppgave;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 /**
@@ -15,37 +18,97 @@ abstract class Filereader {
     abstract void parseProgram(String line);
     abstract Deltaker parseDeltaker(String line);
     abstract Arrangement parseArrangement(String line);
-    /*
+    
     public void readFile(String filename, String objType, String fileType) throws IOException, 
-            FileNotFoundException {
+            FileNotFoundException, ClassNotFoundException, TimeOverlapException {
         BufferedReader reader = null;
-        try {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        if(fileType.equals("csv")) {
             reader = Files.newBufferedReader(Paths.get(filename));
-            String line = null;
             
-            while((line=reader.readLine())!=null) {
-               if(objType.toUpperCase().equals("DELTAKER")) {
-                   main.deltakerListe.add(parseDeltaker(line));
-                   // lister lagres et annet sted
-               } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
-                   main.arrangementListe.add(parseArrangement(line));
-               } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
-                   main.kontaktPersonListe.add(parseKontakt(line));
-               } else if(objType.toUpperCase().equals("LOKALE")) {
-                   main.lokaleListe.add(parseLokale(line));
-               } else if(objType.toUpperCase().equals("PROGRAM")) {
-                   parseArrangement(line);
-               }
-            }
+        } else if(fileType.equals("jobj")) {
+            fis = new FileInputStream(new File(filename));
+            ois = new ObjectInputStream(fis);
+        } else {
+            throw new FileNotFoundException("Filetype must be either .csv or .jobj");
             
-            reader.close();
-         
-        } catch (FileNotFoundException e) {
-            // Håndter med å lage en exceptionhandler som vi kan kaste FileNotFound
-            // og IOException til
-        } catch (IOException e) {
-            //Ditto
         }
+        
+         String line = null;
+         boolean cont = true;
+            
+        while(((line=reader.readLine())!=null) || (cont)) {
+            if(objType.toUpperCase().equals("DELTAKER")) {
+                if(fileType.equals("csv")) {
+                    main.deltakerListe.add(parseDeltaker(line));
+                } else {
+                    Deltaker nyDeltaker = (Deltaker) ois.readObject();
+                    if(nyDeltaker != null) {
+                        main.deltakerListe.add(nyDeltaker);
+                    } else {
+                        cont = false;
+                    }
+                }
+            } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
+                if(fileType.equals("csv")) {
+                    main.arrangementListe.add(parseArrangement(line));
+                } else {
+                    Arrangement arr = (Arrangement) ois.readObject();
+                    
+                    if(arr != null) {
+                        main.arrangementListe.add(arr);
+                    } else {
+                        cont = false;
+                    }
+                }
+            } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
+                if(fileType.equals("csv")) {
+                    main.kontaktPersonListe.add(parseKontakt(line));
+                } else {
+                    Kontaktperson pers = (Kontaktperson) ois.readObject();
+                    if(pers != null) {
+                        main.kontaktpersonListe.add(pers);
+                    } else {
+                        cont = false;
+                    }
+                }
+            } else if(objType.toUpperCase().equals("LOKALE")) {
+                if(fileType.equals("csv")) {
+                    main.lokaleListe.add(parseLokale(line));
+                } else {
+                    Lokale lok = (Lokale) ois.readObject();
+                    if(lok != null) {
+                        main.lokaleListe.add(lok);
+                    } else {
+                        cont = false;
+                    }
+                }
+            } else if(objType.toUpperCase().equals("PROGRAM")) {
+                Boolean leggesTil = false;
+                if(fileType.equals("csv")) {
+                    leggesTil = parseProgram(line);
+                } else {
+                    Programelement prgm = (Programelement) ois.readObject();
+                    if(prgm != null) {
+                        for(Arrangement arr: main.arrangementListe) {
+                            if(prgm.getArrangement().getNavn().equals(arr.getNavn())) {
+                                leggesTil = arr.leggTilIProgram(prgm.getStart(), prgm.getNavn(),
+                                        prgm.getSlutt());
+                            }
+                        }
+                    } else {
+                        cont = false;
+                    }
+                }
+                if(leggesTil = false) {
+                    throw new TimeOverlapException(e);
+                }
+            }
+        }
+        reader.close();
+        fis.close();
+        ois.close();
     }
     
     public static int parseTall(String testStr, String errorMessage) 
@@ -68,5 +131,5 @@ abstract class Filereader {
             throw new InvalidFormatException(errorMessage);
         }
         return trueEmail;
-    }*/
+    }
 }
