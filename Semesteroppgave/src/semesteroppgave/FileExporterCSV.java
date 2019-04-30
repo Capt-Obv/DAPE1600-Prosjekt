@@ -20,28 +20,16 @@ public class FileExporterCSV extends FileExporter {
     }
     public void writeDeltakerToFile(FileWriter writer, Deltaker deltaker) throws FileNotFoundException, 
             IOException {
-        try {
-            writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
+        writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
                 deltaker.getPerson().getTelefonNr(),deltaker.getRolle()));
-            writer.write("\n");
-        } catch (FileNotFoundException e) {
-            //
-        } catch (IOException e) {
-            //
-        }
+        writer.write("\n");
     }
     
     public void writeLokaleToFile(FileWriter writer, Lokale lokale) throws FileNotFoundException,
             IOException {
-        try {
-            writer.write(String.format("%s;%d;%s", lokale.getNavn(), lokale.getAntPlasser(),
+        writer.write(String.format("%s;%d;%s", lokale.getNavn(), lokale.getAntPlasser(),
                 lokale.getType()));
-            writer.write("\n");
-        } catch (FileNotFoundException e) {
-            //
-        } catch (IOException e) {
-            //
-        }
+        writer.write("\n");
     }
     
     public void writeArrangementToFile(FileWriter writer, Arrangement arr) throws
