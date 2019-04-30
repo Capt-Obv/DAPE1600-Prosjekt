@@ -15,8 +15,9 @@ import java.io.IOException;
  */
 public class FileExporterCSV extends FileExporter {
 
-    public FileExporterCSV(String objType, String filepath) {
-        writeToFile(objType, filepath);
+    public FileExporterCSV(String objType, String filepath) throws FileNotFoundException,
+            IOException, ClassNotFoundException, InvalidObjectTypeException {
+        writeToFile(objType, filepath, "csv");
     }
     public void writeDeltakerToFile(FileWriter writer, Deltaker deltaker) throws FileNotFoundException, 
             IOException {
