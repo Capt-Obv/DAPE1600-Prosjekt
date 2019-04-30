@@ -35,12 +35,13 @@ public class FilereaderCSV extends Filereader {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     /*
-    public FilereaderCSV(String filename, String objType) throws IOException, 
-            FileNotFoundException {
+    public FilereaderCSV(String filename, String objType) throws 
+            FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
+            InvalidObjectTypeException, InvalidFormatException {
         readFile(filename, objType, "CSV");
     }
     
-    public boolean parseProgram(String line) {
+    public boolean parseProgram(String line) throws InvalidFormatException {
         String[] del = line.split(";");
         boolean leggesTil = false;
         if(del.length<4) {
@@ -49,21 +50,20 @@ public class FilereaderCSV extends Filereader {
         } else {
             int start = parseTall(del[0], "Start time of programelement not"
                         + " a number");
-            int slutt = parseTall(del[1], "End time of programelement not "
+            String navn = del[1];
+            int slutt = parseTall(del[2], "End time of programelement not "
                         + " a number");
-            String navn = del[2];
             String arrangement = del[3];
             for(Arrangement arr: main.arrangementListe) {
                 if(arrangement.equals(arr.getNavn())) {
-                        arr.leggTilIProgram(start, navn, slutt);
-                        leggesTil = true;
+                        leggesTill = arr.leggTilIProgram(start, navn, slutt);
                 }
             }
         }
         return leggesTil;
     }
     
-    public Lokale parseLokale(String line) {
+    public Lokale parseLokale(String line) throws InvalidFormatException {
         /*
         Lokale lok = null;
         String[] del = line.split(";");
@@ -79,7 +79,7 @@ public class FilereaderCSV extends Filereader {
 
     }
     
-    public Deltaker parseDeltaker(String line) {
+    public Deltaker parseDeltaker(String line) throws InvalidFormatException {
         Person nyPerson = null;
         Deltaker deltaker = null;
         String[] del = line.split(";");
@@ -111,7 +111,8 @@ public class FilereaderCSV extends Filereader {
         return deltaker;
     }
     
-    public Arrangement parseArrangement(String line) {
+    public Arrangement parseArrangement(String line) throws InvalidFormatException, 
+        InvalidDateFormatException {
         Arrangement arr = null;
         Dato arrDato = null;
         Kontaktperson kontakt = null;
@@ -151,7 +152,7 @@ public class FilereaderCSV extends Filereader {
         return arr;
     }
     
-    public Kontaktperson parseKontakt(String line) {
+    public Kontaktperson parseKontakt(String line) throws InvalidFormatException {
         Kontaktperson pers = null;
         String[] del = line.split(";");
         if(del.length < 4) {
