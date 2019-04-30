@@ -1,4 +1,9 @@
-package semesteroppgave;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Logic;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,40 +12,15 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+/*
 public class FilereaderCSV extends Filereader {
-
-    @Override
-    Kontaktperson parseKontakt(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    Lokale parseLokale(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    void parseProgram(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    Deltaker parseDeltaker(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    Arrangement parseArrangement(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    /*
     public FilereaderCSV(String filename, String objType) throws IOException, 
             FileNotFoundException {
         readFile(filename, objType, "CSV");
     }
     
     public void parseProgram(String line) {
+        /*
         String[] del = line.split(";");
         if(del.length<4) {
             throw new InvalidFormatException("CSV-formats require data to"
@@ -58,6 +38,7 @@ public class FilereaderCSV extends Filereader {
                 }
             }
         }
+
     }
     
     public Lokale parseLokale(String line) {
@@ -73,7 +54,7 @@ public class FilereaderCSV extends Filereader {
             lok = new Lokale(navn, antPlasser);
         }
         return lok;
-
+return null;
     }
     
     public Deltaker parseDeltaker(String line) {
@@ -175,5 +156,6 @@ public class FilereaderCSV extends Filereader {
             }
         }
         return pers;
-    }*/
+    }
 }
+*/

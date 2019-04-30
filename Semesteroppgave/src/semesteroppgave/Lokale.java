@@ -1,6 +1,8 @@
 
 package semesteroppgave;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author sarah
@@ -14,7 +16,14 @@ public class Lokale {
         this.navn = navn;
         this.antPlasser = antPlasser;
     }
-    
+        public static ArrayList<String> lokalListe(){
+        ArrayList<String> lokaler = new ArrayList<>();
+        lokaler.add("Kino");
+        lokaler.add("Konsertsal");
+        lokaler.add("Foredragsal");
+        lokaler.add("Teatersal");
+        return lokaler;
+    }
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
     public int getAntPlasser() {return antPlasser;}

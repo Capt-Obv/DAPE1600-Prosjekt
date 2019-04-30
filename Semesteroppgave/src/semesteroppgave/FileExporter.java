@@ -18,6 +18,7 @@ abstract void writeDeltakerToFile(FileWriter file, Deltaker pers) throws FileNot
         IOException;
 
     public void writeToFile(String objType, String filepath) {
+        /*
         try { 
             FileWriter file = new FileWriter(new File(filepath)); 
             if (objType.toUpperCase().equals("DELTAKER")) {
@@ -35,6 +36,7 @@ abstract void writeDeltakerToFile(FileWriter file, Deltaker pers) throws FileNot
         } catch (FileNotFoundException e) {
             // Gjør noe
         } catch (IOException e) { 
-        // Gjøre noe 
+        // Gjøre noe */
     } 
-} 
+}
+
