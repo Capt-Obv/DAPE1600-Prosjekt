@@ -1,13 +1,14 @@
 
 package semesteroppgave;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author sarah
  */
-public class Lokale {
+public class Lokale implements Serializable {
     private String navn;
     private final int antPlasser;
     private String type;
