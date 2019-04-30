@@ -31,6 +31,9 @@ abstract void writeKontaktpersonToFile(FileWriter file, Kontaktperson kontakt) t
         FileWriter file = null;
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
+        
+        //checks what type of file user wishes to write to (either csv or jobj)
+        
         if(objType.equals("csv")) {
             file = new FileWriter(new File(filename));
         } else if(objType.equals("jobj")) {
@@ -38,6 +41,9 @@ abstract void writeKontaktpersonToFile(FileWriter file, Kontaktperson kontakt) t
         } else {
             throw new FileNotFoundException("Filetype must be either .csv or .jobj");
         }
+        
+        //Iterates over array of chosen object type and writes to file
+        // (with parsing for csv-type)
         
         if (objType.toUpperCase().equals("DELTAKER")) {
             for(Deltaker pers: main.deltakerListe) {
