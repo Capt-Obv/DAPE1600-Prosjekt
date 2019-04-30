@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import static semesteroppgave.Semesteroppgave.main;
 /**
  *
  * @author sarah
@@ -20,7 +21,8 @@ abstract class Filereader {
     abstract Arrangement parseArrangement(String line);
     
     public void readFile(String filename, String objType, String fileType) throws IOException, 
-            FileNotFoundException, ClassNotFoundException, TimeOverlapException {
+            FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
+            InvalidObjectTypeException, InvalidFormatException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -102,13 +104,20 @@ abstract class Filereader {
                     }
                 }
                 if(leggesTil = false) {
-                    throw new TimeOverlapException(e);
+                    throw new InvalidTimeOverlapException("Already an act performing"
+                            + " at given time");
                 }
+            } else {
+                throw new InvalidObjectTypeException("Not a valid object type");
             }
         }
         reader.close();
-        fis.close();
-        ois.close();
+        if(fis!=null) {
+            fis.close();
+        }
+        if(ois!=null) {
+            ois.close();
+        }
     }
     
     public static int parseTall(String testStr, String errorMessage) 
