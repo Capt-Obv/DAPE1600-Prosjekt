@@ -29,7 +29,8 @@ public class Arrangement implements Serializable {
         deltakere = new ArrayList();
         program = new ArrayList();
     }
-        
+    
+    //get-set methods    
     public void setNavn(String arrangementsNavn) {this.arrangementsNavn
             = arrangementsNavn;}
     public String getNavn() {return arrangementsNavn;}
@@ -44,11 +45,15 @@ public class Arrangement implements Serializable {
     public int getAntSolgte() {return antSolgte;}
     
 
+    // method for adding performers (participants of event that do not
+    // require a ticket
+    
     public void leggTilArtist(Person pers, String rolle) {
         Deltaker artist = new Deltaker(pers, rolle);
         deltakere.add(artist);
     }
     
+    //method for selling tickets if there are still tickets available
     public boolean billettsalg(Person pers) {
         boolean billett = false;
         if(antSolgte < lokale.getAntPlasser()) {
@@ -64,6 +69,8 @@ public class Arrangement implements Serializable {
         return billett;
     }
     
+    // iterates over program elements and checks if an act can be added
+    // in the given timeline
     public boolean leggTilIProgram(int start, String navn,
             int slutt) {
         
@@ -86,6 +93,7 @@ public class Arrangement implements Serializable {
         return leggesTil;
     }
     
+    // returnes what acts are playing at a chosen time
     public Programelement getProgramelement(int tidspunkt) {
         Programelement prog = null;
         for(Programelement elem:program) {
