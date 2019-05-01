@@ -14,11 +14,6 @@ import static semesteroppgave.Semesteroppgave.main;
  * @author sarah
  */
 abstract class Filereader {
-    abstract Kontaktperson parseKontakt(String line);
-    abstract Lokale parseLokale(String line);
-    abstract void parseProgram(String line);
-    abstract Deltaker parseDeltaker(String line);
-    abstract Arrangement parseArrangement(String line);
     
     public void readFile(String filename, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
