@@ -36,28 +36,3 @@ public class Lokale implements Serializable {
                  navn, antPlasser, type);
     }
 }
-
-class Kino extends Lokale {
-    public Kino(String navn, int antPlasser) {
-        super(navn, antPlasser, "kino");
-    }
-}
-
-class Konsertsal extends Lokale {
-    private String type = "konsertsal";
-    public Konsertsal(String navn, int antPlasser) {
-        super(navn, antPlasser,"konsertsal");
-    }
-}
-
-class Foredragsal extends Lokale {
-    public Foredragsal(String navn, int antPlasser) {
-        super(navn, antPlasser, "foredragsal");
-    }
-}
-
-class Teatersal extends Lokale {
-    public Teatersal(String navn, int antPlasser) {
-        super(navn, antPlasser, "teatersal");
-    }
-}
