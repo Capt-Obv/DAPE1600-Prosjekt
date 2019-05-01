@@ -25,6 +25,8 @@ public class Lokale implements Serializable {
         lokaler.add("Teatersal");
         return lokaler;
     }
+        
+    //get-set methods
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
     public int getAntPlasser() {return antPlasser;}
