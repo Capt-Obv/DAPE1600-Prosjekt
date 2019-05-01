@@ -19,4 +19,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+public class FileExporterJOBJ extends FileExporter {
+    public FileExporterJOBJ(String objType, String filepath) {
+        writeToFile(objType, filepath, "JOBJ");
+    }
+}
+
 
