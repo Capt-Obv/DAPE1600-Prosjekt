@@ -1,4 +1,4 @@
-package semesteroppgave;
+package gruppe83.semesteroppgavemaven.logic;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
