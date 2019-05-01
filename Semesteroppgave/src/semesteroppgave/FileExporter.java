@@ -17,14 +17,6 @@ import java.io.ObjectOutputStream;
 import static semesteroppgave.Semesteroppgave.main;
 
 abstract class FileExporter {
-abstract void writeDeltakerToFile(FileWriter file, Deltaker pers) throws FileNotFoundException,
-        IOException;
-abstract void writeLokaleToFile(FileWriter file, Lokale lok) throws FileNotFoundException,
-        IOException;
-abstract void writeArrangementToFile(FileWriter file, Arrangement arr) throws FileNotFoundException,
-        IOException;
-abstract void writeKontaktpersonToFile(FileWriter file, Kontaktperson kontakt) throws FileNotFoundException,
-        IOException;
 
     public void writeToFile(String objType, String filename, String fileType) throws FileNotFoundException,
              IOException, ClassNotFoundException, InvalidObjectTypeException {
