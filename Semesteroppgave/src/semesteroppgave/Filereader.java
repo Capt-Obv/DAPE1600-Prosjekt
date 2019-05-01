@@ -20,6 +20,10 @@ abstract class Filereader {
     abstract Deltaker parseDeltaker(String line);
     abstract Arrangement parseArrangement(String line);
     
+    /* method checks if filetype is of the allowed two: jobj and csv, creates
+    readers for the different filetypes and depending on strategy creates object
+    for every line of file (with parsing for csv-files)
+    */
     public void readFile(String filename, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException {
@@ -37,9 +41,11 @@ abstract class Filereader {
             
         }
         
+        //parameters to check if we've reached the end of the Input-file.
          String line = null;
          boolean cont = true;
-            
+         
+         
         while(((line=reader.readLine())!=null) || (cont)) {
             if(objType.toUpperCase().equals("DELTAKER")) {
                 if(fileType.equals("csv")) {
@@ -81,7 +87,7 @@ abstract class Filereader {
                 } else {
                     Lokale lok = (Lokale) ois.readObject();
                     if(lok != null) {
-                        main.lokaleListe.add(lok);
+                        main.lokalListe.add(lok);
                     } else {
                         cont = false;
                     }
