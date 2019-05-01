@@ -18,6 +18,7 @@ public class Billett implements Serializable {
         this.kjøper = kjøper;
     }
     
+    //get-set methods
     public void setSted(Lokale sted) {this.sted = sted;}
     public Lokale getSted() {return sted;}
     public void setPlassNr(int plassNr) {this.plassNr = plassNr;}
@@ -48,6 +49,7 @@ class Dato implements Serializable {
         this.dag = dag;
     }
     
+    //get-set methods
     public void setÅr(int år) {this.år = år;}
     public int getÅr() {return år;}
     public void setMåned(int måned) {this.måned = måned;}
