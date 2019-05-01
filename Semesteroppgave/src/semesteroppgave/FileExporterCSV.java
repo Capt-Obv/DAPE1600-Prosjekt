@@ -19,6 +19,10 @@ public class FileExporterCSV extends FileExporter {
             IOException, ClassNotFoundException, InvalidObjectTypeException {
         writeToFile(objType, filepath, "csv");
     }
+    
+    // methods for creating lines in csv-files (semi-colon separated) for 
+    // the different object-types.
+    
     public void writeDeltakerToFile(FileWriter writer, Deltaker deltaker) throws FileNotFoundException, 
             IOException {
         writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
