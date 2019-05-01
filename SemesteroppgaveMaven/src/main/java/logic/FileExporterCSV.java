@@ -55,6 +55,10 @@ public class FileExporterCSV extends FileExporter {
             FileNotFoundException, IOException {
         writer.write(String.format("%s;%s;%s;%s;%d", arr.getNavn(), arr.getKontakt().getNavn(),
                 arr.getLokale().getNavn(), arr.getDato().toString(), arr.getPris()));
+        
+        //NOTE:  Kanskje vi skal skrive ut Programmet her også?
+        
+        
         writer.write("\n");
     }
     
