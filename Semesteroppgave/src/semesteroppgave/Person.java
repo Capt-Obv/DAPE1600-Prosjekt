@@ -27,6 +27,9 @@ class Kontaktperson extends Person implements Serializable {
     private String nettside = null;
     private String firma = null;
     
+    // Different constructors depending on how much information we have on 
+    // the contact person.
+    
     public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger) {
         super(navn, telefonNr);
