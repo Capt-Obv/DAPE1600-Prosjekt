@@ -6,25 +6,39 @@ package gruppe83.semesteroppgavemaven;
  * @author sarah
  */
 
+import java.io.File;
 import javafx.concurrent.Task;
-import javafx.stage.Stage;
+import logic.FilereaderCSV;
+import logic.FilereaderJOBJ;
+import logic.InvalidFormatException;
 
 public class ThreadReader extends Task<Void> {
     private Runnable readWriteDone;
-    private Stage stage;
+    private File file;
     
-    public ThreadReader(Runnable whenDone, Stage stage) {
+    public ThreadReader(Runnable whenDone, File file) {
         this.readWriteDone = whenDone;
-        this.stage = stage;
+        this.file = file;
     }
     
     @Override
     protected Void call() throws Exception {
+        String filename = file.getName();
+        String[] filenameParts = filename.split(".");
+        if(filenameParts[1].equals("csv")) {
+            FilereaderCSV reader = new FilereaderCSV();
+            reader.initializeImport(file, filenameParts[0]);
+        } else if(filenameParts[1].equals("jobj")) {
+            FilereaderJOBJ reader = new FilereaderJOBJ();
+            reader.initializeImport(file, filenameParts[0]);
+        } else {
+            throw new InvalidFormatException("Not a valid filetype. Choose"
+                    + " either csv or jobj");
+        }
         try { 
-            FiletypeChooser chooser = new FiletypeChooser();
-            chooser.chooseFile(stage);
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch(InterruptedException e) {
+            throw new InterruptedException("Fileimport aborted");
         }
         return null;
     }
