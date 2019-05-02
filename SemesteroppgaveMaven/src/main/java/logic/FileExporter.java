@@ -10,7 +10,7 @@ import java.io.IOException;
 import static logic.Semesteroppgave.main;
 
 abstract class FileExporter {
-/*
+
     abstract void writeDeltakerToFile(Deltaker pers) throws FileNotFoundException,
             IOException;
     abstract void writeLokaleToFile(Lokale lok) throws FileNotFoundException,
@@ -47,5 +47,4 @@ abstract class FileExporter {
             throw new InvalidObjectTypeException("Not a valid objecttype");
         }
     }
-*/
 }
