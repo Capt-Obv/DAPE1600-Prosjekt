@@ -10,8 +10,9 @@ package gruppe83.semesteroppgavemaven;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
+import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
+import logic.ProgramModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -32,7 +33,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import java.util.ArrayList;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.PropertyValueFactory;
+import java.time.LocalDate;
+import logic.Arrangement;
 /**
  * FXML Controller class
  *
@@ -40,6 +47,18 @@ import javafx.scene.control.ComboBox;
  */
 public class InputSkjemaController implements Initializable {
  
+    
+    @FXML
+    private TitledPane accordionProgram;
+    
+    @FXML
+    private TitledPane accordionDeltaker;
+    
+    @FXML
+    private Accordion accoTemplate;
+
+    @FXML
+    private TitledPane accordionInfo;
 
     @FXML
     private Label lblLokale;
@@ -105,25 +124,22 @@ public class InputSkjemaController implements Initializable {
     private Button btnLeggTilKontakt;
 
     @FXML
-    private ListView<?> listKontaktperson;
+    private ListView<String> listKontaktperson;
 
     @FXML
     private TextField txtProgram;
 
     @FXML
-    private Button lblKlokkeslett;
+    private Button btnLeggTilProgram;
 
     @FXML
-    private TableColumn<?, ?> colKl;
+    private TextField txtKlokkeStart;
 
     @FXML
-    private TableColumn<?, ?> colProgram;
+    private TextField txtKlokkeSlutt;
 
     @FXML
-    private ComboBox<String> boxKlokkeTime;
-
-    @FXML
-    private ComboBox<String> boxKlokkeMin;
+    private ListView<String> listProgram;
 
     @FXML
     private Button btnLagre;
@@ -132,8 +148,16 @@ public class InputSkjemaController implements Initializable {
     private Button btnAvbryt;
     
     @FXML
-    private Button btnLeggTilProgram;
+    private TableView<ProgramModel> tblProgram;
 
+    @FXML
+    private TableColumn<ProgramModel, String> colKlokkeFra;
+
+    @FXML
+    private TableColumn<ProgramModel, String> colKlokkeTil;
+
+    @FXML
+    private TableColumn<ProgramModel, String> colElement;
   
     /**
      * Initializes the controller class.
@@ -143,7 +167,7 @@ public class InputSkjemaController implements Initializable {
         // TODO
         
         //ChoiceBox for å velge lokale og lagre verdien
-        ObservableList<String> lokaler = FXCollections.observableArrayList(gruppe83.semesteroppgavemaven.logic.Lokale.lokalListe());
+        ObservableList<String> lokaler = FXCollections.observableArrayList(logic.Lokale.lokalListe());
         velgLokale.setItems(lokaler);
         ChangeListener<String> changeListener = new ChangeListener<String>(){
             @Override
@@ -154,6 +178,29 @@ public class InputSkjemaController implements Initializable {
             }
             
         };
+        
+        txtKlokkeStart.setText("00:00");
+        txtKlokkeSlutt.setText("00:00");
+        txtProgram.setText("");
+        
+        colKlokkeFra.setCellValueFactory(new PropertyValueFactory<ProgramModel, String>("startTid"));
+        colKlokkeTil.setCellValueFactory(new PropertyValueFactory<ProgramModel, String>("sluttTid"));
+        colElement.setCellValueFactory(new PropertyValueFactory<ProgramModel, String>("programElement"));
+        //tblProgram.setItems(ProgramModel);
+        
+        btnLeggTilProgram.setOnAction(new EventHandler<ActionEvent>(){
+        ObservableList<ProgramModel> programModels = FXCollections.observableArrayList();
+            @Override
+            public void handle(ActionEvent event) {
+                //ObservableList<ProgramModel> programModels = FXCollections.observableArrayList(
+                //new ProgramModel(txtKlokkeStart.getText(),txtKlokkeSlutt.getText(), txtProgram.getText()));
+                programModels.add(new ProgramModel(txtKlokkeStart.getText(),txtKlokkeSlutt.getText(), txtProgram.getText()));
+                tblProgram.setItems(programModels);
+                txtKlokkeStart.setText("00:00");
+                txtKlokkeSlutt.setText("00:00");
+                txtProgram.setText("");
+            }
+        });
         
         //FORANDRE DETTE DISKUTERE IDEEN MIN MED SARAH
         //ActionEvent for å legge til artist i listen når btbLeggTilArtist blir trykket
@@ -187,35 +234,134 @@ public class InputSkjemaController implements Initializable {
                 }else{
                     //Legger informasjonen om kontaktpersonen i en liste
                     ArrayList<String> kontakt = new ArrayList<>();
-                    kontakt.add(txtNavn.getText());
+                    kontakt.add(txtKontaktNavn.getText());
                     kontakt.add(txtTelefonr.getText());
                     if(!txtEpost.getText().isEmpty()){kontakt.add(txtEpost.getText());}
                     if(!txtNettside.getText().isEmpty()){kontakt.add(txtNettside.getText());}
                     if(!txtFirma.getText().isEmpty()){kontakt.add(txtFirma.getText());}
                     if(!txtOpplysninger.getText().isEmpty()){kontakt.add(txtOpplysninger.getText());}
-                    }
+                    ObservableList<String> kontakO = FXCollections.observableArrayList(kontakt);
+                    listKontaktperson.getItems().addAll(kontakO);
+                }
+                txtKontaktNavn.setText("Navn");
+                txtTelefonr.setText("Telefonr");
+                txtEpost.setText("E-post");
+                txtNettside.setText("Nettside");
+                txtFirma.setText("Firma");
+                txtOpplysninger.setText("Opplysninger");
+               
                 }
             });
-        //________________Finne ett annet sted
-        //Putte inn klokkeslettene i klokkeboksen
-        ArrayList<String> klokkeTimerTemp = new ArrayList<>();
-        for(int i = 0; i <=24; i++){
-            if (i<10){klokkeTimerTemp.add("0"+i);}
-            else {klokkeTimerTemp.add(Integer.toString(i));}
-        }
-
-
-        ObservableList<String> klokkeTimer = FXCollections.observableArrayList(klokkeTimerTemp);   
-        //ObservableList<String> klokkeMin = FXCollections.observableArrayList(klokkeMinTemp);
-        boxKlokkeTime.setItems(klokkeTimer);
-        boxKlokkeMin.setItems(klokkeTimer);
         
-        btnLeggTilProgram.setOnAction(new EventHandler<ActionEvent>() {
+
+        
+        btnLagre.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
+                String message = "";
+                if (txtNavn.getText().isEmpty()){
+                    //Legg til advarsel
+                    return;
+                }
+                else {
+                    message += ("Navn: " +txtNavn.getText()+"\n");
+                    System.out.println("Navn "+txtNavn.getText());
+                }
+
+                if (velgLokale.getValue()==null){
+                    //Legg til advarsel
+                    return;
+                }
+                else {
+                    message += "Lokale: " +velgLokale.getValue()+"\n";
+                    System.out.println("Lokale: " +velgLokale.getValue());
+                }
                 
+                
+                if (velgDato.getValue() == null){
+                    //Legg til advarsel
+                    return;
+                }
+                else {
+                    LocalDate arrDato = velgDato.getValue();
+                    System.out.println(velgDato.getValue());
+                }   
+                
+                if (txtPris.getText().isEmpty()){
+                    //Legg til advarsel
+                }
+                else {
+                    message += "Pris: "+txtPris.getText()+"\n";
+                    System.out.println("Pris: "+txtPris.getText());
+                }
+                
+                //DEENNNE SKAL JEG FORANDRE
+                if (txtBilletter.getText().isEmpty()){
+                    //legg til advarsel
+                } 
+                else {
+                    message += "plasser: "+txtBilletter.getText()+"\n";
+                    System.out.println("plasser: "+txtBilletter.getText());
+                }
+                
+                ArrayList<String> arrArtist = new ArrayList<>();
+                arrArtist.addAll(listeArtist.getItems());
+                message += "Artister: ";
+                for (String elem : listeArtist.getItems()){
+                    message += elem+ " ";
+                }
+                                message += "\n Kontaktperson:\n";
+                System.out.println(listKontaktperson);
+                if(txtKontaktNavn.getText().isEmpty() || txtTelefonr.getText().isEmpty()){
+                    //legg til en advarsel at disse to er nødvendige
+                }else{
+                    //Legger informasjonen om kontaktpersonen i en liste
+                    ObservableList<String> kontakt;
+                    kontakt = listKontaktperson.getItems();;
+                    //finne en måte å finne lengden på listwiev
+                    //kontaktTemp = listview.getSelectionModel().getSelectedItems();
+                    //for (String elem:listKontaktperson){
+                    System.out.println(kontakt);
+                    message += "Navn: "+ kontakt.get(0)+"\n";
+
+                    message += "Telefonnr: "+kontakt.get(1)+"\n";
+                    if(!txtEpost.getText().isEmpty()){
+
+                        message += "E-post: "+kontakt.get(2)+"\n";
+                    }
+                    if(!txtNettside.getText().isEmpty()){
+
+                        message += "Nettside: " +kontakt.get(3)+"\n";
+                    }
+                    if(!txtFirma.getText().isEmpty()){
+
+                        message += "Firma: " + kontakt.get(4)+"\n";
+                    }
+                    if(!txtOpplysninger.getText().isEmpty()){
+
+                        message += "Andre opplysninger: " +kontakt.get(5)+"\n";
+                    }
+                    System.out.println("Andre opplysninger: "+kontakt);
+                    }
+
+                ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+/*             
+Alert alert = new Alert(AlertType.CONFIRMATION);
+alert.setTitle("Confirmation Dialog");
+alert.setHeaderText("Look, a Confirmation Dialog");
+alert.setContentText("Are you ok with this?");
+
+Optional<ButtonType> result = alert.showAndWait();
+if (result.get() == ButtonType.OK){
+    // ... user chose OK
+} else {
+    // ... user chose CANCEL or closed the dialog
+}
+*/
+
             }
-        });
+       
+    });
     };
     //Putte inn klokkeslettene i klokkeboksen
     

@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
@@ -112,8 +113,8 @@ public class FXMLController implements Initializable {
         btnNyttArr.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
+                
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/InputSkjema.fxml"));
-
                 try {
                     Parent root = fxmlLoader.load();
                     Stage stage = new Stage();
@@ -121,15 +122,20 @@ public class FXMLController implements Initializable {
                     stage.setOpacity(1);
                     stage.setTitle("Lag nytt arrangement");
                     stage.setScene(new Scene(root));
-                    stage.setHeight(500);
-                    stage.setWidth(700);
+                    
+                    //stage.setHeight(600);
+                    //stage.setWidth(900);
                     stage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-        });
-    }
-}    
+            });
+        }
+
+}
     
+    
+
+  
