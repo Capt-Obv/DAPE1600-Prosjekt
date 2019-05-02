@@ -11,8 +11,8 @@ import java.nio.file.Paths;
 public class FilereaderCSV extends Filereader {
 
     @Override
-    public void initializeImport(String filename, String objType) throws 
-            FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
+    public void initializeImport(String filename, String objType) throws
+            FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
             InvalidObjectTypeException, InvalidFormatException {
         readFile(filename, objType, "CSV");
     }
