@@ -201,9 +201,9 @@ public class FXMLController {
     /**
      * Allows other controllers to set the text of this layout's Label
      */
-    /*
-    public void setTextFromController2(String text) {
-        lblFromController2.setText(text);
+   /* 
+    public void setTableViewFromController2(TableView table) {
+        tabell.setText(text);
     }
 */
 }
