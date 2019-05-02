@@ -28,7 +28,7 @@ abstract void writeKontaktpersonToFile(FileWriter file, Kontaktperson kontakt) t
 
     public void writeToFile(String objType, String filename, String fileType) throws FileNotFoundException,
              IOException, ClassNotFoundException/*, InvalidObjectTypeException*/ {
-        /*
+        
         FileWriter file = null;
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -91,7 +91,7 @@ abstract void writeKontaktpersonToFile(FileWriter file, Kontaktperson kontakt) t
         }
         if(fos!=null) {
             fos.close();
-        }*/
+        }
     } 
 
 }

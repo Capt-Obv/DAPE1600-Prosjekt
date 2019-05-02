@@ -116,13 +116,14 @@ public class FXMLController implements Initializable {
                 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/InputSkjema.fxml"));
                 try {
-                    Parent root = fxmlLoader.load();
+                    StackPane root = fxmlLoader.load();
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setOpacity(1);
                     stage.setTitle("Lag nytt arrangement");
                     stage.setScene(new Scene(root));
                     
+                    root.getChildren().
                     //stage.setHeight(600);
                     //stage.setWidth(900);
                     stage.show();

@@ -345,6 +345,8 @@ public class InputSkjemaController implements Initializable {
                     }
 
                 ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+                
+                
 /*             
 Alert alert = new Alert(AlertType.CONFIRMATION);
 alert.setTitle("Confirmation Dialog");

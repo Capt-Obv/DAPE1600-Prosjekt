@@ -34,7 +34,7 @@ public class FilereaderCSV extends Filereader {
     Arrangement parseArrangement(String line) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    /*
+    
     public FilereaderCSV(String filename, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException {
@@ -179,5 +179,5 @@ public class FilereaderCSV extends Filereader {
             }
         }
         return pers;
-    }*/
+    }
 }
