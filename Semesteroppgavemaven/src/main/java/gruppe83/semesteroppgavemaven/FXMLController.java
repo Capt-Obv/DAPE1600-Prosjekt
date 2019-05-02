@@ -103,7 +103,7 @@ public class FXMLController implements Initializable {
     @FXML
     private TableColumn colProgramm;
     @FXML
-    private Button skrivFil;
+    private Button btnSkrivFil;
 //    Scene FXMLDocument;
 //    Scene InputSkjema;
     
