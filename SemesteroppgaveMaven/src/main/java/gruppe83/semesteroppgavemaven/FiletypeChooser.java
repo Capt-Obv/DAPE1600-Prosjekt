@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import logic.FilereaderCSV;
 import logic.FilereaderJOBJ;
 import logic.InvalidFormatException;
@@ -33,10 +34,9 @@ public class FiletypeChooser {
             ExtensionFilter("JOBJ files", "'jobj"));
     }
     
-    public void chooseFile() throws Exception {
-        selected = chooser.showOpenDialog(mainStage);
+    public void chooseFile(Stage stage) throws Exception {
+        selected = chooser.showOpenDialog(stage);
         if(selected!=null) {
-            mainStage.display(selected);
             String filename = selected.getName();
             String[] parts = filename.split(".");
             if(parts[1].equals("csv")) {
