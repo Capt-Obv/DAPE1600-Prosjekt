@@ -12,9 +12,9 @@ public class Arrangement implements Serializable {
     private String arrangementsNavn;
     private Kontaktperson kontakt;
     private Lokale lokale;
-    private ArrayList<Deltaker> deltakere;
-    private ArrayList<Programelement> program;
-    private Billett[] solgteBilletter;
+    private transient ArrayList<Deltaker> deltakere;
+    private transient ArrayList<Programelement> program;
+    private transient Billett[] solgteBilletter;
     private Dato dato;
     private int pris;
     private static int antSolgte = 0;

@@ -109,7 +109,7 @@ abstract class Filereader {
                         cont = false;
                     }
                 }
-                if(leggesTil = false) {
+                if(leggesTil == false) {
                     throw new InvalidTimeOverlapException("Already an act performing"
                             + " at given time");
                 }
