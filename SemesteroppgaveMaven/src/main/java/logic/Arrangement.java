@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +16,12 @@ public class Arrangement implements Serializable {
     private ArrayList<Deltaker> deltakere;
     private ArrayList<Programelement> program;
     private Billett[] solgteBilletter;
-    private Dato dato;
+    private LocalDate dato;
     private int pris;
     private static int antSolgte = 0;
     
     public Arrangement(String arrangementsNavn, Lokale lokale, Kontaktperson
-            kontakt, Dato dato, int pris) {
+            kontakt, LocalDate dato, int pris) {
         this.arrangementsNavn = arrangementsNavn;
         this.kontakt = kontakt;
         this.lokale = lokale;
@@ -38,8 +39,8 @@ public class Arrangement implements Serializable {
     public Kontaktperson getKontakt() {return kontakt;}
     public void setLokale(Lokale lokale) {this.lokale = lokale;}
     public Lokale getLokale() {return lokale;}
-    public void setDato(Dato dato) {this.dato = dato;}
-    public Dato getDato() {return dato;}
+    public void setDato(LocalDate dato) {this.dato = dato;}
+    public LocalDate getDato() {return dato;}
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
     public int getAntSolgte() {return antSolgte;}
