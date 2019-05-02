@@ -22,6 +22,7 @@ abstract class Filereader {
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
+    /*
     public void readFile(String filename, String objType, String fileType) throws IOException,
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
             InvalidObjectTypeException, InvalidFormatException {
@@ -291,4 +292,5 @@ abstract class Filereader {
         }
         return pers;
     }
+*/
 }

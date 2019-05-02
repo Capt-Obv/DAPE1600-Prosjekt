@@ -18,6 +18,8 @@ public class FilereaderJOBJ extends Filereader{
     public void initializeImport(String filename, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException {
+        /*
         readFile(filename, objType, "JOBJ");
+*/
     }
 }

@@ -27,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,107 +37,173 @@ import javafx.stage.Window;
  *
  * @author Andrea
  */
-public class FXMLController implements Initializable {
-    
-    @FXML
-    private SplitPane split;
-    
+public class FXMLController {
+
+    // Holds this controller's Stage
+    private final Stage thisStage;
+
+    // Define the nodes from the Layout1.fxml file. This allows them to be referenced within the controller
     @FXML
     private AnchorPane parent;
-    
+
     @FXML
-    private MenuBar menu;
-    
-    @FXML
-    private Menu file;
-    
-    @FXML
-    private Menu edit;
-    
-    @FXML
-    private Menu help;
-    
-    @FXML
-    private MenuItem close;
-    
-    @FXML
-    private MenuItem delete;
-    
-    @FXML
-    private MenuItem about;
+    private SplitPane split;
+
     @FXML
     private Button btnLesFil;
+
     @FXML
     private Button btnNyttArr;
+
     @FXML
     private Button btnSlettArr;
-    @FXML
-    private ScrollPane skroll;
-    @FXML
-    private TextField search;
-    @FXML
-    private MenuButton filter;
-    @FXML
-    private ToolBar toolbar;
-    @FXML
-    private Button kanskje;
-    @FXML
-    private MenuItem filterDato;
-    @FXML
-    private MenuItem filterSal;
-    @FXML
-    private TableView tabell;
-    @FXML
-    private TableColumn colArr;
-    @FXML
-    private TableColumn colNavn;
-    @FXML
-    private TableColumn colLokale;
-    @FXML
-    private TableColumn colKontakt;
-    @FXML
-    private TableColumn colpris;
-    @FXML
-    private TableColumn colBilett;
-    @FXML
-    private TableColumn colDeltaker;
-    @FXML
-    private TableColumn colProgramm;
+
     @FXML
     private Button btnSkrivFil;
-//    Scene FXMLDocument;
-//    Scene InputSkjema;
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+    @FXML
+    private ScrollPane skroll;
+
+    @FXML
+    private ToolBar toolbar;
+
+    @FXML
+    private TextField search;
+
+    @FXML
+    private Button kanskje;
+
+    @FXML
+    private MenuButton filter;
+
+    @FXML
+    private MenuItem filterDato;
+
+    @FXML
+    private MenuItem filterSal;
+
+    @FXML
+    private TableView<?> tabell;
+
+    @FXML
+    private TableColumn<?, ?> colArr;
+
+    @FXML
+    private TableColumn<?, ?> colNavn;
+
+    @FXML
+    private TableColumn<?, ?> colKontakt;
+
+    @FXML
+    private TableColumn<?, ?> colpris;
+
+    @FXML
+    private TableColumn<?, ?> colBilett;
+
+    @FXML
+    private TableColumn<?, ?> colDeltaker;
+
+    @FXML
+    private TableColumn<?, ?> colProgramm;
+
+    @FXML
+    private TableColumn<?, ?> colLokale;
+
+    @FXML
+    private MenuBar menu;
+
+    @FXML
+    private Menu file;
+
+    @FXML
+    private MenuItem close;
+
+    @FXML
+    private Menu edit;
+
+    @FXML
+    private MenuItem delete;
+
+    @FXML
+    private Menu help;
+
+    @FXML
+    private MenuItem about;
+
+    public FXMLController() {
+
+        // Create the new stage
+        thisStage = new Stage();
+
+        // Load the FXML file
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+
+            // Set this class as the controller
+            loader.setController(this);
+
+            // Load the scene
+            thisStage.setScene(new Scene((Pane) loader.load()));
+
+            // Setup the window/stage
+            thisStage.setTitle("Passing Controllers Example - Layout1");
+
+        } catch (IOException e) {
+        }
+    }
+
+    /**
+     * Show the stage that was loaded in the constructor
+     */
+    public void showStage() {
+        thisStage.showAndWait();
+    }
+
+    /**
+     * The initialize() method allows you set setup your scene, adding actions, configuring nodes, etc.
+     */
+    @FXML
+    private void initialize() {
+
+        // Add an action for the "Open Layout2" button
         btnNyttArr.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-                
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/InputSkjema.fxml"));
-                try {
-                    StackPane root = fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.setOpacity(1);
-                    stage.setTitle("Lag nytt arrangement");
-                    stage.setScene(new Scene(root));
-                    
-                    root.getChildren().
-                    //stage.setHeight(600);
-                    //stage.setWidth(900);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                openLayout2();
             }
             
-            });
-        }
+        });
+    }
 
+    /**
+     * Performs the action of loading and showing Layout2
+     */
+    private void openLayout2() {
+
+        // Create the second controller, which loads its own FXML file. We pass a reference to this controller
+        // using the keyword [this]; that allows the second controller to access the methods contained in here.
+        InputSkjemaController controller2 = new InputSkjemaController(this);
+
+        // Show the new stage/window
+        controller2.showStage();
+
+    }
+
+    /**
+     * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
+     */
+    /*
+    public logic.Arrangement getArrangement() {
+        return .getText();
+    }
+    */
+
+    /**
+     * Allows other controllers to set the text of this layout's Label
+     */
+    /*
+    public void setTextFromController2(String text) {
+        lblFromController2.setText(text);
+    }
+*/
 }
-    
-    
-
-  

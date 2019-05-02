@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+/*
 public class FilereaderCSV extends Filereader {
 
     @Override
@@ -17,3 +17,4 @@ public class FilereaderCSV extends Filereader {
         readFile(filename, objType, "CSV");
     }
 }
+*/

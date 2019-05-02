@@ -16,6 +16,7 @@ import java.nio.file.Paths;
  * @author sarah
  */
 public class FileExporterCSV extends FileExporter {
+    /*
     private FileWriter writer = null;
     String objType = null;
     
@@ -70,4 +71,5 @@ public class FileExporterCSV extends FileExporter {
                 kontakt.getFirma()));
         writer.write("\n");
     }
+*/
 }
