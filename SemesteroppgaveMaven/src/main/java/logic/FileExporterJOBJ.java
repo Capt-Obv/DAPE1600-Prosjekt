@@ -57,10 +57,20 @@ public class FileExporterJOBJ extends FileExporter {
         oos.writeObject(arr);
     }
     
+    @Override
     public void writeLokaleToFile(Lokale lok) throws FileNotFoundException,
             IOException {
         oos = new ObjectOutputStream(fos);
         oos.writeObject(lok);
+    }
+    
+    @Override
+    public void writeBillettToFile(Arrangement arr) throws FileNotFoundException,
+            IOException {
+        oos = new ObjectOutputStream(fos);
+        for(int i=0; i<arr.getAntSolgte(); i++) {
+            oos.writeObject(arr.getBillett(i));
+        }
     }
     
 }

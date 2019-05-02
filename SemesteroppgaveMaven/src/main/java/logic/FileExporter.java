@@ -18,6 +18,8 @@ abstract class FileExporter {
             IOException;
     abstract void writeKontaktpersonToFile(Kontaktperson kpers) throws FileNotFoundException,
             IOException;
+    abstract void writeBillettToFile(Arrangement arr) throws FileNotFoundException,
+            IOException;
 
     public void writeToFile(String objType) throws InvalidObjectTypeException,
             FileNotFoundException, IOException {
@@ -41,6 +43,10 @@ abstract class FileExporter {
         } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
             for(Kontaktperson pers: main.kontaktpersonListe) {
                 writeKontaktpersonToFile(pers);
+            }
+        } else if(objType.toUpperCase().equals("BILLETT")) {
+            for(Arrangement arr: main.arrangementListe) {
+                writeBillettToFile(arr);
             }
         } else {
             throw new InvalidObjectTypeException("Not a valid objecttype");

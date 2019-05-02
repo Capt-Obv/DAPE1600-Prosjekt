@@ -43,6 +43,18 @@ public class FileExporterCSV extends FileExporter {
     }
     
     @Override
+    public void writeBillettToFile(Arrangement arr) throws FileNotFoundException,
+            IOException {
+        for(int i=0; i<arr.getAntSolgte(); i++) {
+            Billett bill = arr.getBillett(i);
+            writer.write(String.format("%s;%d;%s;%d;%s;%d", bill.getSted().getNavn(), 
+                    bill.getPlassNr(), bill.getDato().toString(), bill.getPris(),
+                    bill.getPerson().getNavn(), bill.getPerson().getTelefonNr()));
+            writer.write("\n");
+        }
+    }
+    
+    @Override
     public void writeLokaleToFile(Lokale lokale) throws FileNotFoundException,
             IOException {
         writer.write(String.format("%s;%d;%s", lokale.getNavn(), lokale.getAntPlasser(),
@@ -55,14 +67,6 @@ public class FileExporterCSV extends FileExporter {
             FileNotFoundException, IOException {
         writer.write(String.format("%s;%s;%s;%s;%d", arr.getNavn(), arr.getKontakt().getNavn(),
                 arr.getLokale().getNavn(), arr.getDato().toString(), arr.getPris()));
-        writer.write("\n");
-        for(int i=0; i<arr.getAntSolgte(); i++) {
-            Billett bill = arr.getBillett(i);
-            writer.write(String.format("%s;%d;%s;%d;%s;%d", bill.getSted().getNavn(), 
-                    bill.getPlassNr(), bill.getDato().toString(), bill.getPris(),
-                    bill.getPerson().getNavn(), bill.getPerson().getTelefonNr()));
-            writer.write("\n");
-        }
         
         writer.write("\n");
     }
