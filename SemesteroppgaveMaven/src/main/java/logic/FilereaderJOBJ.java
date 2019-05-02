@@ -18,7 +18,7 @@ public class FilereaderJOBJ extends Filereader{
     @Override
     public void initializeImport(File file, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
-            InvalidObjectTypeException, InvalidFormatException {
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException {
         readFile(file, objType, "jobj");
     }
 }
