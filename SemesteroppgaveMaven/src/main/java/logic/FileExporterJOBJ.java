@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
  * @author sarah
  */
 
-/*
+
 public class FileExporterJOBJ extends FileExporter {
     private FileOutputStream fos = null;
     private ObjectOutputStream oos = null;
@@ -64,4 +64,3 @@ public class FileExporterJOBJ extends FileExporter {
     }
     
 }
-*/

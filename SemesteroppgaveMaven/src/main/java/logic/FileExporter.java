@@ -7,7 +7,6 @@ package logic;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static logic.Semesteroppgave.main;
 
 abstract class FileExporter {
 
