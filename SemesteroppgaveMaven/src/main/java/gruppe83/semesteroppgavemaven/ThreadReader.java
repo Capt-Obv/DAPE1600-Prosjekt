@@ -17,10 +17,10 @@ public class ThreadReader extends Task<Void> {
     
     @Override
     protected Void call() throws Exception {
-        try{ 
+        try { 
             FiletypeChooser chooser = new FiletypeChooser();
+            Thread.sleep(5000);
         } catch(InterruptedException e) {
-            // Will not happen
         }
         return null;
     }

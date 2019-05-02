@@ -6,11 +6,15 @@
 package gruppe83.semesteroppgavemaven;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import logic.FilereaderCSV;
 import logic.FilereaderJOBJ;
 import logic.InvalidFormatException;
+import logic.InvalidObjectTypeException;
+import logic.InvalidTimeOverlapException;
 
 /**
  *
@@ -29,22 +33,38 @@ public class FiletypeChooser {
             ExtensionFilter("JOBJ files", "'jobj"));
     }
     
-    public void chooseFile() throws InvalidFormatException{
+    public void chooseFile() throws Exception {
         selected = chooser.showOpenDialog(mainStage);
         if(selected!=null) {
             mainStage.display(selected);
             String filename = selected.getName();
             String[] parts = filename.split(".");
-            try {
-                if(parts[1].equals("csv")) {
+            if(parts[1].equals("csv")) {
+                try {
                     FilereaderCSV csvReader = new FilereaderCSV();
                     csvReader.initializeImport(selected, parts[0]);
-                } else if(parts[1].equals("jobj")) {
-                    FilereaderJOBJ jobjReader = new FilereaderCSV();
-                    jobjReader.initializeImport(selected, parts[0]);
+                } catch (InvalidTimeOverlapException | InvalidObjectTypeException
+                        | InvalidFormatException | ClassNotFoundException e) {
+                    
+                } catch (FileNotFoundException e) {
+                    
+                } catch (IOException e) {
+                    
                 }
-            } catch (FileNotFoundException e) {
-                
+            } else if(parts[1].equals("jobj")) {
+                FilereaderJOBJ jobjReader = new FilereaderJOBJ();
+                jobjReader.initializeImport(selected, parts[0]);
+                try {
+                    FilereaderCSV csvReader = new FilereaderCSV();
+                    csvReader.initializeImport(selected, parts[0]);
+                } catch (InvalidTimeOverlapException | InvalidObjectTypeException
+                        | InvalidFormatException | ClassNotFoundException e) {
+                    
+                } catch (FileNotFoundException e) {
+                    
+                } catch (IOException e) {
+                    
+                }
             }
         }
     }

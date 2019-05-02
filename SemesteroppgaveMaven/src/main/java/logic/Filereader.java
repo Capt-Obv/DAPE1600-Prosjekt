@@ -15,37 +15,53 @@ import static logic.Semesteroppgave.main;
  * @author sarah
  */
 abstract class Filereader {
+<<<<<<< HEAD
     abstract void initializeImport(File file, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
+=======
+    abstract void initializeImport(String filename, String objType) throws
+            FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
+>>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
             InvalidObjectTypeException, InvalidFormatException;
-    
+
     /* method checks if filetype is of the allowed two: jobj and csv, creates
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
+<<<<<<< HEAD
     
     public void readFile(File inputfile, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
+=======
+    /*
+    public void readFile(String filename, String objType, String fileType) throws IOException,
+            FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
+>>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
             InvalidObjectTypeException, InvalidFormatException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         if(fileType.equals("csv")) {
+<<<<<<< HEAD
             reader = new BufferedReader(new FileReader(inputfile));
             
+=======
+            reader = Files.newBufferedReader(Paths.get(filename));
+
+>>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
         } else if(fileType.equals("jobj")) {
             fis = new FileInputStream(inputfile);
             ois = new ObjectInputStream(fis);
         } else {
             throw new FileNotFoundException("Filetype must be either .csv or .jobj");
-            
+
         }
-        
+
         //parameters to check if we've reached the end of the Input-file.
          String line = null;
          boolean cont = true;
-         
-         
+
+
         while(((line=reader.readLine())!=null) || (cont)) {
             if(objType.toUpperCase().equals("DELTAKER")) {
                 if(fileType.equals("csv")) {
@@ -63,7 +79,7 @@ abstract class Filereader {
                     main.arrangementListe.add(parseArrangement(line));
                 } else {
                     Arrangement arr = (Arrangement) ois.readObject();
-                    
+
                     if(arr != null) {
                         main.arrangementListe.add(arr);
                     } else {
@@ -125,8 +141,8 @@ abstract class Filereader {
             ois.close();
         }
     }
-    
-    public static int parseTall(String testStr, String errorMessage) 
+
+    public static int parseTall(String testStr, String errorMessage)
             throws InvalidFormatException {
         int tall;
         try {
@@ -136,8 +152,8 @@ abstract class Filereader {
         }
         return tall;
     }
-    
-    public static boolean checkEmail(String testStr, String errorMessage) 
+
+    public static boolean checkEmail(String testStr, String errorMessage)
             throws InvalidFormatException {
         boolean trueEmail = false;
         if(testStr.contains("@")) {
@@ -169,7 +185,7 @@ abstract class Filereader {
         }
         return leggesTil;
     }
-    
+
     public Lokale parseLokale(String line) throws InvalidFormatException {
         Lokale lok = null;
         String[] del = line.split(";");
@@ -185,7 +201,7 @@ abstract class Filereader {
         return lok;
 
     }
-    
+
     public Deltaker parseDeltaker(String line) throws InvalidFormatException {
         Person nyPerson = null;
         Deltaker deltaker = null;
@@ -217,8 +233,8 @@ abstract class Filereader {
         }
         return deltaker;
     }
-    
-    public Arrangement parseArrangement(String line) throws InvalidFormatException, 
+
+    public Arrangement parseArrangement(String line) throws InvalidFormatException,
         InvalidDateFormatException {
         Arrangement arr = null;
         Dato arrDato = null;
@@ -228,7 +244,7 @@ abstract class Filereader {
         Kontaktperson kontakt = null;
         Lokale lokasjon = null;
         int pris = 0;
-        
+
         String[] del = line.split(";");
         if(del.length<5) {
             throw new InvalidFormatException("CSV-formats require data to be"
@@ -261,7 +277,7 @@ abstract class Filereader {
         }
         return arr;
     }
-    
+
     public Kontaktperson parseKontakt(String line) throws InvalidFormatException {
         Kontaktperson pers = null;
         String epostadresse = null;
@@ -287,10 +303,11 @@ abstract class Filereader {
                 pers = new Kontaktperson(navn, telefonNr,
                         epostadresse, opplysninger, nettside, firma);
             } else {
-                pers = new Kontaktperson(navn, telefonNr, 
+                pers = new Kontaktperson(navn, telefonNr,
                         epostadresse, opplysninger);
             }
         }
         return pers;
     }
+*/
 }
