@@ -11,21 +11,3 @@ public class InvalidFormatException extends Exception {
         super(msg);
     }
 }
-
-class InvalidDateFormatException extends Exception {
-    public InvalidDateFormatException(String msg){
-        super(msg);
-    }
-}
-
-class InvalidTimeOverlapException extends Exception {
-    public InvalidTimeOverlapException(String msg) {
-        super(msg);
-    }
-}
-
-class InvalidObjectTypeException extends Exception {
-    public InvalidObjectTypeException(String msg) {
-        super(msg);
-    }
-}
