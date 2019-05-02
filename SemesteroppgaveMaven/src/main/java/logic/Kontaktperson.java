@@ -1,11 +1,15 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package logic;
 
 import java.io.Serializable;
 
 /**
  *
- * @author sarah
+ * @author Andrea
  */
 public class Kontaktperson extends Person implements Serializable {
     private String epostadresse, opplysninger;
@@ -22,7 +26,7 @@ public class Kontaktperson extends Person implements Serializable {
         this.opplysninger = opplysninger;
     }
     
-    public Kontaktperson(String navn, int telefonNr, String epostadresse, String
+        public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger, String nettside) {
         super(navn, telefonNr);
         this.epostadresse = epostadresse;
@@ -72,3 +76,4 @@ public class Kontaktperson extends Person implements Serializable {
         return result;
     }
 }
+
