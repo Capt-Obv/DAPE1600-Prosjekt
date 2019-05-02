@@ -29,9 +29,9 @@ public class FiletypeChooser {
         chooser = new FileChooser();
         chooser.setTitle("Chose file to read");
         chooser.getExtensionFilters().add(new 
-            ExtensionFilter("CSV files", "*.csv"));
+        ExtensionFilter("CSV files", "*.csv"));
         chooser.getExtensionFilters().add(new 
-            ExtensionFilter("JOBJ files", "'jobj"));
+        ExtensionFilter("JOBJ files", "'jobj"));
     }
     
     public void chooseFile(Stage stage) throws Exception {

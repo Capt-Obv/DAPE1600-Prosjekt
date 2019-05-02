@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Andrea
  */
-public class Kontaktperson extends Person implements Serializable {
+//public class Kontaktperson extends Person implements Serializable {
+public class Kontaktperson {
     private String epostadresse, opplysninger;
     private String nettside = null;
     private String firma = null;

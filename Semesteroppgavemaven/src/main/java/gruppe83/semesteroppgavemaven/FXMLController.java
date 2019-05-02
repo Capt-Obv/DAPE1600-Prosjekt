@@ -1,10 +1,12 @@
 package gruppe83.semesteroppgavemaven;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -16,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuButton;
@@ -29,9 +32,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import logic.ArrangementModel;
 
 /**
  *
@@ -129,6 +134,15 @@ public class FXMLController {
 
     @FXML
     private MenuItem about;
+    
+    @FXML
+    private TableView<ArrangementModel> tblToSecondController;
+    
+    @FXML
+    private TableView<ArrangementModel> tblFromSecondController;
+    @FXML
+    private ListView<logic.Arrangement> listFromSecondController;
+    
 
     public FXMLController() {
 
@@ -173,6 +187,36 @@ public class FXMLController {
             }
             
         });
+ 
+        btnLesFil.setOnAction(new EventHandler<ActionEvent>(){
+            FileChooser fileChooser = new FileChooser();
+            @Override
+            public void handle(ActionEvent event) {
+                fileChooser.setTitle("Chose file to read");
+                fileChooser.getExtensionFilters().add(new 
+                FileChooser.ExtensionFilter("CSV files", "*.csv"));
+                fileChooser.getExtensionFilters().add(new 
+                FileChooser.ExtensionFilter("JOBJ files", "'jobj"));
+                File selectedFile= fileChooser.showOpenDialog(thisStage);
+            }
+
+            
+        });
+        
+            btnLesFil.setOnAction(new EventHandler<ActionEvent>(){
+            FileChooser fileChooser = new FileChooser();
+            @Override
+            public void handle(ActionEvent event) {
+                fileChooser.setTitle("Chose file to read");
+                fileChooser.getExtensionFilters().add(new 
+                FileChooser.ExtensionFilter("CSV files", "*.csv"));
+                fileChooser.getExtensionFilters().add(new 
+                FileChooser.ExtensionFilter("JOBJ files", "'jobj"));
+                File selectedFile= fileChooser.showOpenDialog(thisStage);
+            }
+
+            
+        });
     }
 
     /**
@@ -188,22 +232,15 @@ public class FXMLController {
         controller2.showStage();
 
     }
-
-    /**
-     * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
-     */
-    /*
-    public logic.Arrangement getArrangement() {
-        return .getText();
+/*
+    public ListView getEnteredText() {
+        return tblToSecondController;
     }
-    */
-
+*/
     /**
      * Allows other controllers to set the text of this layout's Label
      */
-   /* 
-    public void setTableViewFromController2(TableView table) {
-        tabell.setText(text);
+    public void setListViewFromSecondController(ObservableList<logic.Arrangement> arr) {
+        listFromSecondController.setItems(arr);
     }
-*/
 }

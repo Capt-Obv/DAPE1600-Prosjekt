@@ -355,41 +355,43 @@ public class InputSkjemaController {
                     //legg til en advarsel at disse to er nødvendige
                 }else{
                     //Legger informasjonen om kontaktpersonen i en liste
-                    ObservableList<String> kontakt;
-                    kontakt = listKontaktperson.getItems();;
-                    Kontaktperson kontaktperson = new Kontaktperson()
                     //finne en måte å finne lengden på listwiev
                     //kontaktTemp = listview.getSelectionModel().getSelectedItems();
                     //for (String elem:listKontaktperson){
-                    System.out.println(kontakt);
-                    message += "Navn: "+ kontakt.get(0)+"\n";
-
-                    message += "Telefonnr: "+kontakt.get(1)+"\n";
+                    //message += "Navn: "+ kontakt.get(0)+"\n";
                     if(!txtEpost.getText().isEmpty()){
 
-                        message += "E-post: "+kontakt.get(2)+"\n";
-                    }
-                    if(!txtNettside.getText().isEmpty()){
-
-                        message += "Nettside: " +kontakt.get(3)+"\n";
-                    }
-                    if(!txtFirma.getText().isEmpty()){
-
-                        message += "Firma: " + kontakt.get(4)+"\n";
+                        //message += "E-post: "+kontakt.get(2)+"\n";
                     }
                     if(!txtOpplysninger.getText().isEmpty()){
 
-                        message += "Andre opplysninger: " +kontakt.get(5)+"\n";
+                        //message += "Andre opplysninger: " +kontakt.get(5)+"\n";
                     }
-                    System.out.println("Andre opplysninger: "+kontakt);
-                    }
+                    //message += "Telefonnr: "+kontakt.get(1)+"\n";
+                    
+                    if(!txtNettside.getText().isEmpty()){
 
-                ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+                        //message += "Nettside: " +kontakt.get(3)+"\n";
+                    }
+                    if(!txtFirma.getText().isEmpty()){
+
+                        //message += "Firma: " + kontakt.get(4)+"\n";
+                    }
+                    
+                    //System.out.println("Andre opplysninger: "+kontakt);
+                    }
                 
-                Lokale lok = new Lokale(Sal1, txtBilletter.getText(),velgLokale.getValue());
-                Arrangement arr = new Arrangement(txtNavn.getText(),lok,kontaktperson,velgDato.getValue(),txtPris);
             }
     });
+                ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+                ObservableList<String> kontakt;
+                kontakt = listKontaktperson.getItems();
+                
+                Kontaktperson kontaktperson = new Kontaktperson(kontakt.get(0), Integer.parseInt(kontakt.get(1)),
+                    kontakt.get(2), kontakt.get(5), kontakt.get(3), kontakt.get(4));
+                
+                Lokale lok = new Lokale("Sal1", Integer.parseInt(txtBilletter.getText()),velgLokale.getValue());
+                Arrangement arr = new Arrangement(txtNavn.getText(),lok,kontaktperson,velgDato.getValue(),Integer.parseInt(txtPris.getText()));
     }
 
     /**
@@ -413,8 +415,10 @@ public class InputSkjemaController {
     /**
      * Calls the "setTextFromController2()" method on the first controller to update its Label
      */
-    private void setNavn() {
-        controller1.setTableFromController2(tableToFirstController.getText());
+    /*
+    private void setArr(Arrangement arr) {
+        controller1.setTableFromController2(arr);
     }
+*/
 
 }
