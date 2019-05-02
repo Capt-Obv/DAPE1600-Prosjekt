@@ -18,7 +18,7 @@ abstract class Filereader {
 
     abstract void initializeImport(File file, String objType) throws
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException;
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException;
 
     /* method checks if filetype is of the allowed two: jobj and csv, creates
     readers for the different filetypes and depending on strategy creates object
@@ -27,7 +27,7 @@ abstract class Filereader {
     
     public void readFile(File inputfile, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
-            InvalidObjectTypeException, InvalidFormatException {
+            InvalidObjectTypeException, InvalidFormatException , InvalidDateFormatException{
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -50,45 +50,45 @@ abstract class Filereader {
         while(((line=reader.readLine())!=null) || (cont)) {
             if(objType.toUpperCase().equals("DELTAKER")) {
                 if(fileType.equals("csv")) {
-                    main.deltakerListe.add(parseDeltaker(line));
+                    parseDeltaker(line);
                 } else {
                     Deltaker nyDeltaker = (Deltaker) ois.readObject();
                     if(nyDeltaker != null) {
-                        main.deltakerListe.add(nyDeltaker);
+                        cont = true;
                     } else {
                         cont = false;
                     }
                 }
             } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
                 if(fileType.equals("csv")) {
-                    main.arrangementListe.add(parseArrangement(line));
+                    parseArrangement(line);
                 } else {
                     Arrangement arr = (Arrangement) ois.readObject();
 
                     if(arr != null) {
-                        main.arrangementListe.add(arr);
+                        cont = true;
                     } else {
                         cont = false;
                     }
                 }
             } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
                 if(fileType.equals("csv")) {
-                    main.kontaktPersonListe.add(parseKontakt(line));
+                    parseKontakt(line);
                 } else {
                     Kontaktperson pers = (Kontaktperson) ois.readObject();
                     if(pers != null) {
-                        main.kontaktpersonListe.add(pers);
+                        cont = true;
                     } else {
                         cont = false;
                     }
                 }
             } else if(objType.toUpperCase().equals("LOKALE")) {
                 if(fileType.equals("csv")) {
-                    main.lokaleListe.add(parseLokale(line));
+                    parseLokale(line);
                 } else {
                     Lokale lok = (Lokale) ois.readObject();
                     if(lok != null) {
-                        main.lokalListe.add(lok);
+                        cont = true;
                     } else {
                         cont = false;
                     }
