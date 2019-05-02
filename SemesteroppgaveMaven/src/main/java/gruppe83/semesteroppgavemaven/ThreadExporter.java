@@ -4,6 +4,7 @@ package gruppe83.semesteroppgavemaven;
 import javafx.concurrent.Task;
 import logic.FileExporterCSV;
 import logic FileExporterJOBJ;
+import logic.InvalidFormatException;
 
 /**
  *
@@ -24,14 +25,18 @@ public class ThreadExporter extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         if(fileType.equals("csv")) {
-            FileExporterCSV export = new FileExporterCSV(String.format("%s.csv", objType));
+            FileExporterCSV export = new FileExporterCSV(objType,String.format("%s.csv", objType));
             export.writeToFile(objType);
         } else if (fileType.equals("jobj")) {
-            FileExporterJOBJ export = new FileExporterJOBJ();
+            FileExporterJOBJ export = new FileExporterJOBJ(objType, String.format("%s.jobj", objType));
             export.writeToFile(objType);
+        } else {
+            throw new InvalidFormatException("Not a supported file-format");
+        }
         try {   
             Thread.sleep(5000);
         } catch(InterruptedException e) {
+            throw new InterruptedException("Fileexporting aborted");
         }
         return null;
     }
@@ -39,5 +44,4 @@ public class ThreadExporter extends Task<Void> {
     protected void succeeded() {
         readWriteDone.run();
     }
-}
 }
