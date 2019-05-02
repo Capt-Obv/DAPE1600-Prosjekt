@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
@@ -14,7 +15,7 @@ import static logic.Semesteroppgave.main;
  * @author sarah
  */
 abstract class Filereader {
-    abstract void initializeImport(String filename, String objType) throws 
+    abstract void initializeImport(File file, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException;
     
@@ -22,17 +23,18 @@ abstract class Filereader {
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
-    public void readFile(String filename, String objType, String fileType) throws IOException, 
+    
+    public void readFile(File inputfile, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         if(fileType.equals("csv")) {
-            reader = Files.newBufferedReader(Paths.get(filename));
+            reader = new BufferedReader(new FileReader(inputfile));
             
         } else if(fileType.equals("jobj")) {
-            fis = new FileInputStream(new File(filename));
+            fis = new FileInputStream(inputfile);
             ois = new ObjectInputStream(fis);
         } else {
             throw new FileNotFoundException("Filetype must be either .csv or .jobj");
