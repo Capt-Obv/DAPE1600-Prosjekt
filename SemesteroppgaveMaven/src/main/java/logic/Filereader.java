@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 /**
  *
  * @author sarah
@@ -41,12 +39,14 @@ abstract class Filereader {
 
         }
 
-        //parameters to check if we've reached the end of the Input-file.
+        //parameters to check if we've reached the end of the Input-file or
+        // if the event in question is full and the ticket-sale is closed.
          String line = null;
          boolean cont = true;
+         boolean ledig = true;
 
 
-        while(((line=reader.readLine())!=null) || (cont)) {
+        while((((line=reader.readLine())!=null) || (cont)) && (ledig)) {
             if(objType.toUpperCase().equals("DELTAKER")) {
                 if(fileType.equals("csv")) {
                     parseDeltaker(line);
@@ -115,15 +115,11 @@ abstract class Filereader {
                 }
                 
             } else if(objType.toUpperCase().equals("BILLETT")) {
-                Boolean billettSalg = false;
                 if(fileType.equals("csv")) {
-                    billettSalg = parseBillett(line);
-                    
-                    // LEGG TIL!!!!!!!
-                    
+                    ledig = parseBillett(line);
                 } else {
                     Billett bill = (Billett) ois.readObject();
-                    billettSalg = bill.getArrangement().billettsalg(bill.getPerson());
+                    ledig = bill.getArrangement().billettsalg(bill.getPerson());
                 }
             } else {
                 throw new InvalidObjectTypeException("Not a valid object type");
@@ -158,6 +154,30 @@ abstract class Filereader {
             throw new InvalidFormatException(errorMessage);
         }
         return trueEmail;
+    }
+    
+    public boolean parseBillett(String line) throws InvalidFormatException, 
+            InvalidDateFormatException {
+        Arrangement arr = null;
+        boolean salg = false;
+        
+        String[] del = line.split(";");
+        
+        String arrangementNavn = del[0];
+        for(Arrangement a: main.arrangementListe) {
+            if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
+                arr = a;
+            }
+        }
+        if(arr!= null) {
+            String navn = del[1];
+            int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
+            Person kjøper = new Person(navn, telefonNr);
+            salg = arr.billettsalg(kjøper);
+        } else {
+            throw new InvalidFormatException("Event in question does not exist");
+        }
+        return salg;
     }
 
     public boolean parseProgram(String line) throws InvalidFormatException {
@@ -234,9 +254,9 @@ abstract class Filereader {
         InvalidDateFormatException {
         Arrangement arr = null;
         Dato arrDato = null;
-        int mnd;
-        int dg;
-        int år;
+        int mnd = 0;
+        int dg = 0;
+        int år = 0;
         Kontaktperson kontakt = null;
         Lokale lokasjon = null;
         int pris = 0;
