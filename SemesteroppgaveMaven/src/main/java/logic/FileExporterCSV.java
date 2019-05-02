@@ -9,20 +9,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  *
  * @author sarah
  */
 public class FileExporterCSV extends FileExporter {
-    /*
+    
     private FileWriter writer = null;
     String objType = null;
     
-    public FileExporterCSV(String objType, String filepath) throws FileNotFoundException,
+    public FileExporterCSV(String objType, String filename) throws FileNotFoundException,
             IOException {
-        writer = new FileWriter(new File(filepath));
+        writer = new FileWriter(new File(filename));
         this.objType = objType;
     }
     
@@ -56,9 +55,14 @@ public class FileExporterCSV extends FileExporter {
             FileNotFoundException, IOException {
         writer.write(String.format("%s;%s;%s;%s;%d", arr.getNavn(), arr.getKontakt().getNavn(),
                 arr.getLokale().getNavn(), arr.getDato().toString(), arr.getPris()));
-        
-        //NOTE:  Kanskje vi skal skrive ut Programmet her også?
-        
+        writer.write("\n");
+        for(int i=0; i<arr.getAntSolgte(); i++) {
+            Billett bill = arr.getBillett(i);
+            writer.write(String.format("%s;%d;%s;%d;%s;%d", bill.getSted().getNavn(), 
+                    bill.getPlassNr(), bill.getDato().toString(), bill.getPris(),
+                    bill.getPerson().getNavn(), bill.getPerson().getTelefonNr()));
+            writer.write("\n");
+        }
         
         writer.write("\n");
     }
@@ -71,5 +75,4 @@ public class FileExporterCSV extends FileExporter {
                 kontakt.getFirma()));
         writer.write("\n");
     }
-*/
 }

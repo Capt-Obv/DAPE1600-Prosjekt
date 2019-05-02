@@ -44,7 +44,7 @@ public class Arrangement implements Serializable {
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
     public int getAntSolgte() {return antSolgte;}
-    
+    public Billett getBillett(int indeks) {return solgteBilletter[indeks];} 
 
     // method for adding performers (participants of event that do not
     // require a ticket
