@@ -113,6 +113,18 @@ abstract class Filereader {
                     throw new InvalidTimeOverlapException("Already an act performing"
                             + " at given time");
                 }
+                
+            } else if(objType.toUpperCase().equals("BILLETT")) {
+                Boolean billettSalg = false;
+                if(fileType.equals("csv")) {
+                    billettSalg = parseBillett(line);
+                    
+                    // LEGG TIL!!!!!!!
+                    
+                } else {
+                    Billett bill = (Billett) ois.readObject();
+                    billettSalg = bill.getArrangement().billettsalg(bill.getPerson());
+                }
             } else {
                 throw new InvalidObjectTypeException("Not a valid object type");
             }

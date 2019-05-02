@@ -8,14 +8,16 @@ public class Billett implements Serializable {
     private Dato dato;
     private int pris;
     private Person kjøper;
+    private Arrangement arr;
     
     public Billett(Lokale sted, int plassNr, Dato dato, int pris, 
-            Person kjøper) {
+            Person kjøper, Arrangement arr) {
         this.sted = sted;
         this.plassNr = plassNr;
         this.dato = dato;
         this.pris = pris;
         this.kjøper = kjøper;
+        this.arr = arr;
     }
     
     //get-set methods
@@ -29,6 +31,7 @@ public class Billett implements Serializable {
     public int getPris() {return pris;}
     public void setPerson(Person kjøper) {this.kjøper = kjøper;}
     public Person getPerson() {return kjøper;}
+    public Arrangement getArrangement() {return arr;}
     
     @Override
     public String toString() {

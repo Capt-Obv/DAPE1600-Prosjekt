@@ -58,7 +58,7 @@ public class Arrangement implements Serializable {
     public boolean billettsalg(Person pers) {
         boolean billett = false;
         if(antSolgte < lokale.getAntPlasser()) {
-            Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers);
+            Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers, this);
             Deltaker kunde = new Deltaker(pers, "Deltaker");
             deltakere.add(kunde);
             solgteBilletter[antSolgte] = nybillett;
