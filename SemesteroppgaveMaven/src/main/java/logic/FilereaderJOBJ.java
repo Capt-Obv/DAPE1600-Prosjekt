@@ -15,9 +15,9 @@ import java.io.IOException;
 public class FilereaderJOBJ extends Filereader{
     
     @Override
-    public void initializeImport(String filename, String objType) throws 
+    public void initializeImport(File file, String objType) throws 
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException {
-        readFile(filename, objType, "JOBJ");
+        readFile(file, objType, "jobj");
     }
 }
