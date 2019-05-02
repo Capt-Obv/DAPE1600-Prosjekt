@@ -15,40 +15,25 @@ import static logic.Semesteroppgave.main;
  * @author sarah
  */
 abstract class Filereader {
-<<<<<<< HEAD
-    abstract void initializeImport(File file, String objType) throws 
-            FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException, 
-=======
-    abstract void initializeImport(String filename, String objType) throws
+
+    abstract void initializeImport(File file, String objType) throws
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
->>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
             InvalidObjectTypeException, InvalidFormatException;
 
     /* method checks if filetype is of the allowed two: jobj and csv, creates
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
-<<<<<<< HEAD
     
     public void readFile(File inputfile, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
-=======
-    /*
-    public void readFile(String filename, String objType, String fileType) throws IOException,
-            FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
->>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
             InvalidObjectTypeException, InvalidFormatException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         if(fileType.equals("csv")) {
-<<<<<<< HEAD
             reader = new BufferedReader(new FileReader(inputfile));
             
-=======
-            reader = Files.newBufferedReader(Paths.get(filename));
-
->>>>>>> 6295515fdb7b3afb38a48b82714d171776b65fbf
         } else if(fileType.equals("jobj")) {
             fis = new FileInputStream(inputfile);
             ois = new ObjectInputStream(fis);
@@ -309,5 +294,4 @@ abstract class Filereader {
         }
         return pers;
     }
-*/
 }
