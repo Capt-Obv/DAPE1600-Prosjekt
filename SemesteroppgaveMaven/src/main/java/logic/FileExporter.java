@@ -5,13 +5,12 @@ package logic;
  * @author sarah
  */
 
+import gruppe83.semesteroppgavemaven.FXMLController;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 abstract class FileExporter {
 
-    abstract void writeDeltakerToFile(Deltaker pers) throws FileNotFoundException,
-            IOException;
     abstract void writeLokaleToFile(Lokale lok) throws FileNotFoundException,
             IOException;
     abstract void writeArrangementToFile(Arrangement arr) throws FileNotFoundException,
@@ -28,28 +27,26 @@ abstract class FileExporter {
         //Iterates over array of chosen object type and writes to file
         // (with parsing for csv-type)
 
-        if (objType.toUpperCase().equals("DELTAKER")) {
-            for(Deltaker pers: main.deltakerListe) {
-                writeDeltakerToFile(pers);
-            }
-        } else if(objType.toUpperCase().equals("LOKALE")) {
-            for(Lokale lok: main.lokaleListe) {
+        for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+            if(objType.toUpperCase().equals("LOKALE")) {
+            
+                Lokale lok = FXMLController.getArrangement(i).getLokale();
                 writeLokaleToFile(lok);
-            }
-        } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
-            for(Arrangement arr: main.arrangementListe) {
+            
+            } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
+                Arrangement arr = FXMLController.getArrangement(i);
                 writeArrangementToFile(arr);
-            }
-        } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
-            for(Kontaktperson pers: main.kontaktpersonListe) {
+ 
+            } else if(objType.toUpperCase().equals("KONTAKTPERSON")) {
+                Kontaktperson pers = FXMLController.getArrangement(i).getKontakt();
                 writeKontaktpersonToFile(pers);
+            
+            } else if(objType.toUpperCase().equals("BILLETT")) {
+                Arrangement arr = FXMLController.getArrangement(i);
+                writeBillettToFile(arr);   
+            } else {
+                throw new InvalidObjectTypeException("Not a valid objecttype");
             }
-        } else if(objType.toUpperCase().equals("BILLETT")) {
-            for(Arrangement arr: main.arrangementListe) {
-                writeBillettToFile(arr);
-            }
-        } else {
-            throw new InvalidObjectTypeException("Not a valid objecttype");
         }
     }
 }

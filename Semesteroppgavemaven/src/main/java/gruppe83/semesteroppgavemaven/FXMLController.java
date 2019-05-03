@@ -2,6 +2,7 @@ package gruppe83.semesteroppgavemaven;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import logic.Arrangement;
 
 /**
  *
@@ -129,7 +131,9 @@ public class FXMLController {
 
     @FXML
     private MenuItem about;
-
+    
+    private static ArrayList<Arrangement> arrList;
+    
     public FXMLController() {
 
         // Create the new stage
@@ -188,6 +192,10 @@ public class FXMLController {
         controller2.showStage();
 
     }
+    
+    public static Arrangement getArrangement(int indeks) {return arrList.get(indeks);}
+    public static void addArrangement(Arrangement arr) {arrList.add(arr);}
+    public static int getArrangementListSize() {return arrList.size();}
 
     /**
      * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.

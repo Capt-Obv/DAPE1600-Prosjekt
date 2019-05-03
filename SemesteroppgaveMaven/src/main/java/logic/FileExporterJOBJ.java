@@ -37,13 +37,6 @@ public class FileExporterJOBJ extends FileExporter {
     }
     
     @Override
-    public void writeDeltakerToFile(Deltaker pers) throws 
-            FileNotFoundException, IOException {
-        oos = new ObjectOutputStream(fos);
-        oos.writeObject(pers);
-    }
-    
-    @Override
     public void writeKontaktpersonToFile(Kontaktperson pers) throws
             FileNotFoundException, IOException {
         oos = new ObjectOutputStream(fos);
