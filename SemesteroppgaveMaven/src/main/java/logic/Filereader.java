@@ -1,7 +1,6 @@
 package logic;
 
 import gruppe83.semesteroppgavemaven.FXMLController;
-import static gruppe83.semesteroppgavemaven.MainApp.main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,11 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 /**
  *
  * @author sarah
@@ -32,7 +28,7 @@ abstract class Filereader {
 
     public void readFile(File inputfile, String objType, String fileType) throws IOException,
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException , InvalidDateFormatException{
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException{
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -154,8 +150,7 @@ abstract class Filereader {
         return trueEmail;
     }
 
-    public boolean parseBillett(String line) throws InvalidFormatException,
-            InvalidDateFormatException {
+    public boolean parseBillett(String line) throws InvalidFormatException {
         Arrangement arr = null;
         boolean salg = false;
 
@@ -238,7 +233,7 @@ abstract class Filereader {
     }
 
     public Arrangement parseArrangement(String line) throws InvalidFormatException,
-        InvalidDateFormatException {
+            InvalidDateFormatException {
         Arrangement arr = null;
         LocalDate arrDato;
         int mnd = 0;
