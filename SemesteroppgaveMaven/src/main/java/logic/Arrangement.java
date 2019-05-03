@@ -21,7 +21,7 @@ public class Arrangement implements Serializable {
     private Kontaktperson kontakt;
     private Lokale lokale;
     private transient ArrayList<Deltaker> deltakere;
-    private transient ArrayList<Programelement> program;
+    private ArrayList<Programelement> program;
     private transient Billett[] solgteBilletter;
     private Dato dato;
     private int pris;

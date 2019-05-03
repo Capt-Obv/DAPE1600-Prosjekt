@@ -2,6 +2,7 @@ package gruppe83.semesteroppgavemaven;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -124,13 +125,13 @@ public class FXMLController {
 
     @FXML
     private MenuItem about;
-    
+
     @FXML
     private TextField txtToSecondController;
-    
+
     @FXML
     private Label lblFromController2;
-    
+
     @FXML
     private ListView<Arrangement> listFromSecondController;
 
@@ -156,8 +157,8 @@ public class FXMLController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
+
+
     }
 
     /**
@@ -181,7 +182,7 @@ public class FXMLController {
                 openLayout2();
             }
     });
-        
+
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
         colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
         colKontakt.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("kontakt"));
@@ -190,8 +191,8 @@ public class FXMLController {
 //        colDeltaker.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>(""));
         colProgramm.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("program"));
         colLokale.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("lokale"));
-    
-          
+
+
 
     }
 
@@ -209,6 +210,10 @@ public class FXMLController {
 
     }
 
+    public static Arrangement getArrangement(int indeks) {return arrList.get(indeks);}
+    public static void addArrangement(Arrangement arr) {arrList.add(arr);}
+    public static int getArrangementListSize() {return arrList.size();}
+
     /**
      * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
      */
@@ -225,7 +230,7 @@ public class FXMLController {
     public void setListViewFromSecondController(Arrangement arr){
         addArrangementToTable(arr);
     }
-   
+
     public void addArrangementToTable(Arrangement arr){
        tabell.getItems().add(new ArrangementModel(arr));
 
@@ -238,13 +243,13 @@ public class FXMLController {
         getClass().getResource("login.fxml")
         );
             scene.setRoot((Parent) loader.load());
-            LoginController controller = 
+            LoginController controller =
                 loader.<LoginController>getController();
             controller.initManager(this);
             } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
     }
-  } 
+  }
     }
 */
 }

@@ -36,21 +36,14 @@ public class FileExporterCSV extends FileExporter {
     // the different object-types.
 
     @Override
-    public void writeDeltakerToFile(Deltaker deltaker) throws FileNotFoundException,
-            IOException {
-        writer.write(String.format("%s;%d;%s",deltaker.getPerson().getNavn(),
-                deltaker.getPerson().getTelefonNr(),deltaker.getRolle()));
-        writer.write("\n");
-    }
-
-    @Override
     public void writeBillettToFile(Arrangement arr) throws FileNotFoundException,
             IOException {
         for(int i=0; i<arr.getAntSolgte(); i++) {
             Billett bill = arr.getBillett(i);
-            writer.write(String.format("%s;%d;%s;%d;%s;%d", bill.getSted().getNavn(),
+            writer.write(String.format("%s;%d;%s;%d;%s;%d;%s", bill.getSted().getNavn(),
                     bill.getPlassNr(), bill.getDato().toString(), bill.getPris(),
-                    bill.getPerson().getNavn(), bill.getPerson().getTelefonNr()));
+                    bill.getPerson().getNavn(), bill.getPerson().getTelefonNr(),
+                    bill.getArrangement().getNavn()));
             writer.write("\n");
         }
     }
@@ -66,8 +59,13 @@ public class FileExporterCSV extends FileExporter {
     @Override
     public void writeArrangementToFile(Arrangement arr) throws
             FileNotFoundException, IOException {
-        writer.write(String.format("%s;%s;%s;%s;%d", arr.getNavn(), arr.getKontakt().getNavn(),
-                arr.getLokale().getNavn(), arr.getDato().toString(), arr.getPris()));
+        writer.write(String.format("%s;%s;%d;%s;%s;%d;%s;%s;%s;%s;%s;%d", arr.getNavn(),
+                arr.getLokale().getNavn(), arr.getLokale().getAntPlasser(),
+                arr.getLokale().getType(),
+                arr.getKontakt().getNavn(), arr.getKontakt().getTelefonNr(),
+                arr.getKontakt().getEpostadresse(), arr.getKontakt().getOpplysninger(),
+                arr.getKontakt().getFirma(), arr.getKontakt().getNettside(),
+                arr.getDato().toString(), arr.getPris()));
 
         writer.write("\n");
     }
