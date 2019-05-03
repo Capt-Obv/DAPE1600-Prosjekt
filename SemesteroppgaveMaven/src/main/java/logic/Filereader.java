@@ -115,7 +115,7 @@ abstract class Filereader {
                 }
                 if(leggesTil == false) {
                     throw new InvalidTimeOverlapException("Already an act performing"
-                            + " at given time");
+                            + " at given time or the event doesn't exist");
                 }
 
             } else if(objType.toUpperCase().equals("BILLETT")) {
@@ -207,6 +207,7 @@ abstract class Filereader {
         return salg;
     }
 
+    // method for parsing csv-lines to Program elements (acts)
     public boolean parseProgram(String line) throws InvalidFormatException {
         LocalTime startTidspunkt;
         LocalTime sluttTidspunkt;
@@ -235,6 +236,10 @@ abstract class Filereader {
             sluttTidspunkt = LocalTime.of(sluttTime, sluttMinutt);
 
             String arrangement = del[3];
+            
+            // Sjekker om programelementets arrangementstring stemmer overens
+            // med navnet på et opprettet arrangement
+            
             for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
                 Arrangement arr = FXMLController.getArrangement(i);
                 if(arrangement.equals(arr.getNavn())) {
@@ -246,6 +251,7 @@ abstract class Filereader {
         return leggesTil;
     }
 
+    //Method for parsing a Locale object from csv file line.
     public Lokale parseLokale(String line) throws InvalidFormatException {
         Lokale lok = null;
         String[] del = line.split(";");
