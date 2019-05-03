@@ -7,12 +7,12 @@ C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosje
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\InvalidObjectTypeException.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\Semesteroppgave.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\InvalidFormatException.java
-C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\FiletypeChooser.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\Context.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\InvalidTimeOverlapException.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\CreateStage.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\ArrangementModel.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\ObservableArrayList.java
+C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\ThreadExporter.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\FileExporterJOBJ.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\Lokale.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\InputSkjemaController.java
@@ -22,7 +22,7 @@ C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosje
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\DialogListener.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\FilereaderCSV.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\gruppe83\semesteroppgavemaven\MainApp.java
-C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\DataController.java
+C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\NonExistingEventException.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\Person.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\FilereaderJOBJ.java
 C:\Users\Andrea\Documents\NetBeansProjects\DATA1600\Semesteroppg\DAPE1600-Prosjekt\Semesteroppgavemaven\src\main\java\logic\FileExporterCSV.java

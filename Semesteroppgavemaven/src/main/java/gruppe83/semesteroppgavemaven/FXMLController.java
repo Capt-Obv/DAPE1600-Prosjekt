@@ -143,6 +143,12 @@ public class FXMLController {
     private ListView<Arrangement> listFromSecondController;
 
     private static ArrayList<Arrangement> arrList;
+    
+    @FXML
+    private Label lblSettArr;
+
+    @FXML
+    private Label lblFil;
 
 
     public FXMLController() {
@@ -202,16 +208,12 @@ public class FXMLController {
                            if(tabell.getSelectionModel().getSelectedItem() != null)
             {
                 final ArrangementModel arrangement = tabell.getSelectionModel().getSelectedItem();
-                btnKjøpBillett.setOnAction(new EventHandler<ActionEvent>(){
-                    @Override
-                    public void handle(ActionEvent event) {
-                    txtToSecondController.setText(arrangement.getNavn().get());
-                    openKjøpBillettVindu();
-                }
+                lblSettArr.setText(arrangement.getNavn().get());
+            }
             }
 
-);
-    }
+        });
+    
 tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<ArrangementModel>>(){
                       @Override
                       public TableRow<ArrangementModel> call(TableView<ArrangementModel> param) {
@@ -220,15 +222,7 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
 
 });
 
-            }
-
-
-
-
-        });
-
-
-
+        
 
 
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
@@ -256,10 +250,6 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
         // Show the new stage/window
         controller2.showStage();
 
-    }
-    private void openKjøpBillettVindu()  {
-        kjøpBillettController kjøpbillettcontroller = new kjøpBillettController(this);
-        kjøpbillettcontroller.showStage();
     }
 
 
