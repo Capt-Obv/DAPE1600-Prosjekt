@@ -26,8 +26,8 @@
                   <Button fx:id="btnSlettArr" layoutX="2.0" layoutY="78.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Slett Arrangement" />
                   <Button fx:id="btnSkrivFil" layoutX="2.0" layoutY="105.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv arrangement til fil" />
                   <Button layoutX="14.0" layoutY="518.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Kjøp billet" />
-                  <Button layoutX="3.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Les billett fra fil" />
-                  <Button layoutX="3.0" layoutY="131.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv billett til fil" />
+                  <Button fx:id="btnLesBillett" layoutX="3.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Les billett fra fil" />
+                  <Button fx:id="btnSkrivBillett" layoutX="3.0" layoutY="131.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv billett til fil" />
                   <TextField layoutX="13.0" layoutY="464.0" />
                   <TextField layoutX="13.0" layoutY="407.0" />
                   <Label layoutX="60.0" layoutY="446.0" text="Telefonnr" />
