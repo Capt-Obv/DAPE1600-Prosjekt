@@ -1,14 +1,18 @@
 package gruppe83.semesteroppgavemaven;
 
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,7 +66,19 @@ public class FXMLController {
     private Button btnSlettArr;
 
     @FXML
-    private Button btnSkrivFil;
+    private Button btnSkrivBillettTilFil;
+    
+    @FXML
+    private Button btnSkrivArrangementTilFil;
+    
+    @FXML
+    private Button btnLesArrangement;
+    
+    @FXML
+    private Button btnLesBillett;
+    
+    @FXML
+    private Label lblSkrivingFerdig;
 
     @FXML
     private ScrollPane skroll;
@@ -193,6 +209,41 @@ public class FXMLController {
                 openLayout2();
             }
     });
+        btnSkrivBillettTilFil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadReader(this::readDone, fil);
+                service.execute(task);
+            }
+        });
+        
+        btnSkrivArrangementTilFil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadReader(this::readDone, fil);
+                service.execute(task);
+            }
+        });
+        
+        btnLesBillett.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadExporter(this::writeDone);
+                service.execute(task);
+            }
+        });
+        
+        btnLesArrangement.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadExporter(this::writeDone);
+                service.execute(task);
+            }
+        })
 
         final ObservableList selectedCells = tabell.getSelectionModel().getSelectedCells();
         selectedCells.addListener(new ListChangeListener<ArrangementModel>() {
@@ -260,6 +311,10 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
     private void openKjøpBillettVindu()  {
         kjøpBillettController kjøpbillettcontroller = new kjøpBillettController(this);
         kjøpbillettcontroller.showStage();
+    }
+    
+    private File choseFile() {
+        
     }
 
 
