@@ -66,10 +66,16 @@ public class FXMLController {
     private Button btnSlettArr;
 
     @FXML
-    private Button btnSkrivBillettTilFil;
+    private Button btnBillettTilCsvFil;
     
     @FXML
-    private Button btnSkrivArrangementTilFil;
+    private Button btnBillettTilJobjFil;
+    
+    @FXML
+    private Button btnArrangementTilCsvFil;
+    
+    @FXML
+    private Button btnArrangementTilJobjFil;
     
     @FXML
     private Button btnLesArrangement;
@@ -78,7 +84,7 @@ public class FXMLController {
     private Button btnLesBillett;
     
     @FXML
-    private Label lblSkrivingFerdig;
+    private Label lblSkrivingLesingFerdig;
 
     @FXML
     private ScrollPane skroll;
