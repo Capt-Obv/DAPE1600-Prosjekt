@@ -182,28 +182,27 @@ abstract class Filereader {
                     + " to be split by semicolon");
         } else {
 
-        // Finds the event the buyer wants a ticket for. If no such event exists
-        String arrangementNavn = del[0];
-        for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
-            Arrangement a = FXMLController.getArrangement(i);
-            if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
-                arr = a;
-            }
-            if(arr!= null) {
-                String navn = del[1];
-                int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
-                Person kjøper = new Person(navn, telefonNr);
-                salg = arr.billettsalg(kjøper);
-
-                //checks if there are available tickets.
-                if(salg) {
-                    arr.leggTilArtist(kjøper, "Deltaker");
+            // Finds the event the buyer wants a ticket for. If no such event exists
+            String arrangementNavn = del[0];
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Arrangement a = FXMLController.getArrangement(i);
+                if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
+                    arr = a;
                 }
-            } else {
-                throw new InvalidFormatException("Event in question does not exist");
+                if(arr!= null) {
+                    String navn = del[1];
+                    int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
+                    Person kjøper = new Person(navn, telefonNr);
+                    salg = arr.billettsalg(kjøper);
+
+                    //checks if there are available tickets.
+                    if(salg) {
+                        arr.leggTilArtist(kjøper, "Deltaker");
+                    }
+                } else {
+                    throw new NonExistingEventException("Event in question does not exist");
+                }
             }
-        } else {
-            throw new NonExistingEventException("Event in question does not exist");
         }
         return salg;
     }
