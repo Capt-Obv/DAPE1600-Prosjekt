@@ -49,4 +49,10 @@ public class ThreadReader extends Task<Void> {
     protected void succeeded() {
         readDone.run();
     }
+    
+    @Override
+    protected void failed() {
+        // set label med
+        // getException().printStackTrace();
+    }
 }
