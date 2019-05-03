@@ -160,29 +160,37 @@ abstract class Filereader {
         return trueEmail;
     }
 
+    // method that parses line to ticket-object
     public boolean parseBillett(String line) throws InvalidFormatException {
         Arrangement arr = null;
         boolean salg = false;
 
         String[] del = line.split(";");
-
-        String arrangementNavn = del[0];
-        for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
-            Arrangement a = FXMLController.getArrangement(i);
-            if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
-                arr = a;
-            }
-        }
-        if(arr!= null) {
-            String navn = del[1];
-            int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
-            Person kjøper = new Person(navn, telefonNr);
-            salg = arr.billettsalg(kjøper);
-            if(salg) {
-                arr.leggTilArtist(kjøper, "Deltaker");
-            }
+        if(del.length < 3) {
+            throw new InvalidFormatException("CSV-formats require data"
+                    + " to be split by semicolon");
         } else {
-            throw new InvalidFormatException("Event in question does not exist");
+
+            String arrangementNavn = del[0];
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Arrangement a = FXMLController.getArrangement(i);
+                if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
+                    arr = a;
+                }
+            }
+            if(arr!= null) {
+                String navn = del[1];
+                int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
+                Person kjøper = new Person(navn, telefonNr);
+                salg = arr.billettsalg(kjøper);
+            
+                //checks if there are available tickets.
+                if(salg) {
+                    arr.leggTilArtist(kjøper, "Deltaker");
+                }
+            } else {
+                throw new InvalidFormatException("Event in question does not exist");
+            }
         }
         return salg;
     }
