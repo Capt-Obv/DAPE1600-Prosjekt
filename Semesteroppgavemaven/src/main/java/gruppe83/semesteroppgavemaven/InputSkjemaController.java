@@ -383,6 +383,7 @@ public class InputSkjemaController {
                     
                 }
                 */
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 Lokale lok2 = new Lokale("Sal1", 100,"Kino");
                 Kontaktperson kont = new Kontaktperson("sila",928345, "epost");
                 LocalDate date2 = LocalDate.now();

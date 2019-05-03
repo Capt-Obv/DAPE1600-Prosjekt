@@ -41,7 +41,7 @@ public class Billett implements Serializable {
                 + "\nKjøper: %s", sted, dato, plassNr, pris, kjøper);
     }
 }
-
+/*
 class Dato implements Serializable {
     private int år;
     private int måned;
@@ -66,3 +66,4 @@ class Dato implements Serializable {
         return String.format("%d/%d - %d", dag, måned, år);
     }
 }
+*/
