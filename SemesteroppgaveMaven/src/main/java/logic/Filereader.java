@@ -19,7 +19,8 @@ abstract class Filereader {
 
     abstract void initializeImport(File file, String objType) throws
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException;
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException,
+            NonExistingEventException;
 
     /* method checks if filetype is of the allowed two: jobj and csv, creates
     readers for the different filetypes and depending on strategy creates object
@@ -28,10 +29,14 @@ abstract class Filereader {
 
     public void readFile(File inputfile, String objType, String fileType) throws IOException,
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException{
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException, 
+            NonExistingEventException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
+        
+        //Creating objectinputstream for jobj-files and bufferedreader
+        // for csv-files for reading.
         if(fileType.equals("csv")) {
             reader = new BufferedReader(new FileReader(inputfile));
 
@@ -49,7 +54,9 @@ abstract class Filereader {
          boolean cont = true;
          boolean ledig = true;
 
-
+        
+        // breaks if we've reached end of file or if ticket sale is
+        // anavailable
         while((((line=reader.readLine())!=null) || (cont)) && (ledig)) {
             if(objType.toUpperCase().equals("ARRANGEMENT")) {
                 if(fileType.equals("csv")) {
@@ -119,7 +126,10 @@ abstract class Filereader {
                 throw new InvalidObjectTypeException("Not a valid object type");
             }
         }
-        reader.close();
+        
+        if(reader!=null) {
+            reader.close();
+        }
         if(fis!=null) {
             fis.close();
         }
@@ -128,6 +138,8 @@ abstract class Filereader {
         }
     }
 
+    // Tests if String-input can be converted to an integer and throws
+    // an invalidFormatException if it's not the case
     public static int parseTall(String testStr, String errorMessage)
             throws InvalidFormatException {
         int tall;
@@ -138,7 +150,9 @@ abstract class Filereader {
         }
         return tall;
     }
-
+    
+    // A basic check for whether the string-input is a valid mailadress.
+    // Throws an invalidformatexception if not.
     public static boolean checkEmail(String testStr, String errorMessage)
             throws InvalidFormatException {
         boolean trueEmail = false;
@@ -150,12 +164,15 @@ abstract class Filereader {
         return trueEmail;
     }
 
-    public boolean parseBillett(String line) throws InvalidFormatException {
+    //Method for parsing line from a csv-file to a ticket object.
+    public boolean parseBillett(String line) throws InvalidFormatException, 
+            NonExistingEventException {
         Arrangement arr = null;
         boolean salg = false;
 
         String[] del = line.split(";");
 
+        // Finds the event the buyer wants a ticket for. If no such event exists
         String arrangementNavn = del[0];
         for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
             Arrangement a = FXMLController.getArrangement(i);
@@ -172,7 +189,7 @@ abstract class Filereader {
                 arr.leggTilArtist(kjøper, "Deltaker");
             }
         } else {
-            throw new InvalidFormatException("Event in question does not exist");
+            throw new NonExistingEventException("Event in question does not exist");
         }
         return salg;
     }
