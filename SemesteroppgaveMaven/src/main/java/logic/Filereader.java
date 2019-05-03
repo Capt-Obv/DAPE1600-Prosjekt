@@ -23,16 +23,16 @@ abstract class Filereader {
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
-    
-    public void readFile(File inputfile, String objType, String fileType) throws IOException, 
-            FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
+
+    public void readFile(File inputfile, String objType, String fileType) throws IOException,
+            FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
             InvalidObjectTypeException, InvalidFormatException , InvalidDateFormatException{
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         if(fileType.equals("csv")) {
             reader = new BufferedReader(new FileReader(inputfile));
-            
+
         } else if(fileType.equals("jobj")) {
             fis = new FileInputStream(inputfile);
             ois = new ObjectInputStream(fis);
@@ -41,12 +41,14 @@ abstract class Filereader {
 
         }
 
-        //parameters to check if we've reached the end of the Input-file.
+        //parameters to check if we've reached the end of the Input-file or
+        // if the event in question is full and the ticket-sale is closed.
          String line = null;
          boolean cont = true;
+         boolean ledig = true;
 
 
-        while(((line=reader.readLine())!=null) || (cont)) {
+        while((((line=reader.readLine())!=null) || (cont)) && (ledig)) {
             if(objType.toUpperCase().equals("DELTAKER")) {
                 if(fileType.equals("csv")) {
                     parseDeltaker(line);
@@ -109,9 +111,17 @@ abstract class Filereader {
                         cont = false;
                     }
                 }
-                if(leggesTil = false) {
+                if(leggesTil == false) {
                     throw new InvalidTimeOverlapException("Already an act performing"
                             + " at given time");
+                }
+
+            } else if(objType.toUpperCase().equals("BILLETT")) {
+                if(fileType.equals("csv")) {
+                    ledig = parseBillett(line);
+                } else {
+                    Billett bill = (Billett) ois.readObject();
+                    ledig = bill.getArrangement().billettsalg(bill.getPerson());
                 }
             } else {
                 throw new InvalidObjectTypeException("Not a valid object type");
@@ -146,6 +156,30 @@ abstract class Filereader {
             throw new InvalidFormatException(errorMessage);
         }
         return trueEmail;
+    }
+
+    public boolean parseBillett(String line) throws InvalidFormatException,
+            InvalidDateFormatException {
+        Arrangement arr = null;
+        boolean salg = false;
+
+        String[] del = line.split(";");
+
+        String arrangementNavn = del[0];
+        for(Arrangement a: main.arrangementListe) {
+            if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
+                arr = a;
+            }
+        }
+        if(arr!= null) {
+            String navn = del[1];
+            int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
+            Person kjøper = new Person(navn, telefonNr);
+            salg = arr.billettsalg(kjøper);
+        } else {
+            throw new InvalidFormatException("Event in question does not exist");
+        }
+        return salg;
     }
 
     public boolean parseProgram(String line) throws InvalidFormatException {
@@ -222,9 +256,9 @@ abstract class Filereader {
         InvalidDateFormatException {
         Arrangement arr = null;
         Dato arrDato = null;
-        int mnd;
-        int dg;
-        int år;
+        int mnd = 0;
+        int dg = 0;
+        int år = 0;
         Kontaktperson kontakt = null;
         Lokale lokasjon = null;
         int pris = 0;

@@ -22,7 +22,7 @@ abstract class FileExporter {
 
     public void writeToFile(String objType) throws InvalidObjectTypeException,
             FileNotFoundException, IOException {
-        
+
 
         //Iterates over array of chosen object type and writes to file
         // (with parsing for csv-type)
