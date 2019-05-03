@@ -1,9 +1,12 @@
 package gruppe83.semesteroppgavemaven;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,12 +25,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import logic.Arrangement;
 import logic.ArrangementModel;
 import logic.ProgramModel;
@@ -78,31 +85,31 @@ public class FXMLController {
     private MenuItem filterSal;
 
     @FXML
-    private TableView<ArrangementModel> tabell;
+    private TableView<?> tabell;
 
     @FXML
-    private TableColumn<ArrangementModel, String> colArr;
+    private TableColumn<?, ?> colArr;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colNavn;
+    private TableColumn<?, ?> colNavn;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colKontakt;
+    private TableColumn<?, ?> colKontakt;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colpris;
+    private TableColumn<?, ?> colpris;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colBilett;
+    private TableColumn<?, ?> colBilett;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colDeltaker;
+    private TableColumn<?, ?> colDeltaker;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colProgramm;
+    private TableColumn<?, ?> colProgramm;
 
     @FXML
-    private TableColumn<String, ArrangementModel> colLokale;
+    private TableColumn<?, ?> colLokale;
 
     @FXML
     private MenuBar menu;
@@ -124,15 +131,7 @@ public class FXMLController {
 
     @FXML
     private MenuItem about;
-    
-    @FXML
-    private TextField txtToSecondController;
-    
-    @FXML
-    private Label lblFromController2;
-    
-    @FXML
-    private ListView<Arrangement> listFromSecondController;
+
 
 
     public FXMLController() {
@@ -166,13 +165,15 @@ public class FXMLController {
     public void showStage() {
         thisStage.showAndWait();
     }
+     public String getEnteredText() {
+        return txtToSecondController.getText();
+    }
 
     /**
      * The initialize() method allows you set setup your scene, adding actions, configuring nodes, etc.
      */
     @FXML
     private void initialize() {
-
         // Add an action for the "Open Layout2" button
         btnNyttArr.setOnAction(new EventHandler<ActionEvent>(){
 
@@ -182,6 +183,43 @@ public class FXMLController {
             }
     });
         
+        btnKjøpBillett = new Button();
+        final ObservableList selectedCells = tabell.getSelectionModel().getSelectedCells();
+        selectedCells.addListener(new ListChangeListener<ArrangementModel>() {
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends ArrangementModel> c) {
+                           if(tabell.getSelectionModel().getSelectedItem() != null) 
+            {    
+                final ArrangementModel arrangement = tabell.getSelectionModel().getSelectedItem();
+                btnKjøpBillett.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                    txtToSecondController.setText(arrangement.getNavn().get());
+                    openKjøpBillettVindu();
+                }
+            }
+            
+);
+    }
+tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<ArrangementModel>>(){
+                      @Override
+                      public TableRow<ArrangementModel> call(TableView<ArrangementModel> param) {
+                                   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                               }
+    
+});
+
+            }
+
+           
+
+            
+        });
+
+
+        
+
         
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
         colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
@@ -209,13 +247,16 @@ public class FXMLController {
         controller2.showStage();
 
     }
+    private void openKjøpBillettVindu()  {
+        kjøpBillettController kjøpbillettcontroller = new kjøpBillettController(this);
+        kjøpbillettcontroller.showStage();
+    }
+
 
     /**
      * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
      */
-    public String getEnteredText() {
-        return txtToSecondController.getText();
-    }
+
 
     /**
      * Allows other controllers to set the text of this layout's Label
