@@ -246,7 +246,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(File file);
+                Task<Void> task = new ThreadExporter("jobj", "arrangement");
                 service.execute(task);
             }
         });
