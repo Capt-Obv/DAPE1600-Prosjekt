@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Accordion fx:id="accoTemplate" layoutX="1.0" prefHeight="375.0" prefWidth="601.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <panes>
+          <TitledPane fx:id="accordionInfo" animated="false" text="Info">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="-2.0" prefHeight="297.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="290.39996337890625" minWidth="10.0" prefWidth="132.79998779296875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.6000366210938" minWidth="10.0" prefWidth="467.20001220703125" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="lblLokale" text="Lokale" GridPane.rowIndex="1" />
+                              <Label fx:id="lblDato" text="Dato" GridPane.rowIndex="2" />
+                              <Label fx:id="lblPris" text="Pris" GridPane.rowIndex="3" />
+                              <Label fx:id="lblBilletter" text="Billetter" GridPane.rowIndex="4" />
+                              <TextField fx:id="txtNavn" GridPane.columnIndex="1" />
+                              <ChoiceBox fx:id="velgLokale" prefHeight="26.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblNavn" prefHeight="23.0" prefWidth="30.0" text="Navn" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <TextField fx:id="txtPris" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <DatePicker fx:id="velgDato" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtBilletter" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lagreDato" text="          " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                              <Label fx:id="lagreLokal" alignment="CENTER_RIGHT" text="             " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane fx:id="accordionDeltaker" animated="false" text="Deltakere">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.3120713305898491" layoutX="-1.0" layoutY="2.0" orientation="VERTICAL" prefHeight="293.0" prefWidth="602.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="22.0" text="Artist/Artister" />
+                                    <TextField fx:id="txtLeggTilArtist" layoutX="92.0" layoutY="18.0" />
+                                    <Button fx:id="btnLeggTilArtist" layoutX="241.0" layoutY="18.0" mnemonicParsing="false" text="Legg til" />
+                                    <ListView fx:id="listeArtist" layoutX="310.0" prefHeight="146.0" prefWidth="491.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Label fx:id="lblKontakt" layoutX="68.0" layoutY="5.0" text="Kontaktperson" />
+                                    <TextField fx:id="txtKontaktNavn" layoutX="32.0" layoutY="23.0" promptText="Navn" />
+                                    <TextField fx:id="txtTelefonr" layoutX="32.0" layoutY="49.0" promptText="Telefonr" />
+                                    <TextField fx:id="txtEpost" layoutX="32.0" layoutY="75.0" promptText="E-postaddresse" />
+                                    <TextField fx:id="txtNettside" layoutX="32.0" layoutY="99.0" promptText="Nettside" />
+                                    <TextField fx:id="txtFirma" layoutX="32.0" layoutY="125.0" promptText="Firma" />
+                                    <TextField fx:id="txtOpplysninger" layoutX="32.0" layoutY="151.0" promptText="Annet" />
+                                    <Button fx:id="btnLeggTilKontakt" layoutX="181.0" layoutY="86.0" mnemonicParsing="false" text="Legg til" />
+                                    <ListView fx:id="listKontaktperson" layoutX="250.0" layoutY="1.0" prefHeight="318.0" prefWidth="576.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane fx:id="accordionProgram" animated="false" text="Program">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="txtProgram" layoutX="21.0" layoutY="150.0" />
+                        <Label layoutX="67.0" layoutY="73.0" text="Klokkeslett" />
+                        <Label layoutX="52.0" layoutY="131.0" text="Programelement" />
+                        <Button fx:id="btnLeggTilProgram" layoutX="68.0" layoutY="199.0" mnemonicParsing="false" text="Legg til" />
+                        <TextField fx:id="txtKlokkeStart" layoutX="21.0" layoutY="91.0" prefHeight="26.0" prefWidth="77.0" />
+                        <TextField fx:id="txtKlokkeSlutt" layoutX="99.0" layoutY="92.0" prefHeight="26.0" prefWidth="65.0" />
+                        <TableView fx:id="tblProgram" layoutX="222.0" layoutY="8.0" prefHeight="465.0" prefWidth="637.0">
+                          <columns>
+                            <TableColumn fx:id="colKlokkeFra" prefWidth="75.0" text="Fra" />
+                            <TableColumn fx:id="colKlokkeTil" prefWidth="75.0" text="Til" />
+                              <TableColumn fx:id="colElement" prefWidth="484.8000793457031" text="Element" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+      <Button fx:id="btnLagre" layoutX="531.0" layoutY="573.0" mnemonicParsing="false" text="Lagre" />
+      <Button fx:id="btnAvbryt" layoutX="271.0" layoutY="570.0" mnemonicParsing="false" text="Avbryt" />
+   </children>
+</AnchorPane>
