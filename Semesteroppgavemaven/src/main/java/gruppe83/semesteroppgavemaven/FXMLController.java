@@ -86,7 +86,6 @@ public class FXMLController {
     private MenuItem filterSal;
 
     @FXML
-    private TableView<?> tabell;
     private TableView<ArrangementModel> tabell;
 
     @FXML
