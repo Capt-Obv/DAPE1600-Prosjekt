@@ -13,11 +13,9 @@ import logic.FilereaderJOBJ;
 import logic.InvalidFormatException;
 
 public class ThreadReader extends Task<Void> {
-    private Runnable readDone;
     private File file;
 
-    public ThreadReader(Runnable whenDone, File file) {
-        this.readDone = whenDone;
+    public ThreadReader(File file) {
         this.file = file;
     }
 
@@ -46,8 +44,8 @@ public class ThreadReader extends Task<Void> {
         return null;
     }
 
+    @Override
     protected void succeeded() {
-        readDone.run();
     }
     
     @Override

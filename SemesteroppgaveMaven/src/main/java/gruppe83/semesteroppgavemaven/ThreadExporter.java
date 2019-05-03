@@ -12,12 +12,10 @@ import logic.InvalidFormatException;
  */
 
 public class ThreadExporter extends Task<Void> {
-    private Runnable writeDone;
     private String fileType;
     private String objType;
     
-    public ThreadExporter(Runnable whenDone, String fileType, String objType) {
-        this.writeDone = whenDone;
+    public ThreadExporter(String fileType, String objType) {
         this.fileType = fileType;
         this.objType = objType;
     }
@@ -44,7 +42,6 @@ public class ThreadExporter extends Task<Void> {
     
     @Override
     protected void succeeded() {
-        writeDone.run();
     }
     
     @Override
