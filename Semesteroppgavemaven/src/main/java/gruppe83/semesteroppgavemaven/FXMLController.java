@@ -237,6 +237,14 @@ public class FXMLController {
        tabell.getItems().add(new ArrangementModel(arr));
 
     }
+    
+    private void readDone() {
+        // lbl.setText("Innlesingen er ferdig");
+    }
+    
+    private void writeDone() {
+        // lbl.setText("Eksporteringen er ferdig");
+    }
     /*
     public void kjøpBillett(){
          public void showLoginScreen() {
