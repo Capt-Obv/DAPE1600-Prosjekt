@@ -3,6 +3,7 @@ package gruppe83.semesteroppgavemaven;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -132,6 +133,16 @@ public class FXMLController {
     @FXML
     private MenuItem about;
 
+    @FXML
+    private TextField txtToSecondController;
+
+    @FXML
+    private Label lblFromController2;
+
+    @FXML
+    private ListView<Arrangement> listFromSecondController;
+
+    private static ArrayList<Arrangement> arrList;
 
 
     public FXMLController() {
@@ -155,8 +166,8 @@ public class FXMLController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
+
+
     }
 
     /**
@@ -182,15 +193,15 @@ public class FXMLController {
                 openLayout2();
             }
     });
-        
+
         btnKjøpBillett = new Button();
         final ObservableList selectedCells = tabell.getSelectionModel().getSelectedCells();
         selectedCells.addListener(new ListChangeListener<ArrangementModel>() {
 
             @Override
             public void onChanged(ListChangeListener.Change<? extends ArrangementModel> c) {
-                           if(tabell.getSelectionModel().getSelectedItem() != null) 
-            {    
+                           if(tabell.getSelectionModel().getSelectedItem() != null)
+            {
                 final ArrangementModel arrangement = tabell.getSelectionModel().getSelectedItem();
                 btnKjøpBillett.setOnAction(new EventHandler<ActionEvent>(){
                     @Override
@@ -199,7 +210,7 @@ public class FXMLController {
                     openKjøpBillettVindu();
                 }
             }
-            
+
 );
     }
 tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<ArrangementModel>>(){
@@ -207,20 +218,20 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
                       public TableRow<ArrangementModel> call(TableView<ArrangementModel> param) {
                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                                }
-    
+
 });
 
             }
 
-           
 
-            
+
+
         });
 
 
-        
 
-        
+
+
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
         colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
         colKontakt.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("kontakt"));
@@ -229,8 +240,8 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
 //        colDeltaker.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>(""));
         colProgramm.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("program"));
         colLokale.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("lokale"));
-    
-          
+
+
 
     }
 
@@ -253,6 +264,10 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
     }
 
 
+    public static Arrangement getArrangement(int indeks) {return arrList.get(indeks);}
+    public static void addArrangement(Arrangement arr) {arrList.add(arr);}
+    public static int getArrangementListSize() {return arrList.size();}
+
     /**
      * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
      */
@@ -267,7 +282,7 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
     public void setListViewFromSecondController(Arrangement arr){
         addArrangementToTable(arr);
     }
-   
+
     public void addArrangementToTable(Arrangement arr){
        tabell.getItems().add(new ArrangementModel(arr));
 
@@ -280,13 +295,13 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
         getClass().getResource("login.fxml")
         );
             scene.setRoot((Parent) loader.load());
-            LoginController controller = 
+            LoginController controller =
                 loader.<LoginController>getController();
             controller.initManager(this);
             } catch (IOException ex) {
       Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
     }
-  } 
+  }
     }
 */
 }

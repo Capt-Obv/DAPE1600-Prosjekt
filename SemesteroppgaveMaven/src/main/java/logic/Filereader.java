@@ -1,5 +1,6 @@
 package logic;
 
+import gruppe83.semesteroppgavemaven.FXMLController;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,18 +8,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalTime;
 /**
  *
  * @author sarah
  */
-/*
+
 abstract class Filereader {
 
     abstract void initializeImport(File file, String objType) throws
             FileNotFoundException, IOException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException;
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException,
+            NonExistingEventException;
 
     /* method checks if filetype is of the allowed two: jobj and csv, creates
     readers for the different filetypes and depending on strategy creates object
@@ -27,10 +29,14 @@ abstract class Filereader {
 
     public void readFile(File inputfile, String objType, String fileType) throws IOException,
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException,
-            InvalidObjectTypeException, InvalidFormatException , InvalidDateFormatException{
+            InvalidObjectTypeException, InvalidFormatException, InvalidDateFormatException,
+            NonExistingEventException {
         BufferedReader reader = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
+
+        //Creating objectinputstream for jobj-files and bufferedreader
+        // for csv-files for reading.
         if(fileType.equals("csv")) {
             reader = new BufferedReader(new FileReader(inputfile));
 
@@ -49,19 +55,10 @@ abstract class Filereader {
          boolean ledig = true;
 
 
+        // breaks if we've reached end of file or if ticket sale is
+        // anavailable
         while((((line=reader.readLine())!=null) || (cont)) && (ledig)) {
-            if(objType.toUpperCase().equals("DELTAKER")) {
-                if(fileType.equals("csv")) {
-                    parseDeltaker(line);
-                } else {
-                    Deltaker nyDeltaker = (Deltaker) ois.readObject();
-                    if(nyDeltaker != null) {
-                        cont = true;
-                    } else {
-                        cont = false;
-                    }
-                }
-            } else if(objType.toUpperCase().equals("ARRANGEMENT")) {
+            if(objType.toUpperCase().equals("ARRANGEMENT")) {
                 if(fileType.equals("csv")) {
                     parseArrangement(line);
                 } else {
@@ -102,7 +99,11 @@ abstract class Filereader {
                 } else {
                     Programelement prgm = (Programelement) ois.readObject();
                     if(prgm != null) {
-                        for(Arrangement arr: main.arrangementListe) {
+
+                        //Checks if the given timeframe is available for new act
+
+                        for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                            Arrangement arr = FXMLController.getArrangement(i);
                             if(prgm.getArrangement().getNavn().equals(arr.getNavn())) {
                                 leggesTil = arr.leggTilIProgram(prgm.getStart(), prgm.getNavn(),
                                         prgm.getSlutt());
@@ -114,7 +115,7 @@ abstract class Filereader {
                 }
                 if(leggesTil == false) {
                     throw new InvalidTimeOverlapException("Already an act performing"
-                            + " at given time");
+                            + " at given time or the event doesn't exist");
                 }
 
             } else if(objType.toUpperCase().equals("BILLETT")) {
@@ -122,13 +123,19 @@ abstract class Filereader {
                     ledig = parseBillett(line);
                 } else {
                     Billett bill = (Billett) ois.readObject();
+
+                    //checks if there are available tickets
+
                     ledig = bill.getArrangement().billettsalg(bill.getPerson());
                 }
             } else {
                 throw new InvalidObjectTypeException("Not a valid object type");
             }
         }
-        reader.close();
+
+        if(reader!=null) {
+            reader.close();
+        }
         if(fis!=null) {
             fis.close();
         }
@@ -137,6 +144,8 @@ abstract class Filereader {
         }
     }
 
+    //throws InvalidformatException if test string doesn't contain parseable
+    // number
     public static int parseTall(String testStr, String errorMessage)
             throws InvalidFormatException {
         int tall;
@@ -148,6 +157,8 @@ abstract class Filereader {
         return tall;
     }
 
+    // A basic test to check if inputstring is a valid emailadress.
+    // Throws InvalidFormatException if not.
     public static boolean checkEmail(String testStr, String errorMessage)
             throws InvalidFormatException {
         boolean trueEmail = false;
@@ -159,52 +170,88 @@ abstract class Filereader {
         return trueEmail;
     }
 
+    //Method for parsing line from a csv-file to a ticket object.
     public boolean parseBillett(String line) throws InvalidFormatException,
-            InvalidDateFormatException {
+            NonExistingEventException {
         Arrangement arr = null;
         boolean salg = false;
 
         String[] del = line.split(";");
-
-        String arrangementNavn = del[0];
-        for(Arrangement a: main.arrangementListe) {
-            if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
-                arr = a;
-            }
-        }
-        if(arr!= null) {
-            String navn = del[1];
-            int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
-            Person kjøper = new Person(navn, telefonNr);
-            salg = arr.billettsalg(kjøper);
+        if(del.length < 3) {
+            throw new InvalidFormatException("CSV-formats require data"
+                    + " to be split by semicolon");
         } else {
-            throw new InvalidFormatException("Event in question does not exist");
+
+            // Finds the event the buyer wants a ticket for. If no such event exists
+            String arrangementNavn = del[0];
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Arrangement a = FXMLController.getArrangement(i);
+                if(arrangementNavn.toUpperCase().equals(a.getNavn().toUpperCase())) {
+                    arr = a;
+                }
+                if(arr!= null) {
+                    String navn = del[1];
+                    int telefonNr = parseTall(del[2], "Telephone number of buyer not a number");
+                    Person kjøper = new Person(navn, telefonNr);
+                    salg = arr.billettsalg(kjøper);
+
+                    //checks if there are available tickets.
+                    if(salg) {
+                        arr.leggTilArtist(kjøper, "Deltaker");
+                    }
+                } else {
+                    throw new NonExistingEventException("Event in question does not exist");
+                }
+            }
         }
         return salg;
     }
 
+    // method for parsing csv-lines to Program elements (acts)
     public boolean parseProgram(String line) throws InvalidFormatException {
+        LocalTime startTidspunkt;
+        LocalTime sluttTidspunkt;
+
         String[] del = line.split(";");
         boolean leggesTil = false;
         if(del.length<4) {
             throw new InvalidFormatException("CSV-formats require data to"
                         + " be split by semicolon");
         } else {
-            int start = parseTall(del[0], "Start time of programelement not"
-                        + " a number");
-            String navn = del[1];
-            int slutt = parseTall(del[2], "End time of programelement not "
-                        + " a number");
+            String navn = del[0];
+
+            String[] startTidDeler = del[1].split(":");
+            int startTime = parseTall(startTidDeler[0],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            int startMinutt = parseTall(startTidDeler[1],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+
+            String[] sluttTidDeler = del[2].split(":");
+            int sluttTime = parseTall(sluttTidDeler[0],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            int sluttMinutt = parseTall(sluttTidDeler[1],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+
+            startTidspunkt = LocalTime.of(startTime,startMinutt);
+            sluttTidspunkt = LocalTime.of(sluttTime, sluttMinutt);
+
             String arrangement = del[3];
-            for(Arrangement arr: main.arrangementListe) {
+            
+            // Sjekker om programelementets arrangementstring stemmer overens
+            // med navnet på et opprettet arrangement
+            
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Arrangement arr = FXMLController.getArrangement(i);
                 if(arrangement.equals(arr.getNavn())) {
-                        leggesTil = arr.leggTilIProgram(start, navn, slutt);
+                        leggesTil = arr.leggTilIProgram(startTidspunkt, navn,
+                                sluttTidspunkt);
                 }
             }
         }
         return leggesTil;
     }
 
+    //Method for parsing a Locale object from csv file line.
     public Lokale parseLokale(String line) throws InvalidFormatException {
         Lokale lok = null;
         String[] del = line.split(";");
@@ -221,42 +268,10 @@ abstract class Filereader {
 
     }
 
-    public Deltaker parseDeltaker(String line) throws InvalidFormatException {
-        Person nyPerson = null;
-        Deltaker deltaker = null;
-        String[] del = line.split(";");
-        if(del.length < 4) {
-            throw new InvalidFormatException("CSV-formats require data to "
-                        + "be split by semicolon");
-        } else {
-            String navn = del[0];
-            int telefonNr = parseTall(del[1], "Telephone number is not a number");
-            //Legg til masse tester for å sjekke riktig data
-            nyPerson = new Person(navn, telefonNr);
-            if(del[2].toUpperCase().equals("DELTAKER")) {
-                String arrangement = del[3];
-                for(Arrangement arr:main.arrangementListe) {
-                    if(arrangement.equals(arr.getNavn())) {
-                        boolean salg = arr.billettsalg(nyPerson);
-                    }
-                }
-            } else {
-                String arrangement = del[3];
-                for(Arrangement arr:main.arrangementListe) {
-                    if(arrangement.equals(arr.getNavn())) {
-                        arr.leggTilArtist(nyPerson, del[2]);
-                    }
-                }
-            }
-            deltaker = new Deltaker(nyPerson, del[2]);
-        }
-        return deltaker;
-    }
-
     public Arrangement parseArrangement(String line) throws InvalidFormatException,
-        InvalidDateFormatException {
+            InvalidDateFormatException {
         Arrangement arr = null;
-        Dato arrDato = null;
+        LocalDate arrDato;
         int mnd = 0;
         int dg = 0;
         int år = 0;
@@ -265,22 +280,33 @@ abstract class Filereader {
         int pris = 0;
 
         String[] del = line.split(";");
-        if(del.length<5) {
+        if(del.length<11) {
             throw new InvalidFormatException("CSV-formats require data to be"
                         + " split by semicolon.");
         } else {
             String arrNavn = del[0];
-            for(Lokale lok: main.lokaleListe) {
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Lokale lok = FXMLController.getArrangement(i).getLokale();
                 if(del[1].equals(lok.getNavn())) {
                     lokasjon = lok;
+                } else {
+                    int antPlasser = parseTall(del[2], "Number of seats not a "
+                            + "number");
+                    lokasjon = new Lokale(del[1],antPlasser,del[3]);
                 }
             }
-            for(Kontaktperson pers: main.kontaktListe) {
-                if(del[2].equals(pers.getNavn())) {
+            for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
+                Kontaktperson pers = FXMLController.getArrangement(i).getKontakt();
+                if(del[4].equals(pers.getNavn())) {
                     kontakt = pers;
+                } else {
+                    int telefonNr = parseTall(del[5], "Telephone number of contact"
+                            + " not a number");
+                    kontakt = new Kontaktperson(del[4], telefonNr, del[5], del[6],
+                     del[7], del[8]);
                 }
             }
-            String[] datoDel = del[3].split(".");
+            String[] datoDel = del[9].split(".");
             if(datoDel.length<3) {
                 throw new InvalidDateFormatException("Eventdates "
                             + "must be on the format"
@@ -290,8 +316,8 @@ abstract class Filereader {
                 mnd = parseTall(datoDel[1], "Month of event not a number");
                 dg = parseTall(datoDel[2], "Day of event not a number");
             }
-            arrDato = new Dato(år, mnd, dg);
-            pris = parseTall(del[4], "Price is not an integer");
+            arrDato = LocalDate.of(år,mnd,dg);
+            pris = parseTall(del[10], "Price is not an integer");
             arr = new Arrangement(arrNavn, lokasjon, kontakt, arrDato, pris);
         }
         return arr;
@@ -329,4 +355,3 @@ abstract class Filereader {
         return pers;
     }
 }
-*/
