@@ -21,6 +21,9 @@ public class ThreadReader extends Task<Void> {
         this.file = file;
     }
 
+    
+    // method checks if fileparameter is a csv-file or jobj-file
+    // and initializes the import.
     @Override
     protected Void call() throws Exception {
         String filename = file.getName();

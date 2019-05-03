@@ -268,6 +268,7 @@ abstract class Filereader {
 
     }
 
+    // method parses stringline to Arrangement-object
     public Arrangement parseArrangement(String line) throws InvalidFormatException,
             InvalidDateFormatException {
         Arrangement arr = null;
@@ -279,6 +280,7 @@ abstract class Filereader {
         Lokale lokasjon = null;
         int pris = 0;
 
+        //checks that the file is of correct format
         String[] del = line.split(";");
         if(del.length<11) {
             throw new InvalidFormatException("CSV-formats require data to be"
@@ -323,6 +325,7 @@ abstract class Filereader {
         return arr;
     }
 
+    // method for parsing stringline to contact person object.
     public Kontaktperson parseKontakt(String line) throws InvalidFormatException {
         Kontaktperson pers = null;
         String epostadresse = null;
@@ -338,6 +341,9 @@ abstract class Filereader {
                 epostadresse = del[2];
             }
             String opplysninger = del[3];
+            
+            // checks the length of the file to see which contact person constructor
+            // should be used
             if(del.length == 5) {
                 String nettside = del[4];
                 pers = new Kontaktperson(navn, telefonNr,

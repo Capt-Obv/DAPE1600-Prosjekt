@@ -23,6 +23,7 @@ public class ThreadExporter extends Task<Void> {
     }
     
     @Override
+    // method initiates FileExport either to csv or jobj-file.
     protected Void call() throws Exception {
         if(fileType.equals("csv")) {
             FileExporterCSV export = new FileExporterCSV(objType,String.format("%s.csv", objType));
