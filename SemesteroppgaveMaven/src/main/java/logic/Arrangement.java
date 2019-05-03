@@ -3,6 +3,7 @@ package logic;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -72,14 +73,18 @@ public class Arrangement implements Serializable {
     
     // iterates over program elements and checks if an act can be added
     // in the given timeline
-    public boolean leggTilIProgram(int start, String navn,
-            int slutt) {
+    public boolean leggTilIProgram(Date start, String navn,
+            Date slutt) {
         
         boolean leggesTil = true;
         if(antSolgte>0) {
             for (Programelement elem:program) {
+                /*
                 if(((elem.getStart() <= start) && (start <= elem.getSlutt())) || 
                         ((elem.getStart() <= slutt) && (slutt <= elem.getSlutt()))) {
+*/
+                if(elem.getStart().compareTo(start)<0&&(start.compareTo(elem.getSlutt())<0)||
+                        (elem.getStart().compareTo(slutt)<0 && (slutt.compareTo(slutt)<0))){
                     leggesTil = false;
                 }
             }
@@ -95,10 +100,10 @@ public class Arrangement implements Serializable {
     }
     
     // returnes what acts are playing at a chosen time
-    public Programelement getProgramelement(int tidspunkt) {
+    public Programelement getProgramelement(Date tidspunkt) {
         Programelement prog = null;
         for(Programelement elem:program) {
-            if((elem.getStart() <= tidspunkt) && (tidspunkt <= elem.getSlutt())) {
+            if((elem.getStart().compareTo(tidspunkt)<0) && (elem.getSlutt().compareTo(tidspunkt)>0)) {
                 prog = elem;
             }
         }
@@ -137,11 +142,11 @@ class Deltaker implements Serializable {
 
 class Programelement implements Serializable {
     String navn;
-    int start;
-    int slutt;
+    Date start;
+    Date slutt;
     Arrangement arr;
     
-    public Programelement(String navn, int start, int slutt, Arrangement arr) {
+    public Programelement(String navn, Date start, Date slutt, Arrangement arr) {
         this.navn = navn;
         this.start = start;
         this.slutt = slutt;
@@ -150,10 +155,10 @@ class Programelement implements Serializable {
     
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
-    public void setStart(int start) {this.start = start;}
-    public int getStart() {return start;}
-    public void setSlutt(int slutt) {this.slutt = slutt;}
-    public int getSlutt() {return slutt;}
+    public void setStart(Date start) {this.start = start;}
+    public Date getStart() {return start;}
+    public void setSlutt(Date slutt) {this.slutt = slutt;}
+    public Date getSlutt() {return slutt;}
     public Arrangement getArrangement() {return arr;}
     public void setArrangement(Arrangement arr) {this.arr = arr;}
     

@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableArray;
+import javafx.scene.control.TableView;
 /**
  *
  * @author Andrea
@@ -66,13 +67,19 @@ public class ProgramModel {
     }
 }
 
-class TableToString {
-    private ArrayList<ProgramModel> table;
+class TableToProgramArray {
+    private TableView<ProgramModel> table;
     
-    public TableToString(ArrayList<ProgramModel> table){
+    public TableToProgramArray(TableView<ProgramModel> table){
         this.table = table;
     }
-    
+}
+    /*
+    public ObservableArrayList<String> TableToArray(){
+        
+    }
+    */
+    /*
     @Override
     public String toString(){
         String message = "";
@@ -82,6 +89,7 @@ class TableToString {
         return message; 
         }
     }
+    */
 
 /*
 class TimeFormat{

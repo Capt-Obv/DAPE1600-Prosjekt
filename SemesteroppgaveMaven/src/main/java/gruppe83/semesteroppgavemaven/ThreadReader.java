@@ -8,7 +8,7 @@ package gruppe83.semesteroppgavemaven;
 
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
-
+/*
 public class ThreadReader extends Task<Void> {
     private Runnable readWriteDone;
     private Stage stage;
@@ -33,3 +33,4 @@ public class ThreadReader extends Task<Void> {
         readWriteDone.run();
     }
 }
+*/

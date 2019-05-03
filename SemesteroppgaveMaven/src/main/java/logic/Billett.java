@@ -1,15 +1,16 @@
 package logic;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Billett implements Serializable {
     private Lokale sted;
     private int plassNr;
-    private Dato dato;
+    private LocalDate dato;
     private int pris;
     private Person kjøper;
     
-    public Billett(Lokale sted, int plassNr, Dato dato, int pris, 
+    public Billett(Lokale sted, int plassNr, LocalDate dato, int pris, 
             Person kjøper) {
         this.sted = sted;
         this.plassNr = plassNr;
@@ -23,8 +24,8 @@ public class Billett implements Serializable {
     public Lokale getSted() {return sted;}
     public void setPlassNr(int plassNr) {this.plassNr = plassNr;}
     public int getPlassNr() {return plassNr;}
-    public void setDato(Dato dato) {this.dato = dato;}
-    public Dato getDato() {return dato;}
+    public void setDato(LocalDate dato) {this.dato = dato;}
+    public LocalDate getDato() {return dato;}
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
     public void setPerson(Person kjøper) {this.kjøper = kjøper;}

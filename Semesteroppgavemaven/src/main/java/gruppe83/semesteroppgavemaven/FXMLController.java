@@ -1,22 +1,18 @@
 package gruppe83.semesteroppgavemaven;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -29,19 +25,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import logic.Arrangement;
 import logic.ArrangementModel;
+import logic.ProgramModel;
 
-/**
- *
- * @author Andrea
- */
 public class FXMLController {
 
     // Holds this controller's Stage
@@ -88,31 +78,31 @@ public class FXMLController {
     private MenuItem filterSal;
 
     @FXML
-    private TableView<?> tabell;
+    private TableView<ArrangementModel> tabell;
 
     @FXML
-    private TableColumn<?, ?> colArr;
+    private TableColumn<ArrangementModel, String> colArr;
 
     @FXML
-    private TableColumn<?, ?> colNavn;
+    private TableColumn<String, ArrangementModel> colNavn;
 
     @FXML
-    private TableColumn<?, ?> colKontakt;
+    private TableColumn<String, ArrangementModel> colKontakt;
 
     @FXML
-    private TableColumn<?, ?> colpris;
+    private TableColumn<String, ArrangementModel> colpris;
 
     @FXML
-    private TableColumn<?, ?> colBilett;
+    private TableColumn<String, ArrangementModel> colBilett;
 
     @FXML
-    private TableColumn<?, ?> colDeltaker;
+    private TableColumn<String, ArrangementModel> colDeltaker;
 
     @FXML
-    private TableColumn<?, ?> colProgramm;
+    private TableColumn<String, ArrangementModel> colProgramm;
 
     @FXML
-    private TableColumn<?, ?> colLokale;
+    private TableColumn<String, ArrangementModel> colLokale;
 
     @FXML
     private MenuBar menu;
@@ -136,13 +126,14 @@ public class FXMLController {
     private MenuItem about;
     
     @FXML
-    private TableView<ArrangementModel> tblToSecondController;
+    private TextField txtToSecondController;
     
     @FXML
-    private TableView<ArrangementModel> tblFromSecondController;
-    @FXML
-    private ListView<logic.Arrangement> listFromSecondController;
+    private Label lblFromController2;
     
+    @FXML
+    private ListView<Arrangement> listFromSecondController;
+
 
     public FXMLController() {
 
@@ -157,13 +148,16 @@ public class FXMLController {
             loader.setController(this);
 
             // Load the scene
-            thisStage.setScene(new Scene((Pane) loader.load()));
+            thisStage.setScene(new Scene((Parent) loader.load()));
 
             // Setup the window/stage
             thisStage.setTitle("Passing Controllers Example - Layout1");
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
+        
+        
     }
 
     /**
@@ -181,42 +175,24 @@ public class FXMLController {
 
         // Add an action for the "Open Layout2" button
         btnNyttArr.setOnAction(new EventHandler<ActionEvent>(){
+
             @Override
             public void handle(ActionEvent event) {
                 openLayout2();
             }
-            
-        });
- 
-        btnLesFil.setOnAction(new EventHandler<ActionEvent>(){
-            FileChooser fileChooser = new FileChooser();
-            @Override
-            public void handle(ActionEvent event) {
-                fileChooser.setTitle("Chose file to read");
-                fileChooser.getExtensionFilters().add(new 
-                FileChooser.ExtensionFilter("CSV files", "*.csv"));
-                fileChooser.getExtensionFilters().add(new 
-                FileChooser.ExtensionFilter("JOBJ files", "'jobj"));
-                File selectedFile= fileChooser.showOpenDialog(thisStage);
-            }
-
-            
-        });
+    });
         
-            btnLesFil.setOnAction(new EventHandler<ActionEvent>(){
-            FileChooser fileChooser = new FileChooser();
-            @Override
-            public void handle(ActionEvent event) {
-                fileChooser.setTitle("Chose file to read");
-                fileChooser.getExtensionFilters().add(new 
-                FileChooser.ExtensionFilter("CSV files", "*.csv"));
-                fileChooser.getExtensionFilters().add(new 
-                FileChooser.ExtensionFilter("JOBJ files", "'jobj"));
-                File selectedFile= fileChooser.showOpenDialog(thisStage);
-            }
+        colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
+        colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
+        colKontakt.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("kontakt"));
+        colpris.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("pris"));
+        colBilett.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("plasser"));
+//        colDeltaker.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>(""));
+        colProgramm.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("program"));
+        colLokale.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("lokale"));
+    
+          
 
-            
-        });
     }
 
     /**
@@ -232,15 +208,43 @@ public class FXMLController {
         controller2.showStage();
 
     }
-/*
-    public ListView getEnteredText() {
-        return tblToSecondController;
+
+    /**
+     * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
+     */
+    public String getEnteredText() {
+        return txtToSecondController.getText();
     }
-*/
+
     /**
      * Allows other controllers to set the text of this layout's Label
      */
-    public void setListViewFromSecondController(ObservableList<logic.Arrangement> arr) {
-        listFromSecondController.setItems(arr);
+    public void setTextFromController2(String text) {
+        lblFromController2.setText(text);
     }
+    public void setListViewFromSecondController(Arrangement arr){
+        addArrangementToTable(arr);
+    }
+   
+    public void addArrangementToTable(Arrangement arr){
+       tabell.getItems().add(new ArrangementModel(arr));
+
+    }
+    /*
+    public void kjøpBillett(){
+         public void showLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+        getClass().getResource("login.fxml")
+        );
+            scene.setRoot((Parent) loader.load());
+            LoginController controller = 
+                loader.<LoginController>getController();
+            controller.initManager(this);
+            } catch (IOException ex) {
+      Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  } 
+    }
+*/
 }

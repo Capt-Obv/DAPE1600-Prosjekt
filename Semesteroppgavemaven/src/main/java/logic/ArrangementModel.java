@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Andrea
  */
+
+/*
 public class ArrangementModel {
     private SimpleStringProperty arrangementsNavn;
     private SimpleStringProperty kontakt;
@@ -34,3 +36,4 @@ public class ArrangementModel {
         this.programElement = new SimpleStringProperty(element);
     }
 }
+*/

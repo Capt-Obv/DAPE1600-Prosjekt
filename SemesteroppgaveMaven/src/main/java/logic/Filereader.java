@@ -13,6 +13,7 @@ import java.nio.file.Paths;
  *
  * @author sarah
  */
+/*
 abstract class Filereader {
 
     abstract void initializeImport(File file, String objType) throws
@@ -23,7 +24,7 @@ abstract class Filereader {
     readers for the different filetypes and depending on strategy creates object
     for every line of file (with parsing for csv-files)
     */
-    
+/*    
     public void readFile(File inputfile, String objType, String fileType) throws IOException, 
             FileNotFoundException, ClassNotFoundException, InvalidTimeOverlapException, 
             InvalidObjectTypeException, InvalidFormatException , InvalidDateFormatException{
@@ -294,3 +295,4 @@ abstract class Filereader {
         return pers;
     }
 }
+*/
