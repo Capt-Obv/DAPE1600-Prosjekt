@@ -1,8 +1,15 @@
 package logic;
 
+package logic;
+
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
+
 
 /**
  *
@@ -29,6 +36,7 @@ public class Arrangement implements Serializable {
         solgteBilletter = new Billett[lokale.getAntPlasser()];
         deltakere = new ArrayList();
         program = new ArrayList();
+        this.dato = dato;
     }
 
     //get-set methods
@@ -39,7 +47,7 @@ public class Arrangement implements Serializable {
     public Kontaktperson getKontakt() {return kontakt;}
     public void setLokale(Lokale lokale) {this.lokale = lokale;}
     public Lokale getLokale() {return lokale;}
-    public void setDato(LocalDate dato) {this.dato = dato;}
+    public void setLocalDate(LocalDate dato) {this.dato = dato;}
     public LocalDate getDato() {return dato;}
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
@@ -72,14 +80,18 @@ public class Arrangement implements Serializable {
 
     // iterates over program elements and checks if an act can be added
     // in the given timeline
-    public boolean leggTilIProgram(int start, String navn,
-            int slutt) {
+    public boolean leggTilIProgram(LocalTime start, String navn,
+            LocalTime slutt) {
 
         boolean leggesTil = true;
         if(antSolgte>0) {
             for (Programelement elem:program) {
+                /*
                 if(((elem.getStart() <= start) && (start <= elem.getSlutt())) ||
                         ((elem.getStart() <= slutt) && (slutt <= elem.getSlutt()))) {
+*/
+                if(elem.getStart().compareTo(start)<0&&(start.compareTo(elem.getSlutt())<0)||
+                        (elem.getStart().compareTo(slutt)<0 && (slutt.compareTo(slutt)<0))){
                     leggesTil = false;
                 }
             }
@@ -95,16 +107,24 @@ public class Arrangement implements Serializable {
     }
 
     // returnes what acts are playing at a chosen time
-    public Programelement getProgramelement(int tidspunkt) {
+    public Programelement getProgramelement(LocalTime tidspunkt) {
         Programelement prog = null;
         for(Programelement elem:program) {
-            if((elem.getStart() <= tidspunkt) && (tidspunkt <= elem.getSlutt())) {
+            if((elem.getStart().compareTo(tidspunkt)<0) && (elem.getSlutt().compareTo(tidspunkt)>0)) {
                 prog = elem;
             }
         }
         return prog;
     }
 
+    public String programToString(){
+        String message = "";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("hh:mm");
+        for (Programelement elem:program){
+            message += elem.start.format(dateFormat)+"-"+elem.slutt.format(dateFormat)+": "+elem.getNavn();
+        }
+        return message;
+    }
     @Override
     public String toString() {
         return String.format("Arrangementsnavn: %s \nLokale: %s \nKontaktperson"
@@ -137,11 +157,11 @@ class Deltaker implements Serializable {
 
 class Programelement implements Serializable {
     String navn;
-    int start;
-    int slutt;
+    LocalTime start;
+    LocalTime slutt;
     Arrangement arr;
 
-    public Programelement(String navn, int start, int slutt, Arrangement arr) {
+    public Programelement(String navn, LocalTime start, LocalTime slutt, Arrangement arr) {
         this.navn = navn;
         this.start = start;
         this.slutt = slutt;
@@ -150,10 +170,10 @@ class Programelement implements Serializable {
 
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
-    public void setStart(int start) {this.start = start;}
-    public int getStart() {return start;}
-    public void setSlutt(int slutt) {this.slutt = slutt;}
-    public int getSlutt() {return slutt;}
+    public void setStart(LocalTime start) {this.start = start;}
+    public LocalTime getStart() {return start;}
+    public void setSlutt(LocalTime slutt) {this.slutt = slutt;}
+    public LocalTime getSlutt() {return slutt;}
     public Arrangement getArrangement() {return arr;}
     public void setArrangement(Arrangement arr) {this.arr = arr;}
 

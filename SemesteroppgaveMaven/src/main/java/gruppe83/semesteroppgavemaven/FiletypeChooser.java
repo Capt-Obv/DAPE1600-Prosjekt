@@ -11,8 +11,8 @@ import java.io.IOException;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import logic.FilereaderCSV;
-import logic.FilereaderJOBJ;
+//import logic.FilereaderCSV;
+//import logic.FilereaderJOBJ;
 import logic.InvalidFormatException;
 import logic.InvalidObjectTypeException;
 import logic.InvalidTimeOverlapException;
@@ -21,6 +21,7 @@ import logic.InvalidTimeOverlapException;
  *
  * @author sarah
  */
+/*
 public class FiletypeChooser {
     private FileChooser chooser;
     private File selected;
@@ -69,3 +70,4 @@ public class FiletypeChooser {
         }
     }
 }
+*/

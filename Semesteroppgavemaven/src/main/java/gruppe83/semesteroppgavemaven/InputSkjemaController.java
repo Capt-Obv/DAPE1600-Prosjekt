@@ -5,54 +5,51 @@
  */
 package gruppe83.semesteroppgavemaven;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-        import javafx.scene.control.Alert;
-import javafx.scene.layout.VBox;
-import logic.ProgramModel;
-import java.net.URL;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import java.util.ArrayList;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.time.LocalDate;
+import javafx.stage.Stage;
 import logic.Arrangement;
-
-import java.io.IOException;
-import javafx.scene.Parent;
 import logic.Kontaktperson;
 import logic.Lokale;
+import logic.ProgramModel;
 
+/**
+ *
+ * @author Andrea
+ */
 public class InputSkjemaController {
 
     // Holds this controller's Stage
@@ -68,13 +65,8 @@ public class InputSkjemaController {
     private TextField txtToFirstController;
     @FXML
     private Button btnSetLayout1Text;
+    
         @FXML
-    private TitledPane accordionProgram;
-    
-    @FXML
-    private TitledPane accordionDeltaker;
-    
-    @FXML
     private Accordion accoTemplate;
 
     @FXML
@@ -109,6 +101,9 @@ public class InputSkjemaController {
 
     @FXML
     private TextField txtBilletter;
+
+    @FXML
+    private TitledPane accordionDeltaker;
 
     @FXML
     private TextField txtLeggTilArtist;
@@ -147,6 +142,9 @@ public class InputSkjemaController {
     private ListView<String> listKontaktperson;
 
     @FXML
+    private TitledPane accordionProgram;
+
+    @FXML
     private TextField txtProgram;
 
     @FXML
@@ -159,15 +157,6 @@ public class InputSkjemaController {
     private TextField txtKlokkeSlutt;
 
     @FXML
-    private ListView<String> listProgram;
-
-    @FXML
-    private Button btnLagre;
-
-    @FXML
-    private Button btnAvbryt;
-    
-    @FXML
     private TableView<ProgramModel> tblProgram;
 
     @FXML
@@ -178,6 +167,20 @@ public class InputSkjemaController {
 
     @FXML
     private TableColumn<ProgramModel, String> colElement;
+
+    @FXML
+    private Button btnLagre;
+
+    @FXML
+    private Button btnAvbryt;
+    
+    @FXML
+    private Label lagreLokal;
+    @FXML
+    private Label lblTempLokale;
+    
+    @FXML
+    private Label lagreDato;
 
     public InputSkjemaController(FXMLController controller1) {
         // We received the first controller, now let's make it usable throughout this controller.
@@ -202,22 +205,63 @@ public class InputSkjemaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        // TODO
-        
+    }
+
+    /**
+     * Show the stage that was loaded in the constructor
+     */
+    public void showStage() {
+        thisStage.showAndWait();
+    }
+
+    @FXML
+    private void initialize() throws ParseException {
+
+        // Set the label to whatever the text entered on Layout1 is
+        //lblFromController1.setText(controller1.getEnteredText());
+
+        // Set the action for the button
+        //btnSetLayout1Text.setOnAction(new EventHandler<ActionEvent>(){
+                
+
+        //    @Override
+        //    public void handle(ActionEvent event) {
+        //        setTextOnLayout1();
+        //    }
+    //});
+    
         //ChoiceBox for å velge lokale og lagre verdien
-        ObservableList<String> lokaler = FXCollections.observableArrayList(logic.Lokale.lokalListe());
+        final ObservableList<String> lokaler = FXCollections.observableArrayList(logic.Lokale.lokalListe());
         velgLokale.setItems(lokaler);
-        ChangeListener<String> changeListener = new ChangeListener<String>(){
+        velgLokale.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
+
+            // if the item of the list is changed 
+            public void changed(ObservableValue ov, Number value, Number new_value) 
+            { 
+
+                lagreLokal.setText(lokaler.get((int) new_value));
+                //lblTempLokale.setText(""+new_value);
+                //lblTempLokale.setText(( lokaler.get((int) new_value)));
+                // set the text for the label to the selected item 
+                //lblTempLokale.setText((String) velgLokale.getValue());
+                
+            } 
+        }); 
+
+        velgDato.setOnAction(new EventHandler<ActionEvent>() {
+
+
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue != null){
-                    /*---------------Lagre verdien*/
-                }
+            public void handle(ActionEvent event) {
+                 LocalDate dato = velgDato.getValue();
+             
+                 lagreDato.setText(""+dato);
             }
-            
-        };
-        
+        });
+
+        Button button = new Button("Read Date");
+
+
         txtKlokkeStart.setText("00:00");
         txtKlokkeSlutt.setText("00:00");
         txtProgram.setText("");
@@ -233,7 +277,16 @@ public class InputSkjemaController {
             public void handle(ActionEvent event) {
                 //ObservableList<ProgramModel> programModels = FXCollections.observableArrayList(
                 //new ProgramModel(txtKlokkeStart.getText(),txtKlokkeSlutt.getText(), txtProgram.getText()));
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                try{
+                    Date start = sdf.parse(txtKlokkeStart.getText());
+                    Date slutt = sdf.parse(txtKlokkeSlutt.getText());
+                } catch (ParseException ex) {
+                Logger.getLogger(InputSkjemaController.class.getName()).log(Level.SEVERE, null, ex);
+                //Legg til advarsel
+                }
                 programModels.add(new ProgramModel(txtKlokkeStart.getText(),txtKlokkeSlutt.getText(), txtProgram.getText()));
+                
                 tblProgram.setItems(programModels);
                 txtKlokkeStart.setText("00:00");
                 txtKlokkeSlutt.setText("00:00");
@@ -279,8 +332,8 @@ public class InputSkjemaController {
                     if(!txtNettside.getText().isEmpty()){kontakt.add(txtNettside.getText());}
                     if(!txtFirma.getText().isEmpty()){kontakt.add(txtFirma.getText());}
                     if(!txtOpplysninger.getText().isEmpty()){kontakt.add(txtOpplysninger.getText());}
-                    ObservableList<String> kontakO = FXCollections.observableArrayList(kontakt);
-                    listKontaktperson.getItems().addAll(kontakO);
+                    ObservableList<String> kontakO = FXCollections.observableArrayList();
+                    listKontaktperson.getItems().addAll(kontakt);
                 }
                 txtKontaktNavn.setText("Navn");
                 txtTelefonr.setText("Telefonr");
@@ -292,133 +345,71 @@ public class InputSkjemaController {
                 }
             });
         
-
-        
+            
         btnLagre.setOnAction(new EventHandler<ActionEvent>(){
             @Override
-            public void handle(ActionEvent event) {
-                String message = "";
-                if (txtNavn.getText().isEmpty()){
-                    //Legg til advarsel
-                    return;
-                }
-                else {
-                    message += ("Navn: " +txtNavn.getText()+"\n");
-                    System.out.println("Navn "+txtNavn.getText());
-                }
-
-                if (velgLokale.getValue()==null){
-                    //Legg til advarsel
-                    return;
-                }
-                else {
-                    message += "Lokale: " +velgLokale.getValue()+"\n";
-                    System.out.println("Lokale: " +velgLokale.getValue());
-                }
-                
-                
-                if (velgDato.getValue() == null){
-                    //Legg til advarsel
-                    return;
-                }
-                else {
-                    LocalDate arrDato = velgDato.getValue();
-                    System.out.println(velgDato.getValue());
-                }   
-                
-                if (txtPris.getText().isEmpty()){
-                    //Legg til advarsel
-                }
-                else {
-                    message += "Pris: "+txtPris.getText()+"\n";
-                    System.out.println("Pris: "+txtPris.getText());
-                }
-                
-                //DEENNNE SKAL JEG FORANDRE
-                if (txtBilletter.getText().isEmpty()){
-                    //legg til advarsel
-                } 
-                else {
-                    message += "plasser: "+txtBilletter.getText()+"\n";
-                    System.out.println("plasser: "+txtBilletter.getText());
-                }
-                
-                ArrayList<String> arrArtist = new ArrayList<>();
-                arrArtist.addAll(listeArtist.getItems());
-                message += "Artister: ";
-                for (String elem : listeArtist.getItems()){
-                    message += elem+ " ";
-                }
-                                message += "\n Kontaktperson:\n";
-                System.out.println(listKontaktperson);
-                if(txtKontaktNavn.getText().isEmpty() || txtTelefonr.getText().isEmpty()){
-                    //legg til en advarsel at disse to er nødvendige
-                }else{
-                    //Legger informasjonen om kontaktpersonen i en liste
-                    //finne en måte å finne lengden på listwiev
-                    //kontaktTemp = listview.getSelectionModel().getSelectedItems();
-                    //for (String elem:listKontaktperson){
-                    //message += "Navn: "+ kontakt.get(0)+"\n";
-                    if(!txtEpost.getText().isEmpty()){
-
-                        //message += "E-post: "+kontakt.get(2)+"\n";
-                    }
-                    if(!txtOpplysninger.getText().isEmpty()){
-
-                        //message += "Andre opplysninger: " +kontakt.get(5)+"\n";
-                    }
-                    //message += "Telefonnr: "+kontakt.get(1)+"\n";
-                    
-                    if(!txtNettside.getText().isEmpty()){
-
-                        //message += "Nettside: " +kontakt.get(3)+"\n";
-                    }
-                    if(!txtFirma.getText().isEmpty()){
-
-                        //message += "Firma: " + kontakt.get(4)+"\n";
-                    }
-                    
-                    //System.out.println("Andre opplysninger: "+kontakt);
-                    }
-                
-            }
-    });
-                ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+            public void handle(ActionEvent event) {  
+                /*
                 ObservableList<String> kontakt;
                 kontakt = listKontaktperson.getItems();
                 
                 Kontaktperson kontaktperson = new Kontaktperson(kontakt.get(0), Integer.parseInt(kontakt.get(1)),
-                    kontakt.get(2), kontakt.get(5), kontakt.get(3), kontakt.get(4));
+                    kontakt.get(2));
+                if(kontakt.size()>= 4){kontaktperson.setNettside(kontakt.get(3));}
+                if(kontakt.size()>= 5) {kontaktperson.setFirma(kontakt.get(4));}
+                if(kontakt.size()>=6 ){kontaktperson.setOpplysninger(kontakt.get(5));}
                 
-                Lokale lok = new Lokale("Sal1", Integer.parseInt(txtBilletter.getText()),velgLokale.getValue());
-                Arrangement arr = new Arrangement(txtNavn.getText(),lok,kontaktperson,velgDato.getValue(),Integer.parseInt(txtPris.getText()));
-    }
 
-    /**
-     * Show the stage that was loaded in the constructor
-     */
-    public void showStage() {
-        thisStage.showAndWait();
-    }
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                CharSequence temp = lagreDato.getText();
 
-    @FXML
-    private void initialize() {
+                LocalDate date = LocalDate.parse(temp, format);
 
-        // Set the label to whatever the text entered on Layout1 is
-        //lblFromController1.setText(controller1.getEnteredText());
+ 
+                Lokale lok = new Lokale("Sal1", Integer.parseInt(txtBilletter.getText()),lagreLokal.getText());
+                Arrangement arr = new Arrangement(txtNavn.getText(),lok,kontaktperson,date,Integer.parseInt(txtPris.getText()));
+                ObservableList<ProgramModel> program = FXCollections.observableArrayList(tblProgram.getItems());
+                LocalTime start;
+                LocalTime slutt;
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
+                ProgramModel tempProg = program.get(0);
+                System.out.println(tempProg.getStartTid());
+                
+                for (ProgramModel elem : program){
+                    
+                    start = LocalTime.parse(elem.getStartTid());
+                    slutt = LocalTime.parse(elem.getSluttTid());
+                    arr.leggTilIProgram(start, elem.getProgramElement(), slutt);
+                    
+                }
+                */
+                Lokale lok2 = new Lokale("Sal1", 100,"Kino");
+                Kontaktperson kont = new Kontaktperson("sila",928345, "epost");
+                LocalDate date2 = LocalDate.now();
+                Arrangement arr2 = new Arrangement("Fest",lok2,kont,date2,10000);
+                arr2.leggTilIProgram(LocalTime.parse("00:10"), "start", LocalTime.parse("01:00"));
+                //ObservableList<logic.Arrangement> arrList = FXCollections.observableArrayList(arr2);               
+                thisStage.close();
+                           controller1.setListViewFromSecondController(arr2);
 
-        // Set the action for the button
-        //btnSetLayout1Text.setOnAction(event -> setTextOnLayout1());
+            }
+        });
+        
+        btnAvbryt.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+                thisStage.close();
+            }
+            
+        });
         
     }
 
     /**
      * Calls the "setTextFromController2()" method on the first controller to update its Label
      */
-    /*
-    private void setArr(Arrangement arr) {
-        controller1.setTableFromController2(arr);
+    private void setTextOnLayout1() {
+        controller1.setTextFromController2(txtToFirstController.getText());
     }
-*/
 
 }

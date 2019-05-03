@@ -15,12 +15,12 @@ import logic.InvalidFormatException;
 public class ThreadReader extends Task<Void> {
     private Runnable readWriteDone;
     private File file;
-    
+
     public ThreadReader(Runnable whenDone, File file) {
         this.readWriteDone = whenDone;
         this.file = file;
     }
-    
+
     @Override
     protected Void call() throws Exception {
         String filename = file.getName();
@@ -35,15 +35,16 @@ public class ThreadReader extends Task<Void> {
             throw new InvalidFormatException("Not a valid filetype. Choose"
                     + " either csv or jobj");
         }
-        try { 
+        try {
             Thread.sleep(10000);
         } catch(InterruptedException e) {
             throw new InterruptedException("Fileimport aborted");
         }
         return null;
     }
-    
+
     protected void succeeded() {
         readWriteDone.run();
     }
 }
+*/

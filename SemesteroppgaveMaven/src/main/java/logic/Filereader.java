@@ -13,6 +13,7 @@ import java.nio.file.Paths;
  *
  * @author sarah
  */
+/*
 abstract class Filereader {
 
     abstract void initializeImport(File file, String objType) throws
@@ -328,3 +329,4 @@ abstract class Filereader {
         return pers;
     }
 }
+*/

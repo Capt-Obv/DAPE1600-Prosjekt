@@ -11,14 +11,18 @@ import java.io.Serializable;
  *
  * @author Andrea
  */
-//public class Kontaktperson extends Person implements Serializable {
-public class Kontaktperson {
+public class Kontaktperson extends Person implements Serializable {
     private String epostadresse, opplysninger;
     private String nettside = null;
     private String firma = null;
     
     // Different constructors depending on how much information we have on 
     // the contact person.
+    
+    public Kontaktperson(String navn, int telefonNr, String epostadresse)   {
+        super(navn, telefonNr);
+        this.epostadresse = epostadresse;
+    }
     
     public Kontaktperson(String navn, int telefonNr, String epostadresse, String
             opplysninger) {
@@ -77,4 +81,3 @@ public class Kontaktperson {
         return result;
     }
 }
-
