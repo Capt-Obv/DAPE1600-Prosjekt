@@ -24,7 +24,8 @@ abstract class FileExporter {
             FileNotFoundException, IOException {
 
 
-        //Iterates over array of chosen object type and writes to file
+        //Iterates over array of events, finds 
+        // chosen objects type and writes to file
         // (with parsing for csv-type)
 
         for(int i=0; i<FXMLController.getArrangementListSize(); i++) {

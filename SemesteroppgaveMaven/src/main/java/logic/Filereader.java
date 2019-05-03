@@ -92,6 +92,9 @@ abstract class Filereader {
                 } else {
                     Programelement prgm = (Programelement) ois.readObject();
                     if(prgm != null) {
+                        
+                        //Checks if the given timeframe is available for new act
+                        
                         for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
                             Arrangement arr = FXMLController.getArrangement(i);
                             if(prgm.getArrangement().getNavn().equals(arr.getNavn())) {
@@ -113,6 +116,9 @@ abstract class Filereader {
                     ledig = parseBillett(line);
                 } else {
                     Billett bill = (Billett) ois.readObject();
+                    
+                    //checks if there are available tickets
+                    
                     ledig = bill.getArrangement().billettsalg(bill.getPerson());
                 }
             } else {
@@ -128,6 +134,8 @@ abstract class Filereader {
         }
     }
 
+    //throws InvalidformatException if test string doesn't contain parseable
+    // number
     public static int parseTall(String testStr, String errorMessage)
             throws InvalidFormatException {
         int tall;
@@ -139,6 +147,8 @@ abstract class Filereader {
         return tall;
     }
 
+    // A basic test to check if inputstring is a valid emailadress.
+    // Throws InvalidFormatException if not.
     public static boolean checkEmail(String testStr, String errorMessage)
             throws InvalidFormatException {
         boolean trueEmail = false;
