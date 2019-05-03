@@ -49,7 +49,6 @@ public class ThreadExporter extends Task<Void> {
     
     @Override
     protected void failed() {
-        // set label med
-        // getException().printStackTrace();
+        getException().printStackTrace();
     }
 }

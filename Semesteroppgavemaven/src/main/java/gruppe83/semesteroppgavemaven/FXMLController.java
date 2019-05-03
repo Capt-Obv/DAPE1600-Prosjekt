@@ -84,7 +84,7 @@ public class FXMLController {
     private Button btnLesBillett;
     
     @FXML
-    private Label lblSkrivingLesingFerdig;
+    protected Label lblSkrivingLesingFerdig;
 
     @FXML
     private ScrollPane skroll;
@@ -215,20 +215,38 @@ public class FXMLController {
                 openLayout2();
             }
     });
-        btnSkrivBillettTilFil.setOnAction(new EventHandler<ActionEvent>() {
+        btnBillettTilCsvFil.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone, fil);
+                Task<Void> task = new ThreadReader(this::readDone, "csv", "billett");
                 service.execute(task);
             }
         });
         
-        btnSkrivArrangementTilFil.setOnAction(new EventHandler<ActionEvent>() {
+         btnBillettTilJobjFil.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone, fil);
+                Task<Void> task = new ThreadReader(this::readDone, "jobj", "billett");
+                service.execute(task);
+            }
+        });
+        
+        btnArrangementTilCsvFil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadReader(this::readDone, "csv", "arrangement");
+                service.execute(task);
+            }
+        });
+        
+         btnArrangementTilJobjFil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ExecutorService service = Executors.newSingleThreadExecutor();
+                Task<Void> task = new ThreadExporter(this::readDone, "jobj", "arrangement");
                 service.execute(task);
             }
         });
@@ -237,7 +255,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadExporter(this::writeDone);
+                Task<Void> task = new ThreadReader(this::readDone);
                 service.execute(task);
             }
         });
@@ -246,7 +264,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadExporter(this::writeDone);
+                Task<Void> task = new ThreadReader(this::readDone);
                 service.execute(task);
             }
         })
@@ -349,11 +367,11 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
     }
     
     private void readDone() {
-        // lbl.setText("Innlesingen er ferdig");
+        lblSkrivingLesingFerdig.setText("Filinnlesningen er ferdig");
     }
     
     private void writeDone() {
-        // lbl.setText("Eksporteringen er ferdig");
+        lblSkrivingLesingFerdig.setText("Eksporteringen er ferdig");
     }
     /*
     public void kjøpBillett(){
