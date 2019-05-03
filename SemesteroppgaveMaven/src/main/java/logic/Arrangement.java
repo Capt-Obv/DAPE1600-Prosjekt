@@ -1,9 +1,15 @@
 package logic;
 
+package logic;
+
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  *
@@ -30,6 +36,7 @@ public class Arrangement implements Serializable {
         solgteBilletter = new Billett[lokale.getAntPlasser()];
         deltakere = new ArrayList();
         program = new ArrayList();
+        this.dato = dato;
     }
     
     //get-set methods    
@@ -40,7 +47,7 @@ public class Arrangement implements Serializable {
     public Kontaktperson getKontakt() {return kontakt;}
     public void setLokale(Lokale lokale) {this.lokale = lokale;}
     public Lokale getLokale() {return lokale;}
-    public void setDato(LocalDate dato) {this.dato = dato;}
+    public void setLocalDate(LocalDate dato) {this.dato = dato;}
     public LocalDate getDato() {return dato;}
     public void setPris(int pris) {this.pris = pris;}
     public int getPris() {return pris;}
@@ -73,8 +80,8 @@ public class Arrangement implements Serializable {
     
     // iterates over program elements and checks if an act can be added
     // in the given timeline
-    public boolean leggTilIProgram(Date start, String navn,
-            Date slutt) {
+    public boolean leggTilIProgram(LocalTime start, String navn,
+            LocalTime slutt) {
         
         boolean leggesTil = true;
         if(antSolgte>0) {
@@ -100,7 +107,7 @@ public class Arrangement implements Serializable {
     }
     
     // returnes what acts are playing at a chosen time
-    public Programelement getProgramelement(Date tidspunkt) {
+    public Programelement getProgramelement(LocalTime tidspunkt) {
         Programelement prog = null;
         for(Programelement elem:program) {
             if((elem.getStart().compareTo(tidspunkt)<0) && (elem.getSlutt().compareTo(tidspunkt)>0)) {
@@ -110,6 +117,14 @@ public class Arrangement implements Serializable {
         return prog;
     }
     
+    public String programToString(){
+        String message = "";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("hh:mm");
+        for (Programelement elem:program){
+            message += elem.start.format(dateFormat)+"-"+elem.slutt.format(dateFormat)+": "+elem.getNavn();
+        }
+        return message;
+    }
     @Override
     public String toString() {
         return String.format("Arrangementsnavn: %s \nLokale: %s \nKontaktperson"
@@ -142,11 +157,11 @@ class Deltaker implements Serializable {
 
 class Programelement implements Serializable {
     String navn;
-    Date start;
-    Date slutt;
+    LocalTime start;
+    LocalTime slutt;
     Arrangement arr;
     
-    public Programelement(String navn, Date start, Date slutt, Arrangement arr) {
+    public Programelement(String navn, LocalTime start, LocalTime slutt, Arrangement arr) {
         this.navn = navn;
         this.start = start;
         this.slutt = slutt;
@@ -155,10 +170,10 @@ class Programelement implements Serializable {
     
     public void setNavn(String navn) {this.navn = navn;}
     public String getNavn() {return navn;}
-    public void setStart(Date start) {this.start = start;}
-    public Date getStart() {return start;}
-    public void setSlutt(Date slutt) {this.slutt = slutt;}
-    public Date getSlutt() {return slutt;}
+    public void setStart(LocalTime start) {this.start = start;}
+    public LocalTime getStart() {return start;}
+    public void setSlutt(LocalTime slutt) {this.slutt = slutt;}
+    public LocalTime getSlutt() {return slutt;}
     public Arrangement getArrangement() {return arr;}
     public void setArrangement(Arrangement arr) {this.arr = arr;}
     

@@ -42,11 +42,13 @@
                               <Label fx:id="lblPris" text="Pris" GridPane.rowIndex="3" />
                               <Label fx:id="lblBilletter" text="Billetter" GridPane.rowIndex="4" />
                               <TextField fx:id="txtNavn" GridPane.columnIndex="1" />
-                              <ChoiceBox fx:id="velgLokale" prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="velgLokale" prefHeight="26.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label fx:id="lblNavn" prefHeight="23.0" prefWidth="30.0" text="Navn" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                               <TextField fx:id="txtPris" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <DatePicker fx:id="velgDato" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextField fx:id="txtBilletter" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lagreDato" text="          " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                              <Label fx:id="lagreLokal" alignment="CENTER_RIGHT" text="             " GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

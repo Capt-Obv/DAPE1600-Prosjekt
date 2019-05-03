@@ -16,6 +16,7 @@ public class Lokale implements Serializable {
     public Lokale(String navn, int antPlasser, String type) {
         this.navn = navn;
         this.antPlasser = antPlasser;
+        this.type = type;
     }
         public static ArrayList<String> lokalListe(){
         ArrayList<String> lokaler = new ArrayList<>();

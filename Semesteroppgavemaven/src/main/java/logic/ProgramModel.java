@@ -5,6 +5,7 @@
  */
 package logic;
 
+
 import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,37 +75,3 @@ class TableToProgramArray {
         this.table = table;
     }
 }
-    /*
-    public ObservableArrayList<String> TableToArray(){
-        
-    }
-    */
-    /*
-    @Override
-    public String toString(){
-        String message = "";
-        for(int i=0; i<table.size();i=i+3){
-            message += table.get(i)+"-"+table.get(i+1)+" "+table.get(i+2);
-            }
-        return message; 
-        }
-    }
-    */
-
-/*
-class TimeFormat{
-    private String time;
-    
-    public TimeFormat(String time){
-        this.time = time;
-    }
-    //Legg til try catch
-    public Date getTimeFormat(String time) throws ParseException{
-        Date timeFormatted = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        
-        timeFormatted = simpleDateFormat.parse(time);
-        
-        return timeFormatted;
-    }}
-*/
