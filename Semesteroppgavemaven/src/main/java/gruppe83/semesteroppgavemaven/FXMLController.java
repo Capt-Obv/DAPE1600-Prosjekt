@@ -86,31 +86,31 @@ public class FXMLController {
     private MenuItem filterSal;
 
     @FXML
-    private TableView<?> tabell;
+    private TableView<ArrangementModel> tabell;
 
     @FXML
-    private TableColumn<?, ?> colArr;
+    private TableColumn<ArrangementModel, String > colArr;
 
     @FXML
-    private TableColumn<?, ?> colNavn;
+    private TableColumn<ArrangementModel, String> colNavn;
 
     @FXML
-    private TableColumn<?, ?> colKontakt;
+    private TableColumn<ArrangementModel, String> colKontakt;
 
     @FXML
-    private TableColumn<?, ?> colpris;
+    private TableColumn<ArrangementModel, String> colpris;
 
     @FXML
-    private TableColumn<?, ?> colBilett;
+    private TableColumn<ArrangementModel, String> colBilett;
 
     @FXML
-    private TableColumn<?, ?> colDeltaker;
+    private TableColumn<ArrangementModel, String> colDeltaker;
 
     @FXML
-    private TableColumn<?, ?> colProgramm;
+    private TableColumn<ArrangementModel, String> colProgramm;
 
     @FXML
-    private TableColumn<?, ?> colLokale;
+    private TableColumn<ArrangementModel, String> colLokale;
 
     @FXML
     private MenuBar menu;
@@ -194,7 +194,6 @@ public class FXMLController {
             }
     });
 
-        btnKjøpBillett = new Button();
         final ObservableList selectedCells = tabell.getSelectionModel().getSelectedCells();
         selectedCells.addListener(new ListChangeListener<ArrangementModel>() {
 
@@ -233,13 +232,13 @@ tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<Arrangem
 
 
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
-        colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
-        colKontakt.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("kontakt"));
-        colpris.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("pris"));
-        colBilett.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("plasser"));
+        colNavn.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
+        colKontakt.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("kontakt"));
+        colpris.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("pris"));
+        colBilett.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("plasser"));
 //        colDeltaker.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>(""));
-        colProgramm.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("program"));
-        colLokale.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("lokale"));
+        colProgramm.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("program"));
+        colLokale.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("lokale"));
 
 
 

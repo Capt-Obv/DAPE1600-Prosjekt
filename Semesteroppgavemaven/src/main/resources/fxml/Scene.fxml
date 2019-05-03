@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,11 +21,21 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0">
                <children>
-                  <Button fx:id="btnLesFil" layoutX="4.0" layoutY="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Les Fil" />
-                  <Button fx:id="btnNyttArr" layoutX="4.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Lag Arrangement" />
-                  <Button fx:id="btnSlettArr" layoutX="4.0" layoutY="54.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Slett Arrangement" />
-                  <Button fx:id="btnSkrivFil" layoutX="5.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv til fil" />
-                  <Button layoutX="5.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Kjøp billet" />
+                  <Button fx:id="btnLesFil" layoutX="4.0" layoutY="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Les Arrangement fra fil" />
+                  <Button fx:id="btnNyttArr" layoutX="4.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Lag Arrangement" />
+                  <Button fx:id="btnSlettArr" layoutX="2.0" layoutY="78.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Slett Arrangement" />
+                  <Button fx:id="btnSkrivFil" layoutX="2.0" layoutY="105.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv arrangement til fil" />
+                  <Button layoutX="14.0" layoutY="518.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Kjøp billet" />
+                  <Button layoutX="3.0" layoutY="28.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Les billett fra fil" />
+                  <Button layoutX="3.0" layoutY="131.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Skriv billett til fil" />
+                  <TextField layoutX="13.0" layoutY="464.0" />
+                  <TextField layoutX="13.0" layoutY="407.0" />
+                  <Label layoutX="60.0" layoutY="446.0" text="Telefonnr" />
+                  <Label layoutX="72.0" layoutY="390.0" text="Navn" />
+                  <Label layoutX="24.0" layoutY="363.0" text="Arrengement:" />
+                  <Label fx:id="lblSettArr" layoutX="111.0" layoutY="363.0" text="ingen" />
+                  <Label fx:id="lblFil" layoutX="71.0" layoutY="157.0" />
+                  <TextArea layoutX="16.0" layoutY="277.0" prefHeight="90.0" prefWidth="149.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
