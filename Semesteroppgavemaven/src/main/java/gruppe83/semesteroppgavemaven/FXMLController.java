@@ -134,6 +134,8 @@ public class FXMLController {
 
     @FXML
     private ListView<Arrangement> listFromSecondController;
+    
+    private static ArrayList<Arrangement> arrList;
 
 
     public FXMLController() {

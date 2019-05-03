@@ -12,7 +12,7 @@ public class Billett implements Serializable {
     private Arrangement arr;
 
     public Billett(Lokale sted, int plassNr, LocalDate dato, int pris, 
-            Person kjøper) {
+            Person kjøper, Arrangement arr) {
         this.sted = sted;
         this.plassNr = plassNr;
         this.dato = dato;

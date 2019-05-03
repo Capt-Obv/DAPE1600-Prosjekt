@@ -1,7 +1,5 @@
 package logic;
 
-package logic;
-
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -23,7 +21,7 @@ public class Arrangement implements Serializable {
     private transient ArrayList<Deltaker> deltakere;
     private ArrayList<Programelement> program;
     private transient Billett[] solgteBilletter;
-    private Dato dato;
+    private LocalDate dato;
     private int pris;
     private static int antSolgte = 0;
 

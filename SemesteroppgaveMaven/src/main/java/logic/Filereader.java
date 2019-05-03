@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author sarah
@@ -180,22 +183,38 @@ abstract class Filereader {
     }
 
     public boolean parseProgram(String line) throws InvalidFormatException {
+        LocalTime startTidspunkt;
+        LocalTime sluttTidspunkt;
+        
         String[] del = line.split(";");
         boolean leggesTil = false;
         if(del.length<4) {
             throw new InvalidFormatException("CSV-formats require data to"
                         + " be split by semicolon");
         } else {
-            int start = parseTall(del[0], "Start time of programelement not"
-                        + " a number");
-            String navn = del[1];
-            int slutt = parseTall(del[2], "End time of programelement not "
-                        + " a number");
+            String navn = del[0];
+            
+            String[] startTidDeler = del[1].split(":");
+            int startTime = parseTall(startTidDeler[0],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            int startMinutt = parseTall(startTidDeler[1],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            
+            String[] sluttTidDeler = del[2].split(":");
+            int sluttTime = parseTall(sluttTidDeler[0],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            int sluttMinutt = parseTall(sluttTidDeler[1],"Wrong time-format. Should"
+                    + " be given as hh:mm ");
+            
+            startTidspunkt = LocalTime.of(startTime,startMinutt);
+            sluttTidspunkt = LocalTime.of(sluttTime, sluttMinutt);
+            
             String arrangement = del[3];
             for(int i=0; i<FXMLController.getArrangementListSize(); i++) {
                 Arrangement arr = FXMLController.getArrangement(i);
                 if(arrangement.equals(arr.getNavn())) {
-                        leggesTil = arr.leggTilIProgram(start, navn, slutt);
+                        leggesTil = arr.leggTilIProgram(startTidspunkt, navn, 
+                                sluttTidspunkt);
                 }
             }
         }
@@ -221,7 +240,7 @@ abstract class Filereader {
     public Arrangement parseArrangement(String line) throws InvalidFormatException,
         InvalidDateFormatException {
         Arrangement arr = null;
-        Dato arrDato = null;
+        LocalDate arrDato;
         int mnd = 0;
         int dg = 0;
         int år = 0;
@@ -266,7 +285,7 @@ abstract class Filereader {
                 mnd = parseTall(datoDel[1], "Month of event not a number");
                 dg = parseTall(datoDel[2], "Day of event not a number");
             }
-            arrDato = new Dato(år, mnd, dg);
+            arrDato = LocalDate.of(år,mnd,dg);
             pris = parseTall(del[10], "Price is not an integer");
             arr = new Arrangement(arrNavn, lokasjon, kontakt, arrDato, pris);
         }

@@ -47,4 +47,3 @@ public class ThreadReader extends Task<Void> {
         readWriteDone.run();
     }
 }
-*/
