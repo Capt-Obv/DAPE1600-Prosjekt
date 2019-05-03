@@ -5,6 +5,7 @@ logic\Arrangement.class
 logic\Billett.class
 gruppe83\testmaven\kjøpBillettController.class
 logic\Programelement.class
+gruppe83\testmaven\FXMLController$2.class
 gruppe83\testmaven\MainApp.class
 gruppe83\testmaven\InputSkjemaController$6.class
 logic\Dato.class
@@ -15,9 +16,11 @@ logic\ArrangementModel.class
 logic\Kontaktperson.class
 gruppe83\testmaven\InputSkjemaController$1.class
 logic\ProgramModel.class
+gruppe83\testmaven\FXMLController$2$1.class
 gruppe83\testmaven\FXMLController.class
 logic\Deltaker.class
 gruppe83\testmaven\InputSkjemaController$4.class
+gruppe83\testmaven\FXMLController$2$2.class
 gruppe83\testmaven\InputSkjemaController$2.class
 gruppe83\testmaven\FXMLController$1.class
 gruppe83\testmaven\InputSkjemaController$7.class

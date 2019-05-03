@@ -12,7 +12,7 @@ public class Billett implements Serializable {
     private Arrangement arr;
 
     public Billett(Lokale sted, int plassNr, LocalDate dato, int pris, 
-            Person kjøper) {
+            Person kjøper, Arrangement arr) {
         this.sted = sted;
         this.plassNr = plassNr;
         this.dato = dato;
@@ -41,7 +41,7 @@ public class Billett implements Serializable {
                 + "\nKjøper: %s", sted, dato, plassNr, pris, kjøper);
     }
 }
-
+/*
 class Dato implements Serializable {
     private int år;
     private int måned;
@@ -66,3 +66,4 @@ class Dato implements Serializable {
         return String.format("%d/%d - %d", dag, måned, år);
     }
 }
+*/

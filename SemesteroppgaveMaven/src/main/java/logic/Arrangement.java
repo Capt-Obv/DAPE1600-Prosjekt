@@ -23,7 +23,7 @@ public class Arrangement implements Serializable {
     private transient ArrayList<Deltaker> deltakere;
     private transient ArrayList<Programelement> program;
     private transient Billett[] solgteBilletter;
-    private Dato dato;
+    private LocalDate dato;
     private int pris;
     private static int antSolgte = 0;
 
@@ -66,7 +66,7 @@ public class Arrangement implements Serializable {
     public boolean billettsalg(Person pers) {
         boolean billett = false;
         if(antSolgte < lokale.getAntPlasser()) {
-            Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers, this);
+            Billett nybillett = new Billett(lokale, antSolgte, dato, pris, pers,);
             Deltaker kunde = new Deltaker(pers, "Deltaker");
             deltakere.add(kunde);
             solgteBilletter[antSolgte] = nybillett;

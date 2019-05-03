@@ -1,9 +1,12 @@
 package gruppe83.testmaven;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,12 +25,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import logic.Arrangement;
 import logic.ArrangementModel;
 import logic.ProgramModel;
@@ -133,6 +140,9 @@ public class FXMLController {
     
     @FXML
     private ListView<Arrangement> listFromSecondController;
+    
+    @FXML
+    private Button btnKjøpBillett;
 
 
     public FXMLController() {
@@ -166,13 +176,15 @@ public class FXMLController {
     public void showStage() {
         thisStage.showAndWait();
     }
+     public String getEnteredText() {
+        return txtToSecondController.getText();
+    }
 
     /**
      * The initialize() method allows you set setup your scene, adding actions, configuring nodes, etc.
      */
     @FXML
     private void initialize() {
-
         // Add an action for the "Open Layout2" button
         btnNyttArr.setOnAction(new EventHandler<ActionEvent>(){
 
@@ -181,6 +193,44 @@ public class FXMLController {
                 openLayout2();
             }
     });
+        
+        btnKjøpBillett = new Button();
+        final ObservableList selectedCells = tabell.getSelectionModel().getSelectedCells();
+        selectedCells.addListener(new ListChangeListener<ArrangementModel>() {
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends ArrangementModel> c) {
+                           if(tabell.getSelectionModel().getSelectedItem() != null) 
+            {    
+                final ArrangementModel arrangement = tabell.getSelectionModel().getSelectedItem();
+                btnKjøpBillett.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                    txtToSecondController.setText(arrangement.getNavn().get());
+                    openKjøpBillettVindu();
+                }
+            }
+            
+);
+    }
+tabell.setRowFactory(new Callback<TableView<ArrangementModel>, TableRow<ArrangementModel>>(){
+                      @Override
+                      public TableRow<ArrangementModel> call(TableView<ArrangementModel> param) {
+                                   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                               }
+    
+});
+
+            }
+
+           
+
+            
+        });
+
+
+        
+
         
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
         colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
@@ -208,13 +258,16 @@ public class FXMLController {
         controller2.showStage();
 
     }
+    private void openKjøpBillettVindu()  {
+        kjøpBillettController kjøpbillettcontroller = new kjøpBillettController(this);
+        kjøpbillettcontroller.showStage();
+    }
+
 
     /**
      * Returns the text entered into txtToSecondController. This allows other controllers/classes to view that data.
      */
-    public String getEnteredText() {
-        return txtToSecondController.getText();
-    }
+
 
     /**
      * Allows other controllers to set the text of this layout's Label

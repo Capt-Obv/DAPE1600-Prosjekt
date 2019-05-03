@@ -182,6 +182,7 @@ public class FXMLController {
             }
     });
         
+        
         colArr.setCellValueFactory(new PropertyValueFactory<ArrangementModel, String>("navn"));
         colNavn.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("navn"));
         colKontakt.setCellValueFactory(new PropertyValueFactory<String, ArrangementModel>("kontakt"));

@@ -376,7 +376,7 @@ public class InputSkjemaController {
                 
                 for (ProgramModel elem : program){
                     
-                    start = LocalTime.parse(elem.getStartTid());
+                    start = LocalTime.parse(elem.getStartTid(), dataFormat);
                     slutt = LocalTime.parse(elem.getSluttTid());
                     arr.leggTilIProgram(start, elem.getProgramElement(), slutt);
                     
