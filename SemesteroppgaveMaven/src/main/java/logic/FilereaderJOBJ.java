@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author sarah
  */
-/*
+
 public class FilereaderJOBJ extends Filereader{
     
     @Override
@@ -23,4 +23,3 @@ public class FilereaderJOBJ extends Filereader{
         readFile(file, objType, "jobj");
     }
 }
-*/

@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author sarah
  */
-/*
+
 public class FileExporterCSV extends FileExporter {
 
     private FileWriter writer = null;
@@ -80,4 +80,3 @@ public class FileExporterCSV extends FileExporter {
     }
 
 }
-*/
