@@ -219,7 +219,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone, "csv", "billett");
+                Task<Void> task = new ThreadExporter("csv", "billett");
                 service.execute(task);
             }
         });
@@ -228,7 +228,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone, "jobj", "billett");
+                Task<Void> task = new ThreadExporter("jobj", "billett");
                 service.execute(task);
             }
         });
@@ -237,7 +237,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone, "csv", "arrangement");
+                Task<Void> task = new ThreadExporter("csv", "arrangement");
                 service.execute(task);
             }
         });
@@ -246,7 +246,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadExporter(this::readDone, "jobj", "arrangement");
+                Task<Void> task = new ThreadReader(File file);
                 service.execute(task);
             }
         });
@@ -255,7 +255,7 @@ public class FXMLController {
             @Override
             public void handle(ActionEvent event) {
                 ExecutorService service = Executors.newSingleThreadExecutor();
-                Task<Void> task = new ThreadReader(this::readDone);
+                Task<Void> task = new ThreadReader(File file);
                 service.execute(task);
             }
         });
